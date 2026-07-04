@@ -19,7 +19,7 @@ The `rebuild` zsh alias wraps the same command.
 
 ## Shell
 
-This config enables `zsh` system-wide and installs `zsh-autosuggestions`, `zsh-syntax-highlighting`, `fzf`, `zoxide`. The actual `~/.zshrc` is owned by [`zsh-config`](https://github.com/kremeshnoi/zsh-config) — clone it and run `./install.sh` to symlink it. The two repos are designed to compose: this one provides the packages, `zsh-config` provides the rc.
+This config enables `zsh` system-wide and installs `zsh-autosuggestions`, `zsh-syntax-highlighting`, `fzf`, `zoxide`. The actual `~/.zshrc` lives in this same repo under [`../zsh`](../zsh) — run `../zsh/install.sh` to copy it into place (a real file, not a symlink). This NixOS config provides the packages; `zsh/` provides the rc.
 
 ## Adding things
 

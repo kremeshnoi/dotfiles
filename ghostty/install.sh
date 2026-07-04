@@ -11,11 +11,13 @@ fi
 
 mkdir -p "$(dirname "$target")"
 
-if [ -e "$target" ] && [ ! -L "$target" ]; then
+if [ -L "$target" ]; then
+  rm "$target"
+elif [ -e "$target" ]; then
   backup="$target.backup-$(date +%Y%m%d-%H%M%S)"
   cp "$target" "$backup"
   echo "Backed up existing config → $backup"
 fi
 
-ln -sf "$REPO_DIR/config" "$target"
-echo "Linked $REPO_DIR/config → $target"
+cp "$REPO_DIR/config" "$target"
+echo "Copied $REPO_DIR/config → $target"

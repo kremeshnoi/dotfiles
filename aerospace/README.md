@@ -16,7 +16,7 @@ Config for the [AeroSpace](https://github.com/nikitabobko/AeroSpace) tiling wind
 ./install.sh
 ```
 
-The installer backs up any existing config and symlinks `aerospace.toml` → `~/.config/aerospace/aerospace.toml`.
+The installer backs up any existing config and copies `aerospace.toml` → `~/.config/aerospace/aerospace.toml` (a real file, not a symlink; re-run `./install.sh` after editing the repo to sync).
 
 AeroSpace itself:
 

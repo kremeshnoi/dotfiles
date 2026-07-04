@@ -17,8 +17,8 @@ Portable zsh configuration with a cross-OS installer. One `.zshrc` that works on
 ## Install
 
 ```sh
-git clone https://github.com/kremeshnoi/zsh-config.git ~/.config/zsh-config
-cd ~/.config/zsh-config
+git clone https://github.com/kremeshnoi/dotfiles.git ~/dev/dotfiles
+cd ~/dev/dotfiles/zsh
 ./install.sh
 exec zsh
 ```
@@ -27,7 +27,7 @@ The installer:
 1. Detects the OS (macOS / Ubuntu / Debian / NixOS / other)
 2. Installs dependencies via `brew` or `apt` (NixOS users manage packages declaratively)
 3. Backs up any existing `~/.zshrc` to `~/.zshrc.backup-YYYYMMDD-HHMMSS`
-4. Symlinks `~/.zshrc` → this repo's `.zshrc`
+4. Copies this repo's `.zshrc` → `~/.zshrc` (a real file, not a symlink; re-run `./install.sh` after editing the repo to sync)
 
 ## Per-machine overrides
 

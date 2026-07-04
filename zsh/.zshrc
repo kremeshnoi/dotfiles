@@ -100,7 +100,7 @@ command -v nvim >/dev/null && alias vi='nvim'
 alias ll='ls -alF'
 alias la='ls -A'
 alias l='ls -CF'
-command -v claude >/dev/null && alias claude='claude --dangerously-skip-permissions'
+alias c='claude --dangerously-skip-permissions'
 
 # ---- PATH / env ----
 export FLYCTL_INSTALL="$HOME/.fly"

@@ -34,15 +34,18 @@ install_deps_ubuntu() {
   fi
 }
 
-link_zshrc() {
+install_zshrc() {
   local target="$HOME/.zshrc"
-  if [ -e "$target" ] && [ ! -L "$target" ]; then
+  # Migrate away from a previous symlink-based install.
+  if [ -L "$target" ]; then
+    rm "$target"
+  elif [ -e "$target" ]; then
     local backup="$target.backup-$(date +%Y%m%d-%H%M%S)"
     cp "$target" "$backup"
     echo "Backed up existing .zshrc → $backup"
   fi
-  ln -sf "$REPO_DIR/.zshrc" "$target"
-  echo "Linked $REPO_DIR/.zshrc → $target"
+  cp "$REPO_DIR/.zshrc" "$target"
+  echo "Copied $REPO_DIR/.zshrc → $target"
 }
 
 OS="$(detect_os)"
@@ -65,7 +68,7 @@ case "$OS" in
     ;;
 esac
 
-link_zshrc
+install_zshrc
 
 echo
 echo "Done. Restart your shell or run: exec zsh"

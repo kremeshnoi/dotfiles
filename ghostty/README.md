@@ -16,7 +16,7 @@ Config for the [Ghostty](https://ghostty.org) terminal.
 ./install.sh
 ```
 
-The installer backs up any existing config and symlinks this repo's `config`:
+The installer backs up any existing config and copies this repo's `config` (a real file, not a symlink; re-run `./install.sh` after editing the repo to sync):
 
 - **macOS** → `~/Library/Application Support/com.mitchellh.ghostty/config.ghostty`
 - **Linux** → `~/.config/ghostty/config`
