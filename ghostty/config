@@ -1,0 +1,29 @@
+background=#000000
+background-opacity=0.80
+background-blur=16
+
+font-size=16
+font-thicken=true
+font-thicken-strength=1
+adjust-cell-height=1
+window-padding-x = 20
+window-padding-y = 20
+window-padding-balance = true
+
+
+macos-titlebar-style = hidden
+
+
+keybind = super+n=unbind
+
+# Focus between splits (cmd+ctrl+hjkl)
+keybind = super+ctrl+h=goto_split:left
+keybind = super+ctrl+j=goto_split:down
+keybind = super+ctrl+k=goto_split:up
+keybind = super+ctrl+l=goto_split:right
+
+# Create split (cmd+ctrl+shift+hjkl)
+keybind = super+ctrl+shift+h=new_split:left
+keybind = super+ctrl+shift+j=new_split:down
+keybind = super+ctrl+shift+k=new_split:up
+keybind = super+ctrl+shift+l=new_split:right
