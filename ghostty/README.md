@@ -7,6 +7,7 @@ Config for the [Ghostty](https://ghostty.org) terminal.
 - Black background at 80% opacity with 16px blur
 - 16px font, thickened glyphs, extra cell height, balanced 20px window padding
 - Hidden macOS titlebar
+- Option sent as Alt, so TUIs like [herdr](../herdr) can bind `alt+…`
 - Vim-style split navigation — `super+ctrl+hjkl` to focus, `super+ctrl+shift+hjkl` to create
 - `super+n` unbound
 

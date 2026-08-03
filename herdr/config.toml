@@ -1,0 +1,22 @@
+onboarding = false
+
+[keys]
+previous_tab = "alt+h"
+next_tab = "alt+l"
+previous_agent = "alt+k"
+next_agent = "alt+j"
+previous_workspace = "alt+shift+k"
+next_workspace = "alt+shift+j"
+
+[ui.sound]
+enabled = false
+
+[theme]
+name = "gruvbox"
+auto_switch = false
+
+[ui]
+show_agent_labels_on_pane_borders = true
+
+[experimental]
+switch_ascii_input_source_in_prefix = true
