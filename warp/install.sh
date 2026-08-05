@@ -3,6 +3,8 @@ set -euo pipefail
 
 REPO_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
 
+CONFIG_FILES=(keybindings.yaml settings.toml)
+
 warp_config_dir() {
   if [[ "$OSTYPE" == darwin* ]]; then
     echo "$HOME/.warp"
@@ -17,21 +19,23 @@ warp_config_dir() {
   fi
 }
 
-install_keybindings() {
-  local dir target
+install_config() {
+  local dir file target backup
   dir="$(warp_config_dir)"
-  target="$dir/keybindings.yaml"
   mkdir -p "$dir"
-  if [ -e "$target" ] && [ ! -L "$target" ]; then
-    local backup="$target.backup-$(date +%Y%m%d-%H%M%S)"
-    cp "$target" "$backup"
-    echo "Backed up existing keybindings.yaml -> $backup"
-  fi
-  cp "$REPO_DIR/keybindings.yaml" "$target"
-  echo "Copied $REPO_DIR/keybindings.yaml -> $target"
+  for file in "${CONFIG_FILES[@]}"; do
+    target="$dir/$file"
+    if [ -e "$target" ] && [ ! -L "$target" ] && ! cmp -s "$REPO_DIR/$file" "$target"; then
+      backup="$target.backup-$(date +%Y%m%d-%H%M%S)"
+      cp "$target" "$backup"
+      echo "Backed up existing $file -> $backup"
+    fi
+    cp "$REPO_DIR/$file" "$target"
+    echo "Copied $REPO_DIR/$file -> $target"
+  done
 }
 
-install_keybindings
+install_config
 
 echo
 echo "Done. Restart Warp to apply."

@@ -9,9 +9,11 @@
 "workspace:activate_seventh_tab": alt-7
 "workspace:activate_eighth_tab": alt-8
 "workspace:activate_last_tab": alt-9
-"pane_group:add_right": ctrl-shift-o
-"pane_group:add_down": ctrl-shift-e
-"pane_group:navigate_left": ctrl-alt-left
-"pane_group:navigate_right": ctrl-alt-right
-"pane_group:navigate_up": ctrl-alt-up
-"pane_group:navigate_down": ctrl-alt-down
+"pane_group:navigate_left": ctrl-alt-h
+"pane_group:navigate_down": ctrl-alt-j
+"pane_group:navigate_up": ctrl-alt-k
+"pane_group:navigate_right": ctrl-alt-l
+"pane_group:add_left": ctrl-alt-shift-H
+"pane_group:add_down": ctrl-alt-shift-J
+"pane_group:add_up": ctrl-alt-shift-K
+"pane_group:add_right": ctrl-alt-shift-L

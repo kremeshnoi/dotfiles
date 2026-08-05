@@ -1,6 +1,11 @@
 { config, pkgs, inputs, ... }:
 
 {
+  imports = [
+    ./home/shell.nix
+    ./home/packages.nix
+  ];
+
   home.username = "alex";
   home.homeDirectory = "/home/alex";
   home.stateVersion = "25.11";
@@ -106,14 +111,6 @@
 
   home.packages = with pkgs; [
     foot
-    eza
-    bat
-    fd
-    ripgrep
-    fzf
-    zoxide
-    zsh-autosuggestions
-    zsh-syntax-highlighting
 
     grim
     slurp
@@ -127,11 +124,7 @@
     firefox
     google-chrome
     claude-code
-    neovim
     vscode
-    git
-    lazygit
-    gh
 
     _1password-gui
     _1password-cli
@@ -186,13 +179,6 @@
     enable = true;
     userName = "kremeshnoi";
     userEmail = "alexander.kremeshnoi@gmail.com";
-  };
-
-  programs.zsh = {
-    enable = true;
-    shellAliases = {
-      rebuild = "sudo nixos-rebuild switch --flake ~/dev/nixos-config#alex-nixos";
-    };
   };
 
   programs.foot = {
