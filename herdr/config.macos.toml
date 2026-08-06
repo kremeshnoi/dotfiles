@@ -1,0 +1,23 @@
+onboarding = false
+
+[keys]
+prefix = "alt+z"
+previous_tab = "prefix+h"
+next_tab = "prefix+l"
+previous_agent = "prefix+k"
+next_agent = "prefix+j"
+previous_workspace = "prefix+shift+k"
+next_workspace = "prefix+shift+j"
+
+[ui.sound]
+enabled = false
+
+[theme]
+name = "vesper"
+auto_switch = false
+
+[ui]
+show_agent_labels_on_pane_borders = true
+
+[experimental]
+switch_ascii_input_source_in_prefix = true
