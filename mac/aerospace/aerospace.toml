@@ -56,7 +56,6 @@ persistent-workspaces = [
   "claude",
   "chrome",
   "obsidian",
-  "docker",
 ]
 
 [workspace-to-monitor-force-assignment]
@@ -67,7 +66,6 @@ slack = 1
 claude = 1
 chrome = 1
 obsidian = 1
-docker = 1
 
 # A callback that runs every time binding mode changes
 # See: https://nikitabobko.github.io/AeroSpace/guide#binding-modes
@@ -114,10 +112,6 @@ run = 'move-node-to-workspace chrome'
 [[on-window-detected]]
 if.app-id = 'md.obsidian'
 run = 'move-node-to-workspace obsidian'
-
-[[on-window-detected]]
-if.app-id = 'com.electron.dockerdesktop'
-run = 'move-node-to-workspace docker'
 
 # Catch-all: должен быть последним — срабатывает только первое совпавшее правило.
 [[on-window-detected]]
@@ -184,8 +178,7 @@ cmd-shift-g = 'workspace chrome'
 cmd-shift-c = 'workspace claude'
 cmd-shift-s = 'workspace slack'
 cmd-shift-o = 'workspace obsidian'
-cmd-shift-d = 'workspace docker'
-cmd-shift-m = 'workspace misc'
+cmd-shift-9 = 'workspace misc'
 cmd-shift-0 = 'workspace desktop'
 
 # See: https://nikitabobko.github.io/AeroSpace/commands#move-node-to-workspace

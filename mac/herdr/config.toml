@@ -1,13 +1,12 @@
 onboarding = false
 
 [keys]
-prefix = "ctrl+z"
-previous_tab = "prefix+h"
-next_tab = "prefix+l"
-previous_agent = "prefix+k"
-next_agent = "prefix+j"
-previous_workspace = "prefix+shift+k"
-next_workspace = "prefix+shift+j"
+previous_tab = "alt+h"
+next_tab = "alt+l"
+previous_agent = "alt+k"
+next_agent = "alt+j"
+previous_workspace = "alt+shift+k"
+next_workspace = "alt+shift+j"
 
 [ui.sound]
 enabled = false
