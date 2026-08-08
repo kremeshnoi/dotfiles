@@ -1,4 +1,4 @@
-# dotfiles
+# Dotfiles
 
 Configs for three systems — macOS, Windows 11 and NixOS — plus a shared zsh setup. Every system runs a tiling WM, and the keybinding letters are kept the same across all of them wherever the platform allows it.
 
