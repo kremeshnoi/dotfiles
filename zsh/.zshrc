@@ -119,3 +119,7 @@ command -v fnm >/dev/null && eval "$(fnm env --use-on-cd --shell zsh)"
 
 # ---- Local overrides (per-machine, not committed) ----
 [ -r "$HOME/.zshrc.local" ] && source "$HOME/.zshrc.local"
+
+if [[ -o interactive && -z "$HERDR_ENV" && -z "$NO_HERDR" && -z "$SSH_CONNECTION" && "$TERM_PROGRAM" != "vscode" ]] && command -v herdr >/dev/null; then
+  herdr && exit
+fi
