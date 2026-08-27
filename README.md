@@ -1,13 +1,12 @@
 # Dotfiles
 
-Configs for three systems — macOS, Windows 11 and NixOS — plus a shared zsh setup. Every system runs a tiling WM, and the keybinding letters are kept the same across all of them wherever the platform allows it.
+Configs for two systems — macOS and Windows 11 — plus a shared zsh setup. Every system runs a tiling WM, and the keybinding letters are kept the same across all of them wherever the platform allows it.
 
 ```
 mac/aerospace/aerospace.toml     AeroSpace — tiling WM
 mac/ghostty/config               Ghostty — terminal
 mac/herdr/config.toml            herdr — alt as the modifier
 windows/                         submodule → win-ricing, the whole Windows rice
-nixos/                           flake, NixOS + home-manager, Hyprland
 zsh/.zshrc                       portable zshrc for macOS / WSL / Debian
 shell/env.sh                     env, PATH and aliases, sourced by .zshrc
 wsl/ssh-agent.service            systemd user unit keeping the SSH key unlocked
@@ -32,7 +31,7 @@ git submodule update --init   # if already cloned
 | misc | `cmd+shift+9` | `lwin+9` |
 | desktop | `cmd+shift+0` | `lwin+0` |
 
-The letter follows the app name; digits sit at the edges of the number row. Modifiers differ because each platform leaves a different one free: `cmd+shift` on macOS, `lwin` on Windows (see [win-ricing](https://github.com/kremeshnoi/win-ricing) for why), `SUPER` on Hyprland.
+The letter follows the app name; digits sit at the edges of the number row. Modifiers differ because each platform leaves a different one free: `cmd+shift` on macOS, `lwin` on Windows (see [win-ricing](https://github.com/kremeshnoi/win-ricing) for why).
 
 Both WM configs route windows by app id / process name and send everything unmatched to `misc` through a catch-all rule.
 
@@ -54,21 +53,9 @@ Ghostty runs `macos-option-as-alt = true`, which is what frees Alt for nvim and 
 
 See [win-ricing](https://github.com/kremeshnoi/win-ricing), mounted here as `windows/` — GlazeWM, the AutoHotkey script that kills the Start menu on a lone Win press, four Windhawk mods, herdr navigation over the socket API, Raycast, Spicetify, and removing Xbox Game Bar to free `Win+G`.
 
-## NixOS
-
-Flake with home-manager, host `alex-nixos`, user `alex`. Hyprland + [caelestia](https://github.com/caelestia-dots/shell) as the shell, greetd for login, PipeWire for audio, NVIDIA drivers.
-
-```bash
-sudo nixos-rebuild switch --flake .#alex-nixos
-```
-
-`nixos/configuration.nix` is system-level, `nixos/home.nix` is home-manager (Hyprland settings included), `nixos/home/shell.nix` is the zsh config, `nixos/home/packages.nix` is the user package list. `hardware-configuration.nix` is machine-specific and won't transfer to another box.
-
-Hyprland uses `SUPER` for workspaces `1..4` and `SUPER+hjkl` for focus; `ALT` handles the launcher, terminal and window close, so the Alt-based navigation matches the other systems.
-
 ## zsh
 
-`zsh/.zshrc` is the portable version, used on macOS, WSL and Debian. NixOS doesn't use it — there zsh is generated from `nixos/home/shell.nix`, with the same history, plugin and highlighting settings.
+`zsh/.zshrc` is the portable version, used on macOS, WSL and Debian.
 
 ```bash
 ln -sf "$PWD/zsh/.zshrc" ~/.zshrc
