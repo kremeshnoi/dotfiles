@@ -84,7 +84,7 @@ ssh-add ~/.ssh/id_ed25519
 
 ## herdr
 
-The same `hjkl` navigation on both systems — `h`/`l` switch tabs, `j`/`k` switch agents, adding `shift` switches workspaces — but reached in two different ways, because only macOS can express it in herdr's own config.
+The same `hjkl` navigation on both systems — `h`/`l` switch tabs, `j`/`k` switch workspaces, adding `shift` switches agents — but reached in two different ways, because only macOS can express it in herdr's own config.
 
 macOS uses `alt`: Ghostty passes Option through as Alt, so herdr sees the combo itself.
 
