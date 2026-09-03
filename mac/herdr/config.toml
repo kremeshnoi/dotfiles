@@ -16,6 +16,7 @@ name = "vesper"
 auto_switch = false
 
 [ui]
+host_cursor = "native"
 show_agent_labels_on_pane_borders = true
 
 [experimental]
