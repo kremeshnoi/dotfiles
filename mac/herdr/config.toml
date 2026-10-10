@@ -15,6 +15,12 @@ enabled = false
 name = "vesper"
 auto_switch = false
 
+[theme.custom]
+panel_bg = "reset"
+sidebar_bg = "reset"
+active_row_bg = "reset"
+selection_bg = "reset"
+
 [ui]
 host_cursor = "native"
 show_agent_labels_on_pane_borders = true
