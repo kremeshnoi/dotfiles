@@ -50,6 +50,7 @@ automatically-unhide-macos-hidden-apps = true
 # Fallback value (if you omit the key): persistent-workspaces = []
 persistent-workspaces = [
   "desktop",
+  "system",
   "term",
   "misc",
   "slack",
@@ -60,6 +61,7 @@ persistent-workspaces = [
 
 [workspace-to-monitor-force-assignment]
 desktop = 1
+system = 1
 term = 1
 misc = 1
 slack = 1
@@ -112,6 +114,66 @@ run = 'move-node-to-workspace chrome'
 [[on-window-detected]]
 if.app-id = 'md.obsidian'
 run = 'move-node-to-workspace obsidian'
+
+[[on-window-detected]]
+if.app-id = 'com.apple.finder'
+run = 'move-node-to-workspace --focus-follows-window system'
+
+[[on-window-detected]]
+if.app-id = 'com.apple.systempreferences'
+run = 'move-node-to-workspace --focus-follows-window system'
+
+[[on-window-detected]]
+if.app-id = 'com.apple.ActivityMonitor'
+run = 'move-node-to-workspace --focus-follows-window system'
+
+[[on-window-detected]]
+if.app-id = 'com.apple.Preview'
+run = 'move-node-to-workspace --focus-follows-window system'
+
+[[on-window-detected]]
+if.app-id = 'com.apple.calculator'
+run = 'move-node-to-workspace --focus-follows-window system'
+
+[[on-window-detected]]
+if.app-id = 'com.apple.DiskUtility'
+run = 'move-node-to-workspace --focus-follows-window system'
+
+[[on-window-detected]]
+if.app-id = 'com.apple.AppStore'
+run = 'move-node-to-workspace --focus-follows-window system'
+
+[[on-window-detected]]
+if.app-id = 'com.apple.archiveutility'
+run = 'move-node-to-workspace --focus-follows-window system'
+
+[[on-window-detected]]
+if.app-id = 'com.apple.keychainaccess'
+run = 'move-node-to-workspace --focus-follows-window system'
+
+[[on-window-detected]]
+if.app-id = 'com.apple.Console'
+run = 'move-node-to-workspace --focus-follows-window system'
+
+[[on-window-detected]]
+if.app-id = 'com.apple.FontBook'
+run = 'move-node-to-workspace --focus-follows-window system'
+
+[[on-window-detected]]
+if.app-id = 'com.apple.Image_Capture'
+run = 'move-node-to-workspace --focus-follows-window system'
+
+[[on-window-detected]]
+if.app-id = 'com.apple.Screenshot'
+run = 'move-node-to-workspace --focus-follows-window system'
+
+[[on-window-detected]]
+if.app-id = 'com.apple.TextEdit'
+run = 'move-node-to-workspace --focus-follows-window system'
+
+[[on-window-detected]]
+if.app-id = 'com.apple.SystemProfiler'
+run = 'move-node-to-workspace --focus-follows-window system'
 
 # Catch-all: должен быть последним — срабатывает только первое совпавшее правило.
 [[on-window-detected]]
