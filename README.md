@@ -5,6 +5,7 @@ Configs for two systems — macOS and Windows 11 — plus a shared zsh setup. Ev
 ```
 mac/glazewm/config.yaml          GlazeWM — tiling WM, same setup as on Windows
 mac/glazewm/kill-workspace.sh    quits every app on the focused workspace
+mac/swiftbar/glazewm.sh          SwiftBar plugin showing the active GlazeWM workspace
 mac/ghostty/config               Ghostty — terminal
 mac/herdr/config.toml            herdr — alt as the modifier
 windows/                         submodule → win-ricing, the whole Windows rice
@@ -44,14 +45,17 @@ Both configs route windows by process name, focus follows the routed window, and
 [GlazeWM](https://github.com/glzr-io/glazewm) + [Ghostty](https://ghostty.org):
 
 ```bash
-brew install --cask glzr-io/tap/glazewm ghostty
+brew install --cask glzr-io/tap/glazewm swiftbar ghostty
 mkdir -p ~/.glzr/glazewm
 ln -sf "$PWD/mac/glazewm/config.yaml" ~/.glzr/glazewm/config.yaml
 ln -sf "$PWD/mac/glazewm/kill-workspace.sh" ~/.glzr/glazewm/kill-workspace.sh
+mkdir -p ~/.config/swiftbar
+ln -sf "$PWD/mac/swiftbar/glazewm.sh" ~/.config/swiftbar/glazewm.sh
+defaults write com.ameba.SwiftBar PluginDirectory ~/.config/swiftbar
 ln -sf "$PWD/mac/ghostty/config" ~/.config/ghostty/config
 ```
 
-GlazeWM needs Accessibility access (System Settings → Privacy & Security → Accessibility). The `alt` bindings are grabbed system-wide, so `alt+shift+arrows` no longer selects by word. On macOS `window_process` matches the localized app name (`Microsoft Edge`, `System Settings`), so the rules assume an English system. macOS system apps go to `system`. `alt+q` runs `kill-workspace.sh`, which jumps to the previous workspace and quits every app on the one it left (Finder windows are only closed).
+GlazeWM needs Accessibility access (System Settings → Privacy & Security → Accessibility). The `alt` bindings are grabbed system-wide, so `alt+shift+arrows` no longer selects by word. On macOS `window_process` matches the localized app name (`Microsoft Edge`, `System Settings`), so the rules assume an English system. macOS system apps go to `system`. `alt+shift+q` runs `kill-workspace.sh`, which jumps to the previous workspace and quits every app on the one it left (Finder windows are only closed). The active workspace is shown in the native menu bar by a streamable SwiftBar plugin that re-renders on `glazewm sub` events; clicking it lists every workspace.
 
 Ghostty runs `macos-option-as-alt = true`, which is what frees Alt for nvim and herdr. Splits are on `cmd+ctrl+hjkl`, creating them adds `shift`.
 
