@@ -221,8 +221,6 @@ keybindings:
     bindings: ['alt+shift+down']
 
   - commands: ['shell-exec /bin/bash /Users/oleksandr.kremeshnoi/.glzr/glazewm/kill-workspace.sh']
-    bindings: ['alt+q']
-  - commands: ['close']
     bindings: ['alt+shift+q']
   - commands: ['toggle-fullscreen']
     bindings: ['alt+a']
