@@ -78,7 +78,7 @@ elif [ "${OSTYPE#darwin}" != "$OSTYPE" ]; then
     alias grep='grep --color=auto'
 fi
 
-command -v nvim >/dev/null && alias vi='nvim'
+command -v nvim >/dev/null && alias vi='nvim' v='nvim'
 alias ll='ls -alF'
 alias la='ls -A'
 alias l='ls -CF'
