@@ -3,7 +3,8 @@
 Configs for two systems — macOS and Windows 11 — plus a shared zsh setup. Every system runs a tiling WM, and the keybinding letters are kept the same across all of them wherever the platform allows it.
 
 ```
-mac/aerospace/aerospace.toml     AeroSpace — tiling WM
+mac/glazewm/config.yaml          GlazeWM — tiling WM, same setup as on Windows
+mac/glazewm/kill-workspace.sh    quits every app on the focused workspace
 mac/ghostty/config               Ghostty — terminal
 mac/herdr/config.toml            herdr — alt as the modifier
 windows/                         submodule → win-ricing, the whole Windows rice
@@ -21,31 +22,36 @@ git submodule update --init   # if already cloned
 
 ## Shared mnemonics
 
+Both systems run [GlazeWM](https://github.com/glzr-io/glazewm) with the same keybindings, `lwin` being `cmd` on macOS: a workspace is focused with `ctrl+shift+<key>` on Windows and `cmd+shift+<key>` on macOS, `ctrl+shift+lwin+<key>` moves the window there, everything else sits on `lwin` on Windows and on `alt` (option) on macOS, so `cmd` shortcuts stay with macOS; focus stays on `lwin+alt+hjkl` because herdr owns `alt+hjkl`. The workspace set is per platform.
+
 | Workspace | macOS | Windows |
 |---|---|---|
-| term | `cmd+shift+t` | `lwin+t` |
-| chrome | `cmd+shift+g` | `lwin+g` |
-| claude | `cmd+shift+c` | `lwin+c` |
-| obsidian | `cmd+shift+o` | `lwin+o` |
-| slack / spotify | `cmd+shift+s` | `lwin+s` |
-| misc | `cmd+shift+9` | `lwin+9` |
-| desktop | `cmd+shift+0` | `lwin+0` |
+| desktop | `0` | `0` |
+| system | `y` | — |
+| term | `t` | `t` |
+| edge / chrome | `b` | `g` |
+| claude | `a` | `c` |
+| slack | `m` | — |
+| obsidian | `n` | `o` |
+| docker | `c` | — |
+| tabularis | `d` | — |
+| misc | `9` | `9` |
 
-The letter follows the app name; digits sit at the edges of the number row. Modifiers differ because each platform leaves a different one free: `cmd+shift` on macOS, `lwin` on Windows (see [win-ricing](https://github.com/kremeshnoi/win-ricing) for why).
-
-Both WM configs route windows by app id / process name and send everything unmatched to `misc` through a catch-all rule.
+Both configs route windows by process name, focus follows the routed window, and everything unmatched goes to `misc` through a catch-all rule.
 
 ## macOS
 
-[AeroSpace](https://github.com/nikitabobko/AeroSpace) + [Ghostty](https://ghostty.org):
+[GlazeWM](https://github.com/glzr-io/glazewm) + [Ghostty](https://ghostty.org):
 
 ```bash
-brew install --cask nikitabobko/tap/aerospace ghostty
-ln -sf "$PWD/mac/aerospace/aerospace.toml" ~/.config/aerospace/aerospace.toml
+brew install --cask glzr-io/tap/glazewm ghostty
+mkdir -p ~/.glzr/glazewm
+ln -sf "$PWD/mac/glazewm/config.yaml" ~/.glzr/glazewm/config.yaml
+ln -sf "$PWD/mac/glazewm/kill-workspace.sh" ~/.glzr/glazewm/kill-workspace.sh
 ln -sf "$PWD/mac/ghostty/config" ~/.config/ghostty/config
 ```
 
-AeroSpace starts at login (`start-at-login = true`) and triggers a sketchybar event on workspace change — drop `exec-on-workspace-change` if sketchybar isn't installed. `cmd+shift+;` enters service mode: `esc` reloads the config, `r` flattens the layout, `f` toggles floating/tiling, `hjkl` join with a neighbour, `backspace` closes every window but the current one.
+GlazeWM needs Accessibility access (System Settings → Privacy & Security → Accessibility). The `alt` bindings are grabbed system-wide, so `alt+shift+arrows` no longer selects by word. On macOS `window_process` matches the localized app name (`Microsoft Edge`, `System Settings`), so the rules assume an English system. macOS system apps go to `system`. `alt+q` runs `kill-workspace.sh`, which jumps to the previous workspace and quits every app on the one it left (Finder windows are only closed).
 
 Ghostty runs `macos-option-as-alt = true`, which is what frees Alt for nvim and herdr. Splits are on `cmd+ctrl+hjkl`, creating them adds `shift`.
 
