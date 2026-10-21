@@ -28,14 +28,19 @@ Both systems run [GlazeWM](https://github.com/glzr-io/glazewm) with the same key
 | Workspace | macOS | Windows |
 |---|---|---|
 | desktop | `0` | `0` |
-| system | `y` | — |
+| system | `y` | `y` |
 | term | `t` | `t` |
-| edge / chrome | `b` | `g` |
-| claude | `a` | `c` |
+| edge / chrome | `b` | `b` |
+| claude | `a` | `a` |
 | slack | `m` | — |
-| obsidian | `n` | `o` |
-| docker | `c` | — |
-| tabularis | `d` | — |
+| obsidian | `n` | `n` |
+| docker | `c` | `c` |
+| tabularis | `d` | `d` |
+| spotify | — | `s` |
+| discord | — | `x` |
+| telegram | — | `m` |
+| eve | — | `e` |
+| games | — | `g` |
 | misc | `9` | `9` |
 
 Both configs route windows by process name, focus follows the routed window, and everything unmatched goes to `misc` through a catch-all rule.
