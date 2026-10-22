@@ -1,4 +1,3 @@
-export FLYCTL_INSTALL="$HOME/.fly"
 export RBENV_ROOT="$HOME/.rbenv"
 export DENO_INSTALL="$HOME/.deno"
 export FNM_PATH="$HOME/.local/share/fnm"
@@ -11,7 +10,7 @@ export LESS='-R -F -X -i'
 
 export FZF_DEFAULT_COMMAND='rg --files --hidden --glob "!.git/*"'
 export FZF_CTRL_T_COMMAND="$FZF_DEFAULT_COMMAND"
-export FZF_ALT_C_COMMAND='fdfind --type d --hidden --exclude .git'
+export FZF_ALT_C_COMMAND='fd --type d --hidden --exclude .git'
 export FZF_DEFAULT_OPTS='--height 40% --layout=reverse --border --info=inline'
 export FZF_CTRL_T_OPTS='--preview "head -200 {}" --preview-window right:60%:wrap'
 export FZF_ALT_C_OPTS='--preview "ls -A --color=always {}"'
@@ -24,11 +23,9 @@ __path_prepend() {
     esac
 }
 __path_prepend "$HOME/go/bin"
-__path_prepend /usr/local/go/bin
 __path_prepend "$FNM_PATH"
 __path_prepend "$DENO_INSTALL/bin"
 __path_prepend "$RBENV_ROOT/bin"
-__path_prepend "$FLYCTL_INSTALL/bin"
 __path_prepend "$HOME/.local/bin"
 __path_prepend "$HOME/bin"
 export PATH
@@ -42,8 +39,6 @@ if [ -z "$__shell_env_done" ]; then
     done
     unset __brew
 
-    [ -s "$HOME/.config/envman/load.sh" ] && . "$HOME/.config/envman/load.sh"
-
     if [ -n "$ZSH_VERSION" ]; then
         __cur_shell=zsh
     else
@@ -55,13 +50,6 @@ if [ -z "$__shell_env_done" ]; then
 
     __shell_env_done=1
 fi
-
-if [ -d "$HOME/.local/bin/toolchain-shims" ]; then
-    PATH="$HOME/.local/bin/toolchain-shims:$PATH"
-    export PATH
-fi
-
-[ -x /usr/bin/lesspipe ] && eval "$(SHELL=/bin/sh lesspipe)"
 
 if command -v dircolors >/dev/null; then
     if [ -r "$HOME/.dircolors" ]; then
@@ -78,15 +66,11 @@ elif [ "${OSTYPE#darwin}" != "$OSTYPE" ]; then
     alias grep='grep --color=auto'
 fi
 
-command -v nvim >/dev/null && alias vi='nvim'
+command -v nvim >/dev/null && alias v='nvim'
 alias ll='ls -alF'
 alias la='ls -A'
 alias l='ls -CF'
 alias c='claude --dangerously-skip-permissions'
-
-__idea='/mnt/c/users/alex/appdata/local/jetbrains/toolbox/apps/IDEA-U/ch-0/231.9011.34/bin/idea64.exe'
-[ -x "$__idea" ] && alias idea="$__idea"
-unset __idea
 
 if [ -n "$ZSH_VERSION" ]; then
     typeset -U path PATH
