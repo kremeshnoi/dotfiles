@@ -8,6 +8,19 @@
 
 glazewm=/opt/homebrew/bin/glazewm
 jq=/usr/bin/jq
+pidfile="${TMPDIR:-/tmp}/swiftbar-glazewm.pid"
+
+stop_previous_instance() {
+  local old
+  old=$(cat "$pidfile" 2>/dev/null) || return
+  [[ -n $old && $old != "$$" ]] || return
+  ps -o command= -p "$old" 2>/dev/null | grep -q 'glazewm\.sh' || return
+  kill -- -"$old" 2>/dev/null
+}
+
+stop_previous_instance
+echo $$ >"$pidfile"
+trap 'trap - TERM INT HUP PIPE; kill -- -$$ 2>/dev/null; exit' TERM INT HUP PIPE
 
 render() {
   local workspaces
@@ -25,6 +38,8 @@ while true; do
   render
   "$glazewm" sub -e workspace_activated focus_changed workspace_updated 2>/dev/null | while read -r _; do
     render
-  done
-  sleep 2
+  done &
+  wait $!
+  sleep 2 &
+  wait $!
 done
