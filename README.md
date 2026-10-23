@@ -12,6 +12,7 @@ windows/                         submodule → win-ricing, the whole Windows ric
 nixos/configuration.nix          NixOS-WSL — packages, services, FHS wrappers
 shared/zsh/.zshrc                portable zshrc for macOS / NixOS
 shared/shell/env.sh              env, PATH and aliases, sourced by .zshrc
+shared/zsh/ohmyzsh/              vendored Oh My Zsh git plugin — git aliases (gst, gco, gp…)
 ```
 
 The whole Windows side — configs and the rest of the rice — lives in [win-ricing](https://github.com/kremeshnoi/win-ricing) and is pulled in here as the `windows` submodule:
@@ -88,9 +89,11 @@ NixOS has no FHS `/usr/bin`, so an activation script compiles a wrapper for ever
 
 ```bash
 cp shared/zsh/.zshrc ~/.zshrc
+mkdir -p ~/.config/zsh
+ln -sfn "$PWD/shared/zsh/ohmyzsh" ~/.config/zsh/ohmyzsh
 ```
 
-Plugins (autosuggestions, fzf, syntax-highlighting) are sourced through a `_try_source` helper that walks a list of candidate paths — Homebrew, Debian, `/usr/local`, nix-profile — and takes the first one that exists, so the same file works everywhere without conditionals per OS. On NixOS none of them match: `programs.zsh` and `programs.fzf` in the system config load the plugins before `.zshrc` runs. Anything machine-specific goes into `~/.zshrc.local`, which is sourced last and never committed.
+Plugins (autosuggestions, fzf, syntax-highlighting) are sourced through a `_try_source` helper that walks a list of candidate paths — Homebrew, Debian, `/usr/local`, nix-profile — and takes the first one that exists, so the same file works everywhere without conditionals per OS. On NixOS none of them match: `programs.zsh` and `programs.fzf` in the system config load the plugins before `.zshrc` runs. Git aliases come from the Oh My Zsh `git` plugin, vendored with its `lib/git.zsh` dependency and MIT licence under `shared/zsh/ohmyzsh/`, so no Oh My Zsh install is needed; it is sourced after `compinit` because it registers completions. Anything machine-specific goes into `~/.zshrc.local`, which is sourced last and never committed.
 
 The prompt is bash-style with a git branch via `vcs_info`. Accent colour `#FFBAF3` is shared with the syntax highlighting.
 
