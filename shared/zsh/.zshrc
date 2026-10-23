@@ -42,6 +42,15 @@ PROMPT='%F{green}%n@%m%f:%F{blue}%~%f%F{#FFBAF3}${vcs_info_msg_0_}%f$ '
 
 # ---- Plugins ----
 _try_source \
+  "$HOME/.config/zsh/ohmyzsh/lib/git.zsh" \
+  /run/current-system/sw/share/oh-my-zsh/lib/git.zsh \
+  "$HOME/.nix-profile/share/oh-my-zsh/lib/git.zsh" &&
+_try_source \
+  "$HOME/.config/zsh/ohmyzsh/plugins/git/git.plugin.zsh" \
+  /run/current-system/sw/share/oh-my-zsh/plugins/git/git.plugin.zsh \
+  "$HOME/.nix-profile/share/oh-my-zsh/plugins/git/git.plugin.zsh"
+
+_try_source \
   /usr/share/zsh-autosuggestions/zsh-autosuggestions.zsh \
   /opt/homebrew/share/zsh-autosuggestions/zsh-autosuggestions.zsh \
   /home/linuxbrew/.linuxbrew/share/zsh-autosuggestions/zsh-autosuggestions.zsh \
