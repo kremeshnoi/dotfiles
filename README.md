@@ -11,6 +11,7 @@ mac/ghostty/config               Ghostty — terminal
 mac/herdr/config.toml            herdr — alt as the modifier
 windows/                         submodule → win-ricing, the whole Windows rice
 nixos/configuration.nix          NixOS-WSL — packages, services, FHS wrappers
+nixos/ROADMAP.md                 NixOS features planned but not set up yet
 shared/zsh/.zshrc                portable zshrc for macOS / NixOS
 shared/shell/env.sh              env, PATH and aliases, sourced by .zshrc
 shared/zsh/ohmyzsh/              vendored Oh My Zsh git plugin — git aliases (gst, gco, gp…)
