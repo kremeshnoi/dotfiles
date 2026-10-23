@@ -169,6 +169,7 @@ in
     dprint
     tree-sitter
     shfmt
+    ruby-lsp
     eslint_d
     prettier
     railway
