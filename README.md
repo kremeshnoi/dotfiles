@@ -3,6 +3,7 @@
 Configs for two systems — macOS and Windows 11 with NixOS under WSL — plus a shared zsh setup. Every system runs a tiling WM, and the keybinding letters are kept the same across all of them wherever the platform allows it.
 
 ```
+install.sh                       symlinks the configs into place
 mac/glazewm/config.yaml          GlazeWM — tiling WM, same setup as on Windows
 mac/glazewm/kill-workspace.sh    quits every app on the focused workspace
 mac/swiftbar/glazewm.sh          SwiftBar plugin showing the active GlazeWM workspace
@@ -21,6 +22,8 @@ The whole Windows side — configs and the rest of the rice — lives in [win-ri
 git clone --recurse-submodules git@github.com:kremeshnoi/dotfiles.git
 git submodule update --init   # if already cloned
 ```
+
+`./install.sh` symlinks the configs into place: the zsh setup everywhere, GlazeWM and the SwiftBar plugin on macOS. It is idempotent, and any existing file it would replace is moved aside as `<name>.backup-<timestamp>`.
 
 ## Shared mnemonics
 
@@ -88,7 +91,7 @@ NixOS has no FHS `/usr/bin`, so an activation script compiles a wrapper for ever
 `shared/zsh/.zshrc` is the portable version, used on macOS and NixOS.
 
 ```bash
-cp shared/zsh/.zshrc ~/.zshrc
+ln -sf "$PWD/shared/zsh/.zshrc" ~/.zshrc
 mkdir -p ~/.config/zsh
 ln -sfn "$PWD/shared/zsh/ohmyzsh" ~/.config/zsh/ohmyzsh
 ```
@@ -100,7 +103,8 @@ The prompt is bash-style with a git branch via `vcs_info`. Accent colour `#FFBAF
 `.zshrc` sources `shared/shell/env.sh` on its first line, so that file has to be in place or PATH entries, aliases, fzf variables and `SSH_AUTH_SOCK` all silently go missing:
 
 ```bash
-cp shared/shell/env.sh ~/.config/shell/env.sh
+mkdir -p ~/.config/shell
+ln -sf "$PWD/shared/shell/env.sh" ~/.config/shell/env.sh
 ```
 
 `SSH_AUTH_SOCK` there points at `$XDG_RUNTIME_DIR/ssh-agent.socket`, served by the `ssh-agent` user unit from the NixOS config, which is what stops git from asking for the key passphrase on every push. `~/.ssh/config` carries `AddKeysToAgent yes`, so the passphrase is asked once per WSL start and then never again, and linger keeps the agent alive after the last terminal closes.
