@@ -99,7 +99,8 @@ _try_source \
   "$HOME/.nix-profile/share/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh"
 
 # ---- Claude Code: auto-trust the working directory ----
-claude() {
+unalias claude 2>/dev/null
+function claude {
   command claude-trust "$PWD" 2>/dev/null
   command claude "$@"
 }
