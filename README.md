@@ -28,7 +28,7 @@ git submodule update --init   # if already cloned
 
 ## Shared mnemonics
 
-Both systems run [GlazeWM](https://github.com/glzr-io/glazewm) with the same keybindings, `lwin` being `cmd` on macOS: a workspace is focused with `ctrl+shift+<key>` on Windows and `cmd+shift+<key>` on macOS, `ctrl+shift+lwin+<key>` moves the window there, everything else sits on `lwin` on Windows and on `cmd+ctrl` on macOS, so plain `cmd` shortcuts stay with macOS and `alt` stays with herdr and nvim: `cmd+ctrl+hjkl` focuses, `cmd+ctrl+shift+hjkl` moves the window, `cmd+shift+h` / `cmd+shift+l` walk the active workspaces. The workspace set is per platform.
+Both systems run [GlazeWM](https://github.com/glzr-io/glazewm) with the same keybindings on the same physical keys: Ctrl and Alt are swapped in the Windows keyboard firmware, so `cmd` sits where Windows has `ctrl` and the Mac `ctrl` where Windows has `alt`. A workspace is focused with `ctrl+shift+<key>` on Windows and `cmd+shift+<key>` on macOS, `ctrl+alt+shift+<key>` / `cmd+ctrl+shift+<key>` moves the window there, a new terminal is `ctrl+enter` / `cmd+enter`, and everything else sits on `ctrl+alt` on Windows and on `cmd+ctrl` on macOS, so herdr keeps its modifier to itself — `lwin` on Windows, which is where Option sits on the Mac: `cmd+ctrl+hjkl` / `ctrl+alt+hjkl` focuses, adding `shift` moves the window, `cmd+shift+h` / `cmd+shift+l` and `ctrl+shift+h` / `ctrl+shift+l` walk the active workspaces. The workspace set is per platform.
 
 | Workspace | macOS | Windows |
 |---|---|---|
@@ -112,7 +112,7 @@ ln -sf "$PWD/shared/shell/env.sh" ~/.config/shell/env.sh
 
 ## herdr
 
-The same `hjkl` navigation on both systems — `h`/`l` switch tabs, `j`/`k` switch workspaces, adding `shift` switches agents — but reached in two different ways, because only macOS can express it in herdr's own config.
+The same `hjkl` navigation on both systems — `h`/`l` switch tabs, `j`/`k` switch workspaces, adding `shift` switches agents with `j`/`k` and panes with `h`/`l` — but reached in two different ways, because only macOS can express it in herdr's own config.
 
 macOS uses `alt`: Ghostty passes Option through as Alt, so herdr sees the combo itself.
 
@@ -120,4 +120,4 @@ macOS uses `alt`: Ghostty passes Option through as Alt, so herdr sees the combo 
 cp mac/herdr/config.toml ~/.config/herdr/config.toml
 ```
 
-Windows runs the same jumps on `lwin` without touching `[keys]` at all. Win combos never reach a TUI sitting behind the terminal, so AutoHotkey catches the key on the Windows side and hands it to `herdr-nav` running as `herdr-navd` inside NixOS, which drives herdr over its socket API. Those six entries are blanked out in the Windows copy of `config.toml` to keep a single path per action; `prefix = "ctrl+z"` stays for pane navigation, which has no lwin equivalent. Both files live in [win-ricing](https://github.com/kremeshnoi/win-ricing) under `herdr/`, together with the setup notes and the registry policy that frees `Win+L`.
+Windows runs the same jumps on `lwin` without touching `[keys]` at all. Win combos never reach a TUI sitting behind the terminal, so AutoHotkey catches the key on the Windows side and hands it to `herdr-nav` running as `herdr-navd` inside NixOS, which drives herdr over its socket API. Those six entries are blanked out in the Windows copy of `config.toml` to keep a single path per action; `lwin+shift+h` / `lwin+shift+l` focus panes and `lwin+shift+n` toggles the nvim sessions sidebar the same way, and `prefix = "ctrl+z"` with the arrows stays for the up and down neighbours. Both files live in [win-ricing](https://github.com/kremeshnoi/win-ricing) under `herdr/`, together with the setup notes and the registry policy that frees `Win+L`.
