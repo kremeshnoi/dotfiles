@@ -7,6 +7,14 @@ previous_agent = "alt+shift+k"
 next_agent = "alt+shift+j"
 previous_workspace = "alt+k"
 next_workspace = "alt+j"
+focus_pane_left = "alt+shift+h"
+focus_pane_right = "alt+shift+l"
+
+[[keys.command]]
+key = "alt+shift+n"
+type = "plugin_action"
+command = "kremeshnoi.nvim-sessions.toggle"
+description = "nvim sessions"
 
 [ui.sound]
 enabled = false
