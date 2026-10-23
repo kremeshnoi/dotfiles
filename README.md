@@ -27,7 +27,7 @@ git submodule update --init   # if already cloned
 
 ## Shared mnemonics
 
-Both systems run [GlazeWM](https://github.com/glzr-io/glazewm) with the same keybindings, `lwin` being `cmd` on macOS: a workspace is focused with `ctrl+shift+<key>` on Windows and `cmd+shift+<key>` on macOS, `ctrl+shift+lwin+<key>` moves the window there, everything else sits on `lwin` on Windows and on `alt` (option) on macOS, so `cmd` shortcuts stay with macOS; focus stays on `lwin+alt+hjkl` because herdr owns `alt+hjkl`. The workspace set is per platform.
+Both systems run [GlazeWM](https://github.com/glzr-io/glazewm) with the same keybindings, `lwin` being `cmd` on macOS: a workspace is focused with `ctrl+shift+<key>` on Windows and `cmd+shift+<key>` on macOS, `ctrl+shift+lwin+<key>` moves the window there, everything else sits on `lwin` on Windows and on `cmd+ctrl` on macOS, so plain `cmd` shortcuts stay with macOS and `alt` stays with herdr and nvim: `cmd+ctrl+hjkl` focuses, `cmd+ctrl+shift+hjkl` moves the window, `cmd+shift+h` / `cmd+shift+l` walk the active workspaces. The workspace set is per platform.
 
 | Workspace | macOS | Windows |
 |---|---|---|
@@ -64,7 +64,7 @@ defaults write com.ameba.SwiftBar PluginDirectory ~/.config/swiftbar
 ln -sf "$PWD/mac/ghostty/config" ~/.config/ghostty/config
 ```
 
-GlazeWM needs Accessibility access (System Settings → Privacy & Security → Accessibility). The `alt` bindings are grabbed system-wide, so `alt+shift+arrows` no longer selects by word. On macOS `window_process` matches the localized app name (`Microsoft Edge`, `System Settings`), so the rules assume an English system. macOS system apps go to `system`. `alt+shift+q` runs `kill-workspace.sh`, which jumps to the previous workspace and quits every app on the one it left (Finder windows are only closed). The active workspace is shown in the native menu bar by a streamable SwiftBar plugin that re-renders on `glazewm sub` events; clicking it lists every workspace.
+GlazeWM needs Accessibility access (System Settings → Privacy & Security → Accessibility). The `cmd+ctrl` bindings are grabbed system-wide. On macOS `window_process` matches the localized app name (`Microsoft Edge`, `System Settings`), so the rules assume an English system. macOS system apps go to `system`. `cmd+shift+q` runs `kill-workspace.sh`, which jumps to the previous workspace and quits every app on the one it left (Finder windows are only closed). The active workspace is shown in the native menu bar by a streamable SwiftBar plugin that re-renders on `glazewm sub` events; clicking it lists every workspace.
 
 Ghostty runs `macos-option-as-alt = true`, which is what frees Alt for nvim and herdr. Splits are on `cmd+ctrl+hjkl`, creating them adds `shift`.
 
