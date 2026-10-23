@@ -22,6 +22,7 @@ __path_prepend() {
         *) PATH="$1:$PATH" ;;
     esac
 }
+__path_prepend "/opt/homebrew/opt/openjdk/bin"
 __path_prepend "$HOME/go/bin"
 __path_prepend "$FNM_PATH"
 __path_prepend "$DENO_INSTALL/bin"
