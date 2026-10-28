@@ -19,9 +19,11 @@ link() {
   echo "link    $target -> $source"
 }
 
-link shared/zsh/.zshrc "$HOME/.zshrc"
-link shared/shell/env.sh "$HOME/.config/shell/env.sh"
-link shared/zsh/ohmyzsh "$HOME/.config/zsh/ohmyzsh"
+if [ ! -e /etc/NIXOS ]; then
+  link shared/zsh/.zshrc "$HOME/.zshrc"
+  link shared/shell/env.sh "$HOME/.config/shell/env.sh"
+  link shared/zsh/ohmyzsh "$HOME/.config/zsh/ohmyzsh"
+fi
 
 if [ "$(uname -s)" = Darwin ]; then
   link mac/glazewm/config.yaml "$HOME/.glzr/glazewm/config.yaml"

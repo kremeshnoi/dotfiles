@@ -53,7 +53,6 @@ _try_source \
 _try_source \
   /usr/share/zsh-autosuggestions/zsh-autosuggestions.zsh \
   /opt/homebrew/share/zsh-autosuggestions/zsh-autosuggestions.zsh \
-  /home/linuxbrew/.linuxbrew/share/zsh-autosuggestions/zsh-autosuggestions.zsh \
   /usr/local/share/zsh-autosuggestions/zsh-autosuggestions.zsh \
   "$HOME/.nix-profile/share/zsh-autosuggestions/zsh-autosuggestions.zsh"
 ZSH_AUTOSUGGEST_STRATEGY=(history completion)
@@ -62,13 +61,11 @@ ZSH_AUTOSUGGEST_STRATEGY=(history completion)
 _try_source \
   /usr/share/doc/fzf/examples/key-bindings.zsh \
   /opt/homebrew/opt/fzf/shell/key-bindings.zsh \
-  /home/linuxbrew/.linuxbrew/opt/fzf/shell/key-bindings.zsh \
   /usr/local/opt/fzf/shell/key-bindings.zsh \
   "$HOME/.nix-profile/share/fzf/key-bindings.zsh"
 _try_source \
   /usr/share/doc/fzf/examples/completion.zsh \
   /opt/homebrew/opt/fzf/shell/completion.zsh \
-  /home/linuxbrew/.linuxbrew/opt/fzf/shell/completion.zsh \
   /usr/local/opt/fzf/shell/completion.zsh \
   "$HOME/.nix-profile/share/fzf/completion.zsh"
 
@@ -94,7 +91,6 @@ ZSH_HIGHLIGHT_STYLES[path_prefix_pathseparator]='none'
 _try_source \
   /usr/share/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh \
   /opt/homebrew/share/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh \
-  /home/linuxbrew/.linuxbrew/share/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh \
   /usr/local/share/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh \
   "$HOME/.nix-profile/share/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh"
 

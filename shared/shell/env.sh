@@ -35,7 +35,7 @@ unset -f __path_prepend
 if [ -z "$__shell_env_done" ]; then
     [ -f "$HOME/.cargo/env" ] && . "$HOME/.cargo/env"
 
-    for __brew in /opt/homebrew/bin/brew /home/linuxbrew/.linuxbrew/bin/brew /usr/local/bin/brew; do
+    for __brew in /opt/homebrew/bin/brew /usr/local/bin/brew; do
         [ -x "$__brew" ] && eval "$("$__brew" shellenv)" && break
     done
     unset __brew
