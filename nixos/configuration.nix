@@ -17,19 +17,25 @@ let
       makeBinaryWrapper "$f" "$out/bin/$(basename "$f")"
     done
     makeBinaryWrapper ${pkgs.bashInteractive}/bin/bash $out/bash
-    makeBinaryWrapper ${herdr}/bin/herdr $out/herdr
   '';
 in
 {
-  imports = [
-    <nixos-wsl/modules>
-  ];
+  nixpkgs.hostPlatform = "x86_64-linux";
 
   wsl.enable = true;
   wsl.defaultUser = "kremeshnoi";
   wsl.useWindowsDriver = true;
 
   nix.settings.experimental-features = [ "nix-command" "flakes" ];
+  nix.channel.enable = false;
+
+  nix.gc = {
+    automatic = true;
+    dates = "weekly";
+    options = "--delete-older-than 14d";
+  };
+
+  nix.optimise.automatic = true;
   nixpkgs.config.allowUnfree = true;
 
   time.timeZone = "Europe/Riga";
@@ -45,14 +51,15 @@ in
   programs.zsh = {
     enable = true;
     enableGlobalCompInit = false;
-    autosuggestions.enable = true;
-    syntaxHighlighting.enable = true;
   };
 
-  programs.fzf = {
-    keybindings = true;
-    fuzzyCompletion = true;
+  programs.nh = {
+    enable = true;
+    flake = "/home/kremeshnoi/dev/dotfiles";
   };
+
+  programs.command-not-found.enable = false;
+  programs.nix-index-database.comma.enable = true;
 
   programs.nix-ld = {
     enable = true;
@@ -84,9 +91,8 @@ in
 
   system.activationScripts.fhsWrappers.text = ''
     rm -rf /usr/local/bin
-    mkdir -p /usr/local/bin /home/linuxbrew/.linuxbrew/bin
+    mkdir -p /usr/local/bin
     cp ${fhsWrappers}/bin/* /usr/local/bin/
-    cp -f ${fhsWrappers}/herdr /home/linuxbrew/.linuxbrew/bin/herdr
     cp -f ${fhsWrappers}/bash /bin/bash.tmp && mv -f /bin/bash.tmp /bin/bash
   '';
 
@@ -122,11 +128,8 @@ in
     git
     git-lfs
     gh
-    neovim
     ripgrep
     fd
-    fzf
-    zoxide
     tree
     unzip
     zip
@@ -152,6 +155,8 @@ in
     sox
     yt-dlp
     fastfetch
+    nvd
+    nix-tree
     ngrok
     jdk17
     php
