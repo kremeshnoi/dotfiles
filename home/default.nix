@@ -1,13 +1,10 @@
-{ config, pkgs, ... }:
+{ pkgs, ... }:
 
-let
-  dotfiles = "${config.home.homeDirectory}/dev/dotfiles";
-  link = config.lib.file.mkOutOfStoreSymlink;
-in
 {
   imports = [
     ./zsh.nix
     ./helix.nix
+    ./herdr.nix
     ./git.nix
     ./ssh.nix
     ./secrets.nix
@@ -63,7 +60,4 @@ in
     nix-direnv.enable = true;
   };
   programs.dircolors.enable = true;
-
-  xdg.configFile."herdr/config.toml".source = link "${dotfiles}/windows/herdr/config.toml";
-  home.file.".local/bin/herdr-nav".source = link "${dotfiles}/windows/herdr/herdr-nav";
 }

@@ -16,6 +16,12 @@ type = "plugin_action"
 command = "kremeshnoi.nvim-sessions.toggle"
 description = "nvim sessions"
 
+[[keys.command]]
+key = "alt+shift+r"
+type = "plugin_action"
+command = "persiyanov.reviewr.toggle"
+description = "review diff"
+
 [ui.sound]
 enabled = false
 

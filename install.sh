@@ -26,6 +26,19 @@ if [ ! -e /etc/NIXOS ]; then
   link shared/helix "$HOME/.config/helix"
 fi
 
+herdr_plugins=(persiyanov/herdr-reviewr)
+
+if [ "$(uname -s)" = Darwin ] && command -v herdr >/dev/null; then
+  installed="$(herdr plugin list)"
+  for plugin in "${herdr_plugins[@]}"; do
+    if grep -q "github:$plugin@" <<<"$installed"; then
+      echo "ok      herdr plugin $plugin"
+    else
+      herdr plugin install "$plugin" -y
+    fi
+  done
+fi
+
 if [ "$(uname -s)" = Darwin ]; then
   link mac/glazewm/config.yaml "$HOME/.glzr/glazewm/config.yaml"
   link mac/glazewm/kill-workspace.sh "$HOME/.glzr/glazewm/kill-workspace.sh"
