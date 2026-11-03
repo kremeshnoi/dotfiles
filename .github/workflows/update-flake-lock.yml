@@ -1,0 +1,26 @@
+name: update flake.lock
+
+on:
+  schedule:
+    - cron: "0 6 * * 1"
+  workflow_dispatch:
+
+permissions:
+  contents: write
+  pull-requests: write
+
+jobs:
+  update:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: cachix/install-nix-action@v31
+      - run: nix flake update
+      - run: nix flake check
+      - uses: peter-evans/create-pull-request@v7
+        with:
+          branch: update-flake-lock
+          delete-branch: true
+          commit-message: "build(deps): update flake.lock"
+          title: "build(deps): update flake.lock"
+          body: Weekly nix flake update, nix flake check passed.
