@@ -58,6 +58,10 @@ in
   };
 
   programs.zoxide.enable = true;
+  programs.direnv = {
+    enable = true;
+    nix-direnv.enable = true;
+  };
   programs.dircolors.enable = true;
 
   xdg.configFile."herdr/config.toml".source = link "${dotfiles}/windows/herdr/config.toml";
