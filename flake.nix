@@ -19,7 +19,18 @@
     };
   };
 
-  outputs = { nixpkgs, nixos-wsl, home-manager, sops-nix, nix-index-database, ... }: {
+  outputs = { nixpkgs, nixos-wsl, home-manager, sops-nix, nix-index-database, ... }:
+  let
+    system = "x86_64-linux";
+    pkgs = nixpkgs.legacyPackages.${system};
+  in
+  {
+    formatter.${system} = pkgs.nixfmt;
+
+    devShells.${system}.default = pkgs.mkShell {
+      packages = with pkgs; [ nixfmt sops age nvd ];
+    };
+
     nixosConfigurations.nixos = nixpkgs.lib.nixosSystem {
       modules = [
         nixos-wsl.nixosModules.default
