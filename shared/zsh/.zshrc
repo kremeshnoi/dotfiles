@@ -72,6 +72,14 @@ _try_source \
   /usr/local/opt/fzf/shell/completion.zsh \
   "$HOME/.nix-profile/share/fzf/completion.zsh"
 
+_try_source \
+  /usr/share/zsh-you-should-use/you-should-use.plugin.zsh \
+  /opt/homebrew/share/zsh-you-should-use/you-should-use.plugin.zsh \
+  /home/linuxbrew/.linuxbrew/share/zsh-you-should-use/you-should-use.plugin.zsh \
+  /usr/local/share/zsh-you-should-use/you-should-use.plugin.zsh \
+  /run/current-system/sw/share/zsh/plugins/you-should-use/you-should-use.plugin.zsh \
+  "$HOME/.nix-profile/share/zsh/plugins/you-should-use/you-should-use.plugin.zsh"
+
 # zoxide: smart cd — use `z foo` to jump to frequent dirs
 command -v zoxide >/dev/null && eval "$(zoxide init zsh)"
 
