@@ -1,0 +1,7 @@
+keys:
+  - &kremeshnoi age1aqj6v7zr2pe3rxa3xq7e06vgms8wkyjxqapm3h48f3sh2sleaa8qs5gnqj
+creation_rules:
+  - path_regex: secrets/[^/]+\.yaml$
+    key_groups:
+      - age:
+          - *kremeshnoi
