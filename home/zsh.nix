@@ -1,4 +1,4 @@
-{ lib, ... }:
+{ lib, pkgs, ... }:
 
 let
   accent = "fg=#FFBAF3";
@@ -8,6 +8,14 @@ in
   programs.zsh = {
     enable = true;
     enableCompletion = true;
+
+    plugins = [
+      {
+        name = "you-should-use";
+        src = pkgs.zsh-you-should-use;
+        file = "share/zsh/plugins/you-should-use/you-should-use.plugin.zsh";
+      }
+    ];
 
     history = {
       size = 10000;
