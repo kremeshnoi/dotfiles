@@ -18,8 +18,8 @@ description = "nvim sessions"
 
 [[keys.command]]
 key = "alt+shift+r"
-type = "plugin_action"
-command = "persiyanov.reviewr.toggle"
+type = "shell"
+command = "~/.local/bin/herdr-git-review"
 description = "review diff"
 
 [ui.sound]
