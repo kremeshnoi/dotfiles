@@ -14,6 +14,7 @@ nixos/configuration.nix          NixOS-WSL — packages, services, FHS wrappers
 shared/zsh/.zshrc                portable zshrc for macOS / NixOS
 shared/shell/env.sh              env, PATH and aliases, sourced by .zshrc
 shared/zsh/ohmyzsh/              vendored Oh My Zsh git plugin — git aliases (gst, gco, gp…)
+shared/helix/                    Helix — editor config, LSP setup and transparent themes
 ```
 
 The whole Windows side — configs and the rest of the rice — lives in [win-ricing](https://github.com/kremeshnoi/win-ricing) and is pulled in here as the `windows` submodule:
@@ -108,6 +109,17 @@ ln -sf "$PWD/shared/shell/env.sh" ~/.config/shell/env.sh
 ```
 
 `SSH_AUTH_SOCK` there points at `$XDG_RUNTIME_DIR/ssh-agent.socket`, served by the `ssh-agent` user unit from the NixOS config, which is what stops git from asking for the key passphrase on every push. `~/.ssh/config` carries `AddKeysToAgent yes`, so the passphrase is asked once per WSL start and then never again, and linger keeps the agent alive after the last terminal closes.
+
+## Helix
+
+`shared/helix/` is linked as a whole to `~/.config/helix` on both systems. JS/TS, Vue, HTML/CSS/SCSS and Twig get `typescript-language-server`, ESLint and Tailwind on top of their own servers; YAML validates against SchemaStore. Each built-in theme has a `_transparent` variant with the background removed, so the terminal's background shows through.
+
+```bash
+brew install helix typescript-language-server vue-language-server vscode-langservers-extracted tailwindcss-language-server yaml-language-server
+brew install --cask kotlin-lsp
+```
+
+The Vue TypeScript plugin needs an absolute path in `languages.toml`, which is the Homebrew one. On NixOS an activation script symlinks the same path to `vue-language-server` in the Nix store, so the file stays shared. `kotlin-lsp` and `twiggy-language-server` are not in nixpkgs, so Kotlin and Twig run without them there.
 
 ## herdr
 
