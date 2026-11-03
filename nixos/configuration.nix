@@ -133,13 +133,6 @@ in
     git
     git-lfs
     gh
-    helix
-    typescript-language-server
-    vue-language-server
-    vscode-langservers-extracted
-    tailwindcss-language-server
-    yaml-language-server
-    zsh-you-should-use
     ripgrep
     fd
     tree

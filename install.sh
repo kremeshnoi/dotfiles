@@ -23,8 +23,8 @@ if [ ! -e /etc/NIXOS ]; then
   link shared/zsh/.zshrc "$HOME/.zshrc"
   link shared/shell/env.sh "$HOME/.config/shell/env.sh"
   link shared/zsh/ohmyzsh "$HOME/.config/zsh/ohmyzsh"
+  link shared/helix "$HOME/.config/helix"
 fi
-link shared/helix "$HOME/.config/helix"
 
 if [ "$(uname -s)" = Darwin ]; then
   link mac/glazewm/config.yaml "$HOME/.glzr/glazewm/config.yaml"

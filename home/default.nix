@@ -7,6 +7,7 @@ in
 {
   imports = [
     ./zsh.nix
+    ./helix.nix
     ./git.nix
     ./ssh.nix
     ./secrets.nix
