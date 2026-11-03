@@ -57,18 +57,6 @@ _try_source \
   "$HOME/.nix-profile/share/zsh-autosuggestions/zsh-autosuggestions.zsh"
 ZSH_AUTOSUGGEST_STRATEGY=(history completion)
 
-# fzf keybindings (Ctrl+R history, Ctrl+T files, Alt+C cd) and completion
-_try_source \
-  /usr/share/doc/fzf/examples/key-bindings.zsh \
-  /opt/homebrew/opt/fzf/shell/key-bindings.zsh \
-  /usr/local/opt/fzf/shell/key-bindings.zsh \
-  "$HOME/.nix-profile/share/fzf/key-bindings.zsh"
-_try_source \
-  /usr/share/doc/fzf/examples/completion.zsh \
-  /opt/homebrew/opt/fzf/shell/completion.zsh \
-  /usr/local/opt/fzf/shell/completion.zsh \
-  "$HOME/.nix-profile/share/fzf/completion.zsh"
-
 _try_source \
   /usr/share/zsh-you-should-use/you-should-use.plugin.zsh \
   /opt/homebrew/share/zsh-you-should-use/you-should-use.plugin.zsh \

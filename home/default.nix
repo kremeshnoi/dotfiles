@@ -51,12 +51,9 @@ in
 
   programs.fzf = {
     enable = true;
+    enableZshIntegration = false;
     defaultCommand = "rg --files --hidden --glob '!.git/*'";
     defaultOptions = [ "--height 40%" "--layout=reverse" "--border" "--info=inline" ];
-    fileWidgetCommand = "rg --files --hidden --glob '!.git/*'";
-    fileWidgetOptions = [ "--preview 'head -200 {}'" "--preview-window right:60%:wrap" ];
-    changeDirWidgetCommand = "fd --type d --hidden --exclude .git";
-    changeDirWidgetOptions = [ "--preview 'ls -A --color=always {}'" ];
   };
 
   programs.zoxide.enable = true;

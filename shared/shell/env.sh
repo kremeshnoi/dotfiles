@@ -9,11 +9,7 @@ export VISUAL=nvim
 export LESS='-R -F -X -i'
 
 export FZF_DEFAULT_COMMAND='rg --files --hidden --glob "!.git/*"'
-export FZF_CTRL_T_COMMAND="$FZF_DEFAULT_COMMAND"
-export FZF_ALT_C_COMMAND='fd --type d --hidden --exclude .git'
 export FZF_DEFAULT_OPTS='--height 40% --layout=reverse --border --info=inline'
-export FZF_CTRL_T_OPTS='--preview "head -200 {}" --preview-window right:60%:wrap'
-export FZF_ALT_C_OPTS='--preview "ls -A --color=always {}"'
 
 __path_prepend() {
     [ -d "$1" ] || return 0
