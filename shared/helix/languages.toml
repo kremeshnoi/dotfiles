@@ -1,0 +1,76 @@
+[language-server.typescript-language-server.config]
+plugins = [
+  { name = "@vue/typescript-plugin", location = "/opt/homebrew/opt/vue-language-server/libexec/lib/node_modules/@vue/language-server", languages = ["vue"] },
+]
+
+[language-server.eslint]
+command = "vscode-eslint-language-server"
+args = ["--stdio"]
+
+[language-server.eslint.config]
+validate = "on"
+run = "onType"
+nodePath = ""
+quiet = false
+rulesCustomizations = []
+experimental = {}
+problems = { shortenToSingleLine = false }
+workingDirectory = { mode = "auto" }
+codeAction = { disableRuleComment = { enable = true, location = "separateLine" }, showDocumentation = { enable = true } }
+
+[language-server.tailwindcss-ls]
+command = "tailwindcss-language-server"
+args = ["--stdio"]
+
+[language-server.twiggy]
+command = "twiggy-language-server"
+args = ["--stdio"]
+
+[language-server.kotlin-lsp]
+command = "kotlin-lsp"
+args = ["--stdio"]
+
+[language-server.yaml-language-server.config.yaml]
+format = { enable = true }
+validation = true
+schemaStore = { enable = true, url = "https://www.schemastore.org/api/json/catalog.json" }
+
+[[language]]
+name = "javascript"
+language-servers = ["typescript-language-server", "eslint"]
+
+[[language]]
+name = "typescript"
+language-servers = ["typescript-language-server", "eslint"]
+
+[[language]]
+name = "jsx"
+language-servers = ["typescript-language-server", "eslint", "tailwindcss-ls"]
+
+[[language]]
+name = "tsx"
+language-servers = ["typescript-language-server", "eslint", "tailwindcss-ls"]
+
+[[language]]
+name = "vue"
+language-servers = ["vuels", "typescript-language-server", "eslint", "tailwindcss-ls"]
+
+[[language]]
+name = "html"
+language-servers = ["vscode-html-language-server", "tailwindcss-ls"]
+
+[[language]]
+name = "css"
+language-servers = ["vscode-css-language-server", "tailwindcss-ls"]
+
+[[language]]
+name = "scss"
+language-servers = ["vscode-css-language-server", "tailwindcss-ls"]
+
+[[language]]
+name = "twig"
+language-servers = ["twiggy", "vscode-html-language-server", "tailwindcss-ls"]
+
+[[language]]
+name = "kotlin"
+language-servers = ["kotlin-lsp"]
