@@ -4,6 +4,7 @@ Configs for two systems — macOS and Windows 11 with NixOS under WSL — plus a
 
 ```
 flake.nix                        NixOS-WSL system + home-manager, pinned by flake.lock
+.github/workflows/               nix flake check on push, weekly flake.lock update PR
 install.sh                       symlinks the configs into place
 mac/glazewm/config.yaml          GlazeWM — tiling WM, same setup as on Windows
 mac/glazewm/kill-workspace.sh    quits every app on the focused workspace
@@ -13,7 +14,7 @@ mac/herdr/config.toml            herdr — alt as the modifier
 windows/                         submodule → win-ricing, the whole Windows rice
 nixos/configuration.nix          NixOS-WSL — packages, services, FHS wrappers
 nixos/ROADMAP.md                 NixOS features planned but not set up yet
-home/                            home-manager — zsh, git, ssh, neovim, fzf, zoxide, herdr, secrets
+home/                            home-manager — zsh, git, ssh, neovim, helix, fzf, zoxide, direnv, herdr, secrets
 secrets/secrets.yaml             sops-encrypted wakatime and ngrok configs
 .sops.yaml                       age recipients for secrets/
 shared/zsh/.zshrc                portable zshrc for macOS / NixOS
@@ -90,6 +91,8 @@ ssh-add ~/.ssh/id_ed25519
 
 After that `nh os switch` rebuilds from the repo, showing the build tree and a package diff between generations, and `nix flake update` followed by a switch is the whole update. Channels are disabled; `nixos-rebuild switch --rollback` or a git revert undoes a change. The store is garbage-collected weekly (`--delete-older-than 14d`) and optimised by systemd timers. `, <program>` runs anything from nixpkgs without installing it, with the prebuilt nix-index database also answering command-not-found; `nix-tree` and `nvd` show what takes up space and what changed between generations.
 
+`nix fmt` formats the Nix files with nixfmt, and `nix develop` opens a shell with nixfmt, sops, age and nvd for working on the repo. `direnv` with `nix-direnv` is enabled in home-manager, so a project with its own `flake.nix` and an `.envrc` containing `use flake` gets its toolchain on `cd`. CI runs `nix flake check` on every push, and every Monday a workflow runs `nix flake update`, checks the result and opens a pull request with the new `flake.lock`; the repository has to allow GitHub Actions to create pull requests (Settings → Actions → General).
+
 NixOS has no FHS `/usr/bin`, so an activation script compiles a wrapper for every system binary into `/usr/local/bin`, plus `/bin/bash`. `#!/usr/bin/env` scripts and `wsl.exe -e <cmd>` from Windows find their tools that way. envfs solves the same problem lazily, but a lookup through it costs 0.3–1.3 s when called from `wsl.exe`.
 
 home-manager owns `~/.zshrc`, `~/.zshenv`, `~/.config/git/config`, `~/.ssh/config`, neovim with `EDITOR`, fzf, zoxide and dircolors. `~/.config/herdr/config.toml` and `~/.local/bin/herdr-nav` are live symlinks into the `windows` submodule, so edits there apply without a rebuild. neovim keeps its own `~/.config/nvim` repo: `sideloadInitLua` passes the generated settings through the wrapper instead of writing `init.lua`.
@@ -110,7 +113,7 @@ mkdir -p ~/.config/zsh
 ln -sfn "$PWD/shared/zsh/ohmyzsh" ~/.config/zsh/ohmyzsh
 ```
 
-Plugins (autosuggestions, fzf, syntax-highlighting) are sourced through a `_try_source` helper that walks a list of candidate paths — Homebrew, Debian, `/usr/local`, nix-profile — and takes the first one that exists, so the same file works everywhere without conditionals per OS. Git aliases come from the Oh My Zsh `git` plugin, vendored with its `lib/git.zsh` dependency and MIT licence under `shared/zsh/ohmyzsh/`, so no Oh My Zsh install is needed; it is sourced after `compinit` because it registers completions. Anything machine-specific goes into `~/.zshrc.local`, which is sourced last and never committed.
+Plugins (autosuggestions, syntax-highlighting) are sourced through a `_try_source` helper that walks a list of candidate paths — Homebrew, Debian, `/usr/local`, nix-profile — and takes the first one that exists, so the same file works everywhere without conditionals per OS. Git aliases come from the Oh My Zsh `git` plugin, vendored with its `lib/git.zsh` dependency and MIT licence under `shared/zsh/ohmyzsh/`, so no Oh My Zsh install is needed; it is sourced after `compinit` because it registers completions. Anything machine-specific goes into `~/.zshrc.local`, which is sourced last and never committed.
 
 The prompt is bash-style with a git branch via `vcs_info`. Accent colour `#FFBAF3` is shared with the syntax highlighting.
 
@@ -125,7 +128,7 @@ ln -sf "$PWD/shared/shell/env.sh" ~/.config/shell/env.sh
 
 ## Helix
 
-`shared/helix/` is linked as a whole to `~/.config/helix` on both systems. JS/TS, Vue, HTML/CSS/SCSS and Twig get `typescript-language-server`, ESLint and Tailwind on top of their own servers; YAML validates against SchemaStore. Each built-in theme has a `_transparent` variant with the background removed, so the terminal's background shows through.
+`shared/helix/` is linked as a whole to `~/.config/helix` on both systems: by `install.sh` on macOS, by `home/helix.nix` on NixOS, which also installs Helix with the language servers. JS/TS, Vue, HTML/CSS/SCSS and Twig get `typescript-language-server`, ESLint and Tailwind on top of their own servers; YAML validates against SchemaStore. Each built-in theme has a `_transparent` variant with the background removed, so the terminal's background shows through.
 
 ```bash
 brew install helix typescript-language-server vue-language-server vscode-langservers-extracted tailwindcss-language-server yaml-language-server
@@ -144,4 +147,6 @@ macOS uses `alt`: Ghostty passes Option through as Alt, so herdr sees the combo 
 cp mac/herdr/config.toml ~/.config/herdr/config.toml
 ```
 
-Windows runs the same jumps on `lwin` without touching `[keys]` at all. Win combos never reach a TUI sitting behind the terminal, so AutoHotkey catches the key on the Windows side and hands it to `herdr-nav` running as `herdr-navd` inside NixOS, which drives herdr over its socket API. Those six entries are blanked out in the Windows copy of `config.toml` to keep a single path per action; `lwin+shift+h` / `lwin+shift+l` focus panes and `lwin+shift+n` toggles the nvim sessions sidebar the same way, and `prefix = "ctrl+z"` with the arrows stays for the up and down neighbours. Both files live in [win-ricing](https://github.com/kremeshnoi/win-ricing) under `herdr/`, together with the setup notes and the registry policy that frees `Win+L`.
+The one third-party plugin is [reviewr](https://github.com/persiyanov/herdr-reviewr): it shows the agent's diff in a pane, lets you comment on lines and sends the comments back to the agent. `alt+shift+r` toggles it on macOS, `lwin+shift+r` on Windows. On macOS `install.sh` runs `herdr plugin install` for every entry in `herdr_plugins` that is missing. On NixOS `home/herdr.nix` builds the plugin root from the release binary and the manifest of a pinned tag, and a home-manager activation step runs `herdr plugin link` on that store path whenever it changes, so the version moves with the flake. The root is read-only, which reviewr is fine with: it only writes under `~/.local/state` and `~/.local/bin`.
+
+Windows runs the same jumps on `lwin` without touching `[keys]` at all. Win combos never reach a TUI sitting behind the terminal, so AutoHotkey catches the key on the Windows side and hands it to `herdr-nav` running as `herdr-navd` inside NixOS, which drives herdr over its socket API. Those six entries are blanked out in the Windows copy of `config.toml` to keep a single path per action; `lwin+shift+h` / `lwin+shift+l` focus panes and `lwin+shift+n` toggles the nvim sessions sidebar and `lwin+shift+r` the reviewr pane the same way, and `prefix = "ctrl+z"` with the arrows stays for the up and down neighbours. Both files live in [win-ricing](https://github.com/kremeshnoi/win-ricing) under `herdr/`, together with the setup notes and the registry policy that frees `Win+L`.
