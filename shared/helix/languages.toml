@@ -30,6 +30,12 @@ args = ["--stdio"]
 command = "kotlin-lsp"
 args = ["--stdio"]
 
+[language-server.lemminx]
+command = "lemminx"
+
+[language-server.sqls]
+command = "sqls"
+
 [language-server.yaml-language-server.config.yaml]
 format = { enable = true }
 validation = true
@@ -70,6 +76,34 @@ language-servers = ["vscode-css-language-server", "tailwindcss-ls"]
 [[language]]
 name = "twig"
 language-servers = ["twiggy", "vscode-html-language-server", "tailwindcss-ls"]
+
+[[language]]
+name = "yaml"
+language-servers = ["yaml-language-server"]
+
+[[language]]
+name = "xml"
+language-servers = ["lemminx"]
+
+[[language]]
+name = "sql"
+language-servers = ["sqls"]
+
+[[language]]
+name = "nix"
+language-servers = ["nil"]
+
+[[language]]
+name = "python"
+language-servers = ["ty", "ruff"]
+
+[[language]]
+name = "markdown"
+language-servers = ["marksman"]
+
+[[language]]
+name = "toml"
+language-servers = ["taplo"]
 
 [[language]]
 name = "kotlin"
