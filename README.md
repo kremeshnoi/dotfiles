@@ -129,14 +129,16 @@ ln -sf "$PWD/shared/shell/env.sh" ~/.config/shell/env.sh
 
 ## Helix
 
-`shared/helix/` is linked as a whole to `~/.config/helix` on both systems: by `install.sh` on macOS, by `home/helix.nix` on NixOS, which also installs Helix with the language servers. JS/TS, Vue, HTML/CSS/SCSS and Twig get `typescript-language-server`, ESLint and Tailwind on top of their own servers; YAML validates against SchemaStore. Each built-in theme has a `_transparent` variant with the background removed, so the terminal's background shows through.
+`shared/helix/` is linked as a whole to `~/.config/helix` on both systems: by `install.sh` on macOS, by `home/helix.nix` on NixOS, which also installs Helix with the language servers. JS/TS, Vue, HTML/CSS/SCSS and Twig get `typescript-language-server`, ESLint and Tailwind on top of their own servers; YAML validates against SchemaStore. Java, Kotlin, Rust, Lua, Clojure, Python (`ty` and `ruff`), Bash, Nix (`nil`), Markdown, TOML, XML (`lemminx`), SQL (`sqls`), Dockerfile, Compose and tree-sitter queries have one server each. Language servers are editor tooling, so they come from Nix on NixOS and Homebrew on macOS, `rust-analyzer` included. Runtimes and compilers belong to the code, so they come from version managers that read the project's own files: fnm with `.node-version`, rustup with `rust-toolchain.toml`, rbenv with `.ruby-version`; projects never depend on Nix. The servers still use the project's libraries: `typescript` and `eslint` from `node_modules`, and `rust-src` and the proc-macro server from the active rustup toolchain, which is why NixOS takes `rust-analyzer-unwrapped` without the Nix `RUST_SRC_PATH`. `home/helix.nix` wraps `hx` with the servers prepended to `PATH`, so a binary from `npm i -g` or a rustup proxy in `~/.cargo/bin` never shadows them; they stay invisible to the shell. `nil`, `lemminx` and `sqls` have no Homebrew formula, so on macOS Nix, XML and SQL run without a server. Each built-in theme has a `_transparent` variant with the background removed, so the terminal's background shows through.
 
 ```bash
 brew install helix typescript-language-server vue-language-server vscode-langservers-extracted tailwindcss-language-server yaml-language-server
+brew install rust-analyzer jdtls lua-language-server clojure-lsp bash-language-server ty ruff marksman taplo dockerfile-language-server docker-compose-langserver ts_query_ls
 brew install --cask kotlin-lsp
+npm install -g twiggy-language-server
 ```
 
-The Vue TypeScript plugin needs an absolute path in `languages.toml`, which is the Homebrew one. On NixOS an activation script symlinks the same path to `vue-language-server` in the Nix store, so the file stays shared. `kotlin-lsp` and `twiggy-language-server` are not in nixpkgs, so Kotlin and Twig run without them there.
+The Vue TypeScript plugin needs an absolute path in `languages.toml`, which is the Homebrew one. On NixOS an activation script symlinks the same path to `vue-language-server` in the Nix store, so the file stays shared. Neither `kotlin-lsp` nor `twiggy-language-server` is in nixpkgs under that name: `home/helix.nix` builds `kotlin-lsp` from the JetBrains standalone archive with `autoPatchelfHook`, and wraps nixpkgs' `twig-language-server` as `twiggy-language-server`, so `languages.toml` stays the same on both systems. YAML runs only `yaml-language-server`, without Helix's default `ansible-language-server`.
 
 ## herdr
 
