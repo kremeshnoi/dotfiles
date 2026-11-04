@@ -1,3 +1,5 @@
 inherits = "nyxvamp-obsidian"
 
 "ui.background" = { fg = "foreground" }
+"ui.statusline" = { fg = "status_fg" }
+"ui.statusline.inactive" = { fg = "status_inactive_fg" }

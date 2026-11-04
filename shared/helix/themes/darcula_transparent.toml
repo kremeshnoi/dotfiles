@@ -1,3 +1,5 @@
 inherits = "darcula"
 
 "ui.background" = {}
+"ui.statusline" = { fg = "grey04" }
+"ui.statusline.inactive" = { fg = "grey04" }

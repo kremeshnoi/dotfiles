@@ -1,3 +1,5 @@
 inherits = "github_dark"
 
 "ui.background" = {}
+"ui.statusline" = { fg = "fg.muted" }
+"ui.statusline.inactive" = { fg = "fg.muted" }
