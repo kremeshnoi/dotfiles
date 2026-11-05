@@ -11,6 +11,19 @@ let
     dontUnpack = true;
     installPhase = "install -Dm755 $src $out/bin/herdr";
   };
+  hxOpenTab = pkgs.writeShellScriptBin "hx-open-tab" ''
+    file=$(/bin/wslpath -u "$1")
+    dir=$(${pkgs.coreutils}/bin/dirname "$file")
+    root=$(${pkgs.git}/bin/git -C "$dir" rev-parse --show-toplevel 2>/dev/null || echo "$dir")
+    label=$(${pkgs.coreutils}/bin/basename "$file")
+    for _ in {1..40}; do
+      pane=$(${herdr}/bin/herdr tab create --focus --cwd "$root" --label "$label" 2>/dev/null | ${pkgs.jq}/bin/jq -r '.result.root_pane.pane_id // empty')
+      [ -n "$pane" ] && break
+      ${pkgs.coreutils}/bin/sleep 0.5
+    done
+    [ -n "$pane" ] || exit 1
+    ${herdr}/bin/herdr pane run "$pane" "exec hx $(printf %q "$file")"
+  '';
   fhsWrappers = pkgs.runCommand "fhs-wrappers" { nativeBuildInputs = [ pkgs.makeBinaryWrapper ]; } ''
     mkdir -p $out/bin
     for f in ${config.system.path}/bin/*; do
@@ -130,6 +143,7 @@ in
 
   environment.systemPackages = with pkgs; [
     herdr
+    hxOpenTab
     git
     git-lfs
     gh
