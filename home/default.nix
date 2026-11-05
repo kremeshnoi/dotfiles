@@ -5,6 +5,7 @@
     ./zsh.nix
     ./helix.nix
     ./herdr.nix
+    ./claude.nix
     ./git.nix
     ./ssh.nix
     ./secrets.nix
