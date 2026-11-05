@@ -14,7 +14,7 @@ mac/herdr/config.toml            herdr — alt as the modifier
 windows/                         submodule → win-ricing, the whole Windows rice
 nixos/configuration.nix          NixOS-WSL — packages, services, FHS wrappers
 nixos/ROADMAP.md                 NixOS features planned but not set up yet
-home/                            home-manager — zsh, git, ssh, neovim, helix, fzf, zoxide, direnv, herdr, secrets
+home/                            home-manager — zsh, git, ssh, neovim, helix, fzf, zoxide, direnv, herdr, claude, secrets
 secrets/secrets.yaml             sops-encrypted wakatime and ngrok configs
 .sops.yaml                       age recipients for secrets/
 shared/zsh/.zshrc                portable zshrc for macOS / NixOS
@@ -22,6 +22,7 @@ shared/shell/env.sh              env, PATH and aliases, sourced by .zshrc
 shared/zsh/ohmyzsh/              vendored Oh My Zsh git plugin — git aliases (gst, gco, gp…)
 shared/helix/                    Helix — editor config, LSP setup and transparent themes
 shared/herdr/                    herdr — reviewr config and the Git Review toggle script
+shared/claude/                   Claude Code skills, currently commit
 ```
 
 The whole Windows side — configs and the rest of the rice — lives in [win-ricing](https://github.com/kremeshnoi/win-ricing) and is pulled in here as the `windows` submodule:
@@ -155,3 +156,7 @@ cp mac/herdr/config.toml ~/.config/herdr/config.toml
 The one third-party plugin is [reviewr](https://github.com/persiyanov/herdr-reviewr): it shows the agent's diff in a pane, lets you comment on lines and sends the comments back to the agent. `alt+shift+r` toggles it on macOS, `lwin+shift+r` on Windows. It opens in its own tab, set by `toggle_placement` in `shared/herdr/reviewr.toml`. reviewr always names that tab `reviewr`, so the toggle goes through a wrapper that waits for that tab, renames it to `Git Review` and focuses it: `shared/herdr/git-review.sh`, linked as `~/.local/bin/herdr-git-review`, on macOS and NixOS, and `herdr-nav reviewr` on Windows. On macOS `install.sh` links the herdr config, the reviewr config and the wrapper, and runs `herdr plugin install` for every entry in `herdr_plugins` that is missing. On NixOS `home/herdr.nix` builds the plugin root from the release binary and the manifest of a pinned tag, and a home-manager activation step runs `herdr plugin link` on that store path whenever it changes, so the version moves with the flake. The root is read-only, which reviewr is fine with: it only writes under `~/.local/state` and `~/.local/bin`.
 
 Windows runs the same jumps on `lwin` without touching `[keys]` at all. Win combos never reach a TUI sitting behind the terminal, so AutoHotkey catches the key on the Windows side and hands it to `herdr-nav` running as `herdr-navd` inside NixOS, which drives herdr over its socket API. Those six entries are blanked out in the Windows copy of `config.toml` to keep a single path per action; `lwin+shift+h` / `lwin+shift+l` focus panes and `lwin+shift+n` toggles the nvim sessions sidebar and `lwin+shift+r` the reviewr pane the same way, and `prefix = "ctrl+z"` with the arrows stays for the up and down neighbours. Both files live in [win-ricing](https://github.com/kremeshnoi/win-ricing) under `herdr/`, together with the setup notes and the registry policy that frees `Win+L`.
+
+## Claude Code
+
+`shared/claude/skills/` holds the Claude Code skills shared between machines, currently `commit`. Only the skills are linked into `~/.claude/skills`, by `install.sh` on macOS and by `home/claude.nix` on NixOS; `CLAUDE.md`, history, credentials, `settings.json`, commands, output styles and the `skills/synced` folder Claude manages itself stay local. Every folder under `shared/claude/skills/` becomes its own `~/.claude/skills/<name>` link, so a new skill only needs a rerun of `install.sh` or a rebuild.
