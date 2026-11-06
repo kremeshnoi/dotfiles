@@ -109,11 +109,6 @@ in
     cp -f ${fhsWrappers}/bash /bin/bash.tmp && mv -f /bin/bash.tmp /bin/bash
   '';
 
-  system.activationScripts.vueLanguageServer.text = ''
-    mkdir -p /opt/homebrew/opt/vue-language-server/libexec/lib/node_modules/@vue
-    ln -sfn ${pkgs.vue-language-server}/lib/language-tools/packages/language-server /opt/homebrew/opt/vue-language-server/libexec/lib/node_modules/@vue/language-server
-  '';
-
   systemd.user.services.ssh-agent = {
     description = "SSH authentication agent";
     wantedBy = [ "default.target" ];
