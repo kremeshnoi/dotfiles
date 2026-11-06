@@ -7,6 +7,9 @@ end-of-line-diagnostics = "disable"
 popup-border = "all"
 gutters = ["diagnostics", "spacer", "line-numbers", "spacer", "diff"]
 
+[editor.file-picker]
+hidden = false
+
 [editor.cursor-shape]
 insert = "bar"
 normal = "block"
