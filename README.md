@@ -132,16 +132,34 @@ ln -sf "$PWD/shared/shell/env.sh" ~/.config/shell/env.sh
 
 ## Helix
 
-`shared/helix/` is linked as a whole to `~/.config/helix` on both systems: by `install.sh` on macOS, by `home/helix.nix` on NixOS, which also installs Helix with the language servers. JS/TS, Vue, HTML/CSS/SCSS and Twig get `typescript-language-server`, ESLint and Tailwind on top of their own servers; YAML validates against SchemaStore. Java, Kotlin, Rust, Lua, Clojure, Python (`ty` and `ruff`), Bash, Nix (`nil`), Markdown, TOML, XML (`lemminx`), SQL (`sqls`), Dockerfile, Compose and tree-sitter queries have one server each. Language servers are editor tooling, so they come from Nix on NixOS and Homebrew on macOS, `rust-analyzer` included. Runtimes and compilers belong to the code, so they come from version managers that read the project's own files: fnm with `.node-version`, rustup with `rust-toolchain.toml`, rbenv with `.ruby-version`; projects never depend on Nix. The servers still use the project's libraries: `typescript` and `eslint` from `node_modules`, and `rust-src` and the proc-macro server from the active rustup toolchain, which is why NixOS takes `rust-analyzer-unwrapped` without the Nix `RUST_SRC_PATH`. `home/helix.nix` wraps `hx` with the servers prepended to `PATH`, so a binary from `npm i -g` or a rustup proxy in `~/.cargo/bin` never shadows them; they stay invisible to the shell. `nil`, `lemminx` and `sqls` have no Homebrew formula, so on macOS Nix, XML and SQL run without a server. Each built-in theme has a `_transparent` variant with the background removed from the editor and the statusline, so the terminal's background shows through.
+`shared/helix/` is linked as a whole to `~/.config/helix` on both systems: by `install.sh` on macOS, by `home/helix.nix` on NixOS, which also installs Helix with the language servers. Helix picks the server for each language itself, and only the servers it picks are installed. `languages.toml` only adds what Helix has no default for: ESLint for JS/TS and Vue, and Prettier as the formatter for JS/TS, Vue and HTML/CSS/SCSS. Python, YAML, XML, Markdown, Twig and SQL have no server: tree-sitter highlighting is enough there.
+
+| Language | Server | NixOS (`home/helix.nix`) | macOS |
+|---|---|---|---|
+| JS/TS | `typescript-language-server` | `typescript-language-server` | `brew install typescript-language-server` |
+| Vue | `vuels` | `vue-language-server` | `brew install vue-language-server` |
+| HTML, CSS/SCSS, ESLint | `vscode-html-language-server`, `vscode-css-language-server`, `vscode-eslint-language-server` | `vscode-langservers-extracted` | `brew install vscode-langservers-extracted` |
+| Formatter for JS/TS, Vue, HTML/CSS/SCSS | `prettier` | `prettier` | `brew install prettier` |
+| Java | `jdtls` | `jdt-language-server` | `brew install jdtls` |
+| Kotlin | `kotlin-language-server` | `kotlin-language-server` | `brew install kotlin-language-server` |
+| Ruby | `ruby-lsp` | `ruby-lsp` | `brew install ruby-lsp` |
+| PHP | `intelephense` | `intelephense` | `npm i -g intelephense` |
+| Rust | `rust-analyzer` | `rust-analyzer-unwrapped` | `brew install rust-analyzer` |
+| Lua | `lua-language-server` | `lua-language-server` | `brew install lua-language-server` |
+| Clojure | `clojure-lsp` | `clojure-lsp` | `brew install clojure-lsp` |
+| Bash | `bash-language-server` | `bash-language-server` | `brew install bash-language-server` |
+| Nix | `nil` | `nil` | none |
+| TOML | `taplo` | `taplo` | `brew install taplo` |
+| Dockerfile | `docker-langserver` | `dockerfile-language-server` | `brew install dockerfile-language-server` |
+| Compose | `docker-compose-langserver` | `docker-compose-language-service` | `brew install docker-compose-langserver` |
 
 ```bash
-brew install helix typescript-language-server vue-language-server vscode-langservers-extracted tailwindcss-language-server yaml-language-server
-brew install rust-analyzer jdtls lua-language-server clojure-lsp bash-language-server ty ruff marksman taplo dockerfile-language-server docker-compose-langserver ts_query_ls
-brew install --cask kotlin-lsp
-npm install -g twiggy-language-server
+brew install helix typescript-language-server vue-language-server vscode-langservers-extracted prettier
+brew install jdtls kotlin-language-server ruby-lsp rust-analyzer lua-language-server clojure-lsp bash-language-server taplo dockerfile-language-server docker-compose-langserver
+npm i -g intelephense
 ```
 
-The Vue TypeScript plugin needs an absolute path in `languages.toml`, which is the Homebrew one. On NixOS an activation script symlinks the same path to `vue-language-server` in the Nix store, so the file stays shared. Neither `kotlin-lsp` nor `twiggy-language-server` is in nixpkgs under that name: `home/helix.nix` builds `kotlin-lsp` from the JetBrains standalone archive with `autoPatchelfHook`, and wraps nixpkgs' `twig-language-server` as `twiggy-language-server`, so `languages.toml` stays the same on both systems. YAML runs only `yaml-language-server`, without Helix's default `ansible-language-server`.
+Language servers are editor tooling, so they come from Nix on NixOS and Homebrew on macOS, `rust-analyzer` included. `intelephense` is the exception on macOS: it ships only through npm. `nil` has neither a Homebrew formula nor an npm package, so on macOS Nix runs without a server. Runtimes and compilers belong to the code, so they come from version managers that read the project's own files: fnm with `.node-version`, rustup with `rust-toolchain.toml`, rbenv with `.ruby-version`; projects never depend on Nix. The servers still use the project's libraries and configs: `typescript` and `eslint` from `node_modules`, Prettier's config from the project, and `rust-src` and the proc-macro server from the active rustup toolchain, which is why NixOS takes `rust-analyzer-unwrapped` without the Nix `RUST_SRC_PATH`. `home/helix.nix` wraps `hx` with the servers prepended to `PATH`, so a binary from `npm i -g` or a rustup proxy in `~/.cargo/bin` never shadows them; they stay invisible to the shell. Each built-in theme has a `_transparent` variant with the background removed from the editor and the statusline, so the terminal's background shows through.
 
 ## herdr
 
