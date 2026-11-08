@@ -1,0 +1,16 @@
+id = "kremeshnoi.workspace-tabs"
+name = "Workspace Tabs"
+version = "0.1.0"
+min_herdr_version = "0.9.3"
+description = "Open Claude, Code, Terminal, Git and Daemon tabs in every new workspace"
+platforms = ["linux", "macos"]
+
+[[events]]
+on = "workspace.created"
+command = ["bash", "bootstrap.sh"]
+
+[[actions]]
+id = "bootstrap"
+title = "Open the standard workspace tabs"
+contexts = ["workspace"]
+command = ["bash", "bootstrap.sh"]
