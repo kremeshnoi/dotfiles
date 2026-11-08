@@ -3,6 +3,7 @@
 let
   accent = "fg=#FFBAF3";
   ohmyzsh = ../shared/zsh/ohmyzsh;
+  zsh-helix-mode = ../shared/zsh/zsh-helix-mode;
 in
 {
   programs.zsh = {
@@ -14,6 +15,11 @@ in
         name = "you-should-use";
         src = pkgs.zsh-you-should-use;
         file = "share/zsh/plugins/you-should-use/you-should-use.plugin.zsh";
+      }
+      {
+        name = "zsh-helix-mode";
+        src = zsh-helix-mode;
+        file = "zsh-helix-mode.plugin.zsh";
       }
     ];
 
@@ -98,7 +104,26 @@ in
           command claude-trust "$PWD" 2>/dev/null
           command claude "$@"
         }
+
+        ZSH_AUTOSUGGEST_CLEAR_WIDGETS+=(
+          zhm_history_prev
+          zhm_history_next
+          zhm_prompt_accept
+          zhm_accept
+          zhm_accept_or_insert_newline
+        )
+        ZSH_AUTOSUGGEST_ACCEPT_WIDGETS+=(
+          zhm_move_right
+          zhm_clear_selection_move_right
+        )
+        ZSH_AUTOSUGGEST_PARTIAL_ACCEPT_WIDGETS+=(
+          zhm_move_next_word_start
+          zhm_move_next_word_end
+        )
       ''
+      (lib.mkAfter ''
+        zhm-add-update-region-highlight-hook
+      '')
     ];
   };
 }
