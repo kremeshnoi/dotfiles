@@ -20,6 +20,7 @@ secrets/secrets.yaml             sops-encrypted wakatime and ngrok configs
 shared/zsh/.zshrc                portable zshrc for macOS / NixOS
 shared/shell/env.sh              env, PATH and aliases, sourced by .zshrc
 shared/zsh/ohmyzsh/              vendored Oh My Zsh git plugin — git aliases (gst, gco, gp…)
+shared/zsh/zsh-helix-mode/       vendored zsh-helix-mode — Helix keybindings on the command line
 shared/helix/                    Helix — editor config, LSP setup and transparent themes
 shared/herdr/                    herdr — reviewr config and the Git Review toggle script
 shared/claude/                   Claude Code skills, currently commit
@@ -115,9 +116,12 @@ Docker runs on the NixOS engine only, `lazydocker` is the dashboard.
 ln -sf "$PWD/shared/zsh/.zshrc" ~/.zshrc
 mkdir -p ~/.config/zsh
 ln -sfn "$PWD/shared/zsh/ohmyzsh" ~/.config/zsh/ohmyzsh
+ln -sfn "$PWD/shared/zsh/zsh-helix-mode" ~/.config/zsh/zsh-helix-mode
 ```
 
 Plugins (autosuggestions, syntax-highlighting) are sourced through a `_try_source` helper that walks a list of candidate paths — Homebrew, Debian, `/usr/local`, nix-profile — and takes the first one that exists, so the same file works everywhere without conditionals per OS. Git aliases come from the Oh My Zsh `git` plugin, vendored with its `lib/git.zsh` dependency and MIT licence under `shared/zsh/ohmyzsh/`, so no Oh My Zsh install is needed; it is sourced after `compinit` because it registers completions. Anything machine-specific goes into `~/.zshrc.local`, which is sourced last and never committed.
+
+The command line uses Helix keybindings from [zsh-helix-mode](https://github.com/Multirious/zsh-helix-mode), vendored with its MIT licence under `shared/zsh/zsh-helix-mode/` at commit `e8d4940`; `home/zsh.nix` loads the same copy, so both builds run one version. It replaces the vi keymap zsh would otherwise pick because `EDITOR=nvim`. It is sourced before syntax-highlighting, autosuggestions is told about its widgets, and `zhm-add-update-region-highlight-hook` runs after syntax-highlighting so the selection stays visible. To update, copy `LICENSE`, `zsh-helix-mode.zsh` and `zsh-helix-mode.plugin.zsh` from a newer commit and change the hash here.
 
 The prompt is bash-style with a git branch via `vcs_info`. Accent colour `#FFBAF3` is shared with the syntax highlighting.
 
