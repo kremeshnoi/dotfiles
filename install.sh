@@ -42,6 +42,11 @@ if [ "$(uname -s)" = Darwin ] && command -v herdr >/dev/null; then
       herdr plugin install "$plugin" -y
     fi
   done
+  if grep -q "$repo/shared/herdr/workspace-tabs" <<<"$installed"; then
+    echo "ok      herdr plugin kremeshnoi.workspace-tabs"
+  else
+    herdr plugin link "$repo/shared/herdr/workspace-tabs"
+  fi
 fi
 
 if [ "$(uname -s)" = Darwin ]; then
