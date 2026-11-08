@@ -26,6 +26,7 @@ let
 
   plugins = [
     { id = "persiyanov.reviewr"; root = reviewr; }
+    { id = "kremeshnoi.workspace-tabs"; root = "${dotfiles}/shared/herdr/workspace-tabs"; }
   ];
 
   linkPlugin = plugin: ''
