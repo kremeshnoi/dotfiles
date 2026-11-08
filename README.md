@@ -22,7 +22,7 @@ shared/shell/env.sh              env, PATH and aliases, sourced by .zshrc
 shared/zsh/ohmyzsh/              vendored Oh My Zsh git plugin — git aliases (gst, gco, gp…)
 shared/zsh/zsh-helix-mode/       vendored zsh-helix-mode — Helix keybindings on the command line
 shared/helix/                    Helix — editor config, LSP setup and transparent themes
-shared/herdr/                    herdr — reviewr config and the Git Review toggle script
+shared/herdr/                    herdr — reviewr config, the Git Review toggle script and the workspace-tabs plugin
 shared/claude/                   Claude Code skills, currently commit
 ```
 
@@ -176,6 +176,8 @@ cp mac/herdr/config.toml ~/.config/herdr/config.toml
 ```
 
 The one third-party plugin is [reviewr](https://github.com/persiyanov/herdr-reviewr): it shows the agent's diff in a pane, lets you comment on lines and sends the comments back to the agent. `alt+shift+r` toggles it on macOS, `lwin+shift+r` on Windows. It opens in its own tab, set by `toggle_placement` in `shared/herdr/reviewr.toml`. reviewr always names that tab `reviewr`, so the toggle goes through a wrapper that waits for that tab, renames it to `Git Review` and focuses it: `shared/herdr/git-review.sh`, linked as `~/.local/bin/herdr-git-review`, on macOS and NixOS, and `herdr-nav reviewr` on Windows. On macOS `install.sh` links the herdr config, the reviewr config and the wrapper, and runs `herdr plugin install` for every entry in `herdr_plugins` that is missing. On NixOS `home/herdr.nix` builds the plugin root from the release binary and the manifest of a pinned tag, and a home-manager activation step runs `herdr plugin link` on that store path whenever it changes, so the version moves with the flake. The root is read-only, which reviewr is fine with: it only writes under `~/.local/state` and `~/.local/bin`.
+
+The local plugin `shared/herdr/workspace-tabs` listens to `workspace.created` and turns every new workspace into five tabs in a fixed order — `Claude`, `Code`, `Terminal`, `Git`, `Daemon` — all rooted at the workspace directory, with focus back on `Claude`. The same script runs as the `kremeshnoi.workspace-tabs.bootstrap` action for a workspace that already exists and only adds the tabs it is missing. It is linked straight from the repo, by `install.sh` on macOS and by the same activation step on NixOS, so edits apply without a rebuild.
 
 Windows runs the same jumps on `lwin` without touching `[keys]` at all. Win combos never reach a TUI sitting behind the terminal, so AutoHotkey catches the key on the Windows side and hands it to `herdr-nav` running as `herdr-navd` inside NixOS, which drives herdr over its socket API. Those six entries are blanked out in the Windows copy of `config.toml` to keep a single path per action; `lwin+shift+h` / `lwin+shift+l` focus panes and `lwin+shift+n` toggles the nvim sessions sidebar and `lwin+shift+r` the reviewr pane the same way, and `prefix = "ctrl+z"` with the arrows stays for the up and down neighbours. Both files live in [win-ricing](https://github.com/kremeshnoi/win-ricing) under `herdr/`, together with the setup notes and the registry policy that frees `Win+L`.
 
