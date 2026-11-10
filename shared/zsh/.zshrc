@@ -60,6 +60,8 @@ _try_source \
   /run/current-system/sw/share/zsh/plugins/you-should-use/you-should-use.plugin.zsh \
   "$HOME/.nix-profile/share/zsh/plugins/you-should-use/you-should-use.plugin.zsh"
 
+_try_source "$HOME/.config/zsh/fzf-git-branch.zsh"
+
 # zoxide: smart cd — use `z foo` to jump to frequent dirs
 command -v zoxide >/dev/null && eval "$(zoxide init zsh)"
 

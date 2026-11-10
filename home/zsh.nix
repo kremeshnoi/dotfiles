@@ -4,6 +4,7 @@ let
   accent = "fg=#FFBAF3";
   ohmyzsh = ../shared/zsh/ohmyzsh;
   zsh-helix-mode = ../shared/zsh/zsh-helix-mode;
+  fzf-git-branch = ../shared/zsh/fzf-git-branch.zsh;
 in
 {
   programs.zsh = {
@@ -91,6 +92,7 @@ in
 
         source ${ohmyzsh}/lib/git.zsh
         source ${ohmyzsh}/plugins/git/git.plugin.zsh
+        source ${fzf-git-branch}
 
         typeset -U path PATH
 

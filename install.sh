@@ -24,6 +24,7 @@ if [ ! -e /etc/NIXOS ]; then
   link shared/shell/env.sh "$HOME/.config/shell/env.sh"
   link shared/zsh/ohmyzsh "$HOME/.config/zsh/ohmyzsh"
   link shared/zsh/zsh-helix-mode "$HOME/.config/zsh/zsh-helix-mode"
+  link shared/zsh/fzf-git-branch.zsh "$HOME/.config/zsh/fzf-git-branch.zsh"
   link shared/helix "$HOME/.config/helix"
   for skill in "$repo"/shared/claude/skills/*/; do
     skill="$(basename "$skill")"
