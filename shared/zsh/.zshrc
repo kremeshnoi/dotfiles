@@ -50,30 +50,7 @@ _try_source \
   /run/current-system/sw/share/oh-my-zsh/plugins/git/git.plugin.zsh \
   "$HOME/.nix-profile/share/oh-my-zsh/plugins/git/git.plugin.zsh"
 
-_try_source \
-  /usr/share/zsh-autosuggestions/zsh-autosuggestions.zsh \
-  /opt/homebrew/share/zsh-autosuggestions/zsh-autosuggestions.zsh \
-  /usr/local/share/zsh-autosuggestions/zsh-autosuggestions.zsh \
-  "$HOME/.nix-profile/share/zsh-autosuggestions/zsh-autosuggestions.zsh"
-ZSH_AUTOSUGGEST_STRATEGY=(history completion)
-
-if _try_source "$HOME/.config/zsh/zsh-helix-mode/zsh-helix-mode.plugin.zsh"; then
-  ZSH_AUTOSUGGEST_CLEAR_WIDGETS+=(
-    zhm_history_prev
-    zhm_history_next
-    zhm_prompt_accept
-    zhm_accept
-    zhm_accept_or_insert_newline
-  )
-  ZSH_AUTOSUGGEST_ACCEPT_WIDGETS+=(
-    zhm_move_right
-    zhm_clear_selection_move_right
-  )
-  ZSH_AUTOSUGGEST_PARTIAL_ACCEPT_WIDGETS+=(
-    zhm_move_next_word_start
-    zhm_move_next_word_end
-  )
-fi
+_try_source "$HOME/.config/zsh/zsh-helix-mode/zsh-helix-mode.plugin.zsh"
 
 _try_source \
   /usr/share/zsh-you-should-use/you-should-use.plugin.zsh \

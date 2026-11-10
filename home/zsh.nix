@@ -31,11 +31,6 @@ in
       ignoreSpace = true;
     };
 
-    autosuggestion = {
-      enable = true;
-      strategy = [ "history" "completion" ];
-    };
-
     syntaxHighlighting = {
       enable = true;
       styles = {
@@ -104,22 +99,6 @@ in
           command claude-trust "$PWD" 2>/dev/null
           command claude "$@"
         }
-
-        ZSH_AUTOSUGGEST_CLEAR_WIDGETS+=(
-          zhm_history_prev
-          zhm_history_next
-          zhm_prompt_accept
-          zhm_accept
-          zhm_accept_or_insert_newline
-        )
-        ZSH_AUTOSUGGEST_ACCEPT_WIDGETS+=(
-          zhm_move_right
-          zhm_clear_selection_move_right
-        )
-        ZSH_AUTOSUGGEST_PARTIAL_ACCEPT_WIDGETS+=(
-          zhm_move_next_word_start
-          zhm_move_next_word_end
-        )
       ''
       (lib.mkAfter ''
         zhm-add-update-region-highlight-hook
