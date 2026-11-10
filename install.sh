@@ -53,6 +53,7 @@ if [ "$(uname -s)" = Darwin ]; then
   link mac/herdr/config.toml "$HOME/.config/herdr/config.toml"
   link shared/herdr/reviewr.toml "$HOME/.config/herdr/plugins/config/persiyanov.reviewr/config.toml"
   link shared/herdr/git-review.sh "$HOME/.local/bin/herdr-git-review"
+  link shared/herdr/goto.sh "$HOME/.local/bin/herdr-goto"
   link mac/glazewm/config.yaml "$HOME/.glzr/glazewm/config.yaml"
   link mac/glazewm/kill-workspace.sh "$HOME/.glzr/glazewm/kill-workspace.sh"
   link mac/swiftbar/glazewm.sh "$HOME/.config/swiftbar/glazewm.sh"

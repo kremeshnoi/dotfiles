@@ -43,6 +43,7 @@ in
   xdg.configFile."herdr/config.toml".source = link "${dotfiles}/windows/herdr/config.toml";
   home.file.".local/bin/herdr-nav".source = link "${dotfiles}/windows/herdr/herdr-nav";
   home.file.".local/bin/herdr-git-review".source = link "${dotfiles}/shared/herdr/git-review.sh";
+  home.file.".local/bin/herdr-goto".source = link "${dotfiles}/shared/herdr/goto.sh";
   xdg.configFile."herdr/plugins/config/persiyanov.reviewr/config.toml".source = link "${dotfiles}/shared/herdr/reviewr.toml";
 
   home.activation.herdrPlugins = lib.hm.dag.entryAfter [ "writeBoundary" ] ''
