@@ -1,7 +1,7 @@
 { config, lib, pkgs, ... }:
 
 let
-  dotfiles = "${config.home.homeDirectory}/dev/dotfiles";
+  dotfiles = "${config.home.homeDirectory}/dev/dotfiles/dotfiles";
 
   languageServers = with pkgs; [
     typescript-language-server

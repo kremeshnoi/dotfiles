@@ -68,7 +68,7 @@ in
 
   programs.nh = {
     enable = true;
-    flake = "/home/kremeshnoi/dev/dotfiles";
+    flake = "/home/kremeshnoi/dev/dotfiles/dotfiles";
   };
 
   programs.command-not-found.enable = false;

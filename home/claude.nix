@@ -1,7 +1,7 @@
 { config, lib, ... }:
 
 let
-  dotfiles = "${config.home.homeDirectory}/dev/dotfiles";
+  dotfiles = "${config.home.homeDirectory}/dev/dotfiles/dotfiles";
   link = config.lib.file.mkOutOfStoreSymlink;
   skills = builtins.attrNames (builtins.readDir ../shared/claude/skills);
 in
