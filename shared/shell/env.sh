@@ -42,7 +42,7 @@ if [ -z "$__shell_env_done" ]; then
         __cur_shell=bash
     fi
     command -v rbenv >/dev/null && eval "$(rbenv init - $__cur_shell)"
-    command -v fnm >/dev/null && eval "$(fnm env --use-on-cd --shell $__cur_shell)"
+    command -v fnm >/dev/null && eval "$(fnm env --use-on-cd --log-level quiet --shell $__cur_shell)"
     unset __cur_shell
 
     __shell_env_done=1
