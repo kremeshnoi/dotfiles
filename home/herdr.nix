@@ -1,16 +1,28 @@
 { config, lib, pkgs, ... }:
 
 let
-  dotfiles = "${config.home.homeDirectory}/dev/dotfiles/dotfiles";
-  link = config.lib.file.mkOutOfStoreSymlink;
   herdr = "/run/current-system/sw/bin/herdr";
+
+  isDarwin = pkgs.stdenv.hostPlatform.isDarwin;
+
+  reviewrAssets = {
+    x86_64-linux = {
+      name = "herdr-reviewr-x86_64-unknown-linux-musl.tar.gz";
+      hash = "sha256-no1hwT/8sY763mmELC3d1+j9Br2Wz8OdtOOFrktTUwY=";
+    };
+    aarch64-darwin = {
+      name = "herdr-reviewr-aarch64-apple-darwin.tar.gz";
+      hash = "sha256-afzgpEKK6AAUP/Om2IUuGoMT1UU78S/VPZK9QDwaElo=";
+    };
+  };
+  reviewrAsset = reviewrAssets.${pkgs.stdenv.hostPlatform.system};
 
   reviewr = pkgs.stdenvNoCC.mkDerivation rec {
     pname = "herdr-reviewr";
     version = "0.49.0";
     src = pkgs.fetchurl {
-      url = "https://github.com/persiyanov/herdr-reviewr/releases/download/v${version}/herdr-reviewr-x86_64-unknown-linux-musl.tar.gz";
-      hash = "sha256-no1hwT/8sY763mmELC3d1+j9Br2Wz8OdtOOFrktTUwY=";
+      url = "https://github.com/persiyanov/herdr-reviewr/releases/download/v${version}/${reviewrAsset.name}";
+      inherit (reviewrAsset) hash;
     };
     manifest = pkgs.fetchurl {
       url = "https://raw.githubusercontent.com/persiyanov/herdr-reviewr/v${version}/herdr-plugin.toml";
@@ -26,10 +38,10 @@ let
 
   plugins = [
     { id = "persiyanov.reviewr"; root = reviewr; }
-    { id = "kremeshnoi.workspace-tabs"; root = "${dotfiles}/shared/herdr/workspace-tabs"; }
+    { id = "kremeshnoi.workspace-tabs"; root = "${../shared/herdr/workspace-tabs}"; }
   ];
 
-  linkPlugin = plugin: ''
+  registerPlugin = plugin: ''
     current="$(${pkgs.jq}/bin/jq -r '.[] | select(.plugin_id == "${plugin.id}") | "\(.source.kind) \(.plugin_root)"' "$pluginsJson" 2>/dev/null || true)"
     if [ "$current" != "local ${plugin.root}" ]; then
       if [ "''${current%% *}" = github ]; then
@@ -40,16 +52,16 @@ let
   '';
 in
 {
-  xdg.configFile."herdr/config.toml".source = link "${dotfiles}/windows/herdr/config.toml";
-  home.file.".local/bin/herdr-nav".source = link "${dotfiles}/windows/herdr/herdr-nav";
-  home.file.".local/bin/herdr-git-review".source = link "${dotfiles}/shared/herdr/git-review.sh";
-  home.file.".local/bin/herdr-goto".source = link "${dotfiles}/shared/herdr/goto.sh";
-  xdg.configFile."herdr/plugins/config/persiyanov.reviewr/config.toml".source = link "${dotfiles}/shared/herdr/reviewr.toml";
+  xdg.configFile."herdr/config.toml".source = if isDarwin then ../darwin/herdr/config.toml else ../windows/herdr/config.toml;
+  home.file.".local/bin/herdr-nav" = lib.mkIf (!isDarwin) { source = ../windows/herdr/herdr-nav; };
+  home.file.".local/bin/herdr-git-review".source = ../shared/herdr/git-review.sh;
+  home.file.".local/bin/herdr-goto".source = ../shared/herdr/goto.sh;
+  xdg.configFile."herdr/plugins/config/persiyanov.reviewr/config.toml".source = ../shared/herdr/reviewr.toml;
 
   home.activation.herdrPlugins = lib.hm.dag.entryAfter [ "writeBoundary" ] ''
     if [ -x ${herdr} ]; then
       pluginsJson="${config.xdg.configHome}/herdr/plugins.json"
-      ${lib.concatMapStrings linkPlugin plugins}
+      ${lib.concatMapStrings registerPlugin plugins}
     fi
   '';
 }

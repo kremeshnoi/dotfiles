@@ -1,4 +1,8 @@
-{ pkgs, ... }:
+{ lib, pkgs, ... }:
+
+let
+  isDarwin = pkgs.stdenv.hostPlatform.isDarwin;
+in
 
 {
   imports = [
@@ -10,10 +14,11 @@
     ./ssh.nix
     ./secrets.nix
     ./copy-files.nix
+    ./darwin.nix
   ];
 
   home.username = "kremeshnoi";
-  home.homeDirectory = "/home/kremeshnoi";
+  home.homeDirectory = if isDarwin then "/Users/kremeshnoi" else "/home/kremeshnoi";
   home.stateVersion = "26.05";
 
   home.packages = with pkgs; [
@@ -25,10 +30,11 @@
   home.sessionVariables = {
     VISUAL = "nvim";
     LESS = "-R -F -X -i";
-    SSH_AUTH_SOCK = "\${XDG_RUNTIME_DIR:-/run/user/$(id -u)}/ssh-agent.socket";
     RBENV_ROOT = "$HOME/.rbenv";
     DENO_INSTALL = "$HOME/.deno";
     FNM_PATH = "$HOME/.local/share/fnm";
+  } // lib.optionalAttrs (!isDarwin) {
+    SSH_AUTH_SOCK = "\${XDG_RUNTIME_DIR:-/run/user/$(id -u)}/ssh-agent.socket";
   };
 
   home.sessionPath = [

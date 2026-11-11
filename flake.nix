@@ -1,5 +1,6 @@
 {
   inputs = {
+    self.submodules = true;
     nixpkgs.url = "github:NixOS/nixpkgs/nixos-26.05";
     nixos-wsl = {
       url = "github:nix-community/NixOS-WSL/release-26.05";
@@ -7,6 +8,10 @@
     };
     home-manager = {
       url = "github:nix-community/home-manager/release-26.05";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
+    nix-darwin = {
+      url = "github:nix-darwin/nix-darwin/nix-darwin-26.05";
       inputs.nixpkgs.follows = "nixpkgs";
     };
     sops-nix = {
@@ -19,10 +24,19 @@
     };
   };
 
-  outputs = { nixpkgs, nixos-wsl, home-manager, sops-nix, nix-index-database, ... }:
+  outputs = { nixpkgs, nixos-wsl, nix-darwin, home-manager, sops-nix, nix-index-database, ... }:
   let
     system = "x86_64-linux";
     pkgs = nixpkgs.legacyPackages.${system};
+    homeManager = {
+      home-manager = {
+        useGlobalPkgs = true;
+        useUserPackages = true;
+        backupFileExtension = "hm-backup";
+        sharedModules = [ sops-nix.homeManagerModules.sops ];
+        users.kremeshnoi = import ./home;
+      };
+    };
   in
   {
     formatter.${system} = pkgs.nixfmt;
@@ -37,15 +51,16 @@
         nix-index-database.nixosModules.nix-index
         home-manager.nixosModules.home-manager
         ./nixos/configuration.nix
-        {
-          home-manager = {
-            useGlobalPkgs = true;
-            useUserPackages = true;
-            backupFileExtension = "hm-backup";
-            sharedModules = [ sops-nix.homeManagerModules.sops ];
-            users.kremeshnoi = import ./home;
-          };
-        }
+        homeManager
+      ];
+    };
+
+    darwinConfigurations.mac = nix-darwin.lib.darwinSystem {
+      modules = [
+        nix-index-database.darwinModules.nix-index
+        home-manager.darwinModules.home-manager
+        ./darwin/configuration.nix
+        homeManager
       ];
     };
   };
