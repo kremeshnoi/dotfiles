@@ -44,7 +44,7 @@ Both systems run [GlazeWM](https://github.com/glzr-io/glazewm) with the same key
 | system | `y` | `y` |
 | term | `t` | `t` |
 | edge / browser | `b` | `b` |
-| claude | `a` | `a` |
+| claude | `a` | — |
 | slack | `m` | — |
 | obsidian | `n` | `n` |
 | docker | `c` | `c` |
