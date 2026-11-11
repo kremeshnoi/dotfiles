@@ -67,7 +67,7 @@ in
     initContent = lib.mkMerge [
       (lib.mkOrder 510 ''
         command -v rbenv >/dev/null && eval "$(rbenv init - zsh)"
-        command -v fnm >/dev/null && eval "$(fnm env --use-on-cd --shell zsh)"
+        command -v fnm >/dev/null && eval "$(fnm env --use-on-cd --log-level quiet --shell zsh)"
 
         [ -r "$HOME/.zshrc.local" ] && source "$HOME/.zshrc.local"
 
