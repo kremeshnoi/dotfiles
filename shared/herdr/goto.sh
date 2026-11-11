@@ -52,10 +52,9 @@ selected=$(
   printf '%s\n' "$rows" |
     fzf --ansi --layout=reverse --height=100% --tiebreak=index \
       --delimiter=$'\t' --with-nth=2 \
-      --border=rounded --border-label=' Go to ' --border-label-pos=3 \
       --prompt="$insert_prompt" --pointer='▌' --gutter=' ' --info=inline-right \
       --no-scrollbar --separator='─' \
-      --color='bg:-1,bg+:#262626,gutter:-1,fg+:-1,border:#505050,label:#BEBEBE,prompt:#8EABE1,pointer:#8EABE1,hl:#D29F73:bold,hl+:#D29F73:bold,info:#606060,separator:#303030' \
+      --color='bg:-1,bg+:#262626,gutter:-1,fg+:-1,prompt:#8EABE1,pointer:#8EABE1,hl:#D29F73:bold,hl+:#D29F73:bold,info:#606060,separator:#303030' \
       --bind 'tab:down,shift-tab:up' \
       --bind 'start:unbind(j,k,i,/,q)' \
       --bind "esc:transform:[[ \$FZF_PROMPT == '$insert_prompt' ]] && echo 'change-prompt($nav_prompt)+rebind(j,k,i,/,q)' || echo abort" \
