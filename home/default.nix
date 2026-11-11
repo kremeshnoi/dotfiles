@@ -9,6 +9,7 @@
     ./git.nix
     ./ssh.nix
     ./secrets.nix
+    ./copy-files.nix
   ];
 
   home.username = "kremeshnoi";

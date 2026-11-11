@@ -1,8 +1,6 @@
-{ config, lib, pkgs, ... }:
+{ lib, pkgs, ... }:
 
 let
-  dotfiles = "${config.home.homeDirectory}/dev/dotfiles/dotfiles";
-
   languageServers = with pkgs; [
     typescript-language-server
     vue-language-server
@@ -22,15 +20,14 @@ let
     prettier
   ];
 
-  helix = pkgs.symlinkJoin {
-    name = "helix-${pkgs.helix.version}";
-    paths = [ pkgs.helix ];
-    nativeBuildInputs = [ pkgs.makeWrapper ];
-    postBuild = ''
-      wrapProgram $out/bin/hx --prefix PATH : ${lib.makeBinPath languageServers}
-    '';
+  helix = pkgs.runCommand "helix-${pkgs.helix.version}" {
+    nativeBuildInputs = [ pkgs.makeBinaryWrapper ];
     meta.mainProgram = "hx";
-  };
+  } ''
+    mkdir -p $out
+    cp -rL ${pkgs.helix}/share $out/share
+    makeBinaryWrapper ${pkgs.helix}/bin/hx $out/bin/hx --prefix PATH : ${lib.makeBinPath languageServers}
+  '';
 in
 {
   programs.helix = {
@@ -38,5 +35,5 @@ in
     package = helix;
   };
 
-  xdg.configFile."helix".source = config.lib.file.mkOutOfStoreSymlink "${dotfiles}/shared/helix";
+  xdg.configFile."helix".source = ../shared/helix;
 }
