@@ -44,12 +44,12 @@ Both systems run [GlazeWM](https://github.com/glzr-io/glazewm) with the same key
 | desktop | `0` | `0` |
 | system | `y` | `y` |
 | term | `t` | `t` |
-| edge / chrome | `b` | `b` |
+| edge / browser | `b` | `b` |
 | claude | `a` | `a` |
 | slack | `m` | — |
 | obsidian | `n` | `n` |
 | docker | `c` | `c` |
-| tabularis | `d` | `d` |
+| tabularis | `d` | — |
 | spotify | — | `s` |
 | discord | — | `x` |
 | telegram | — | `m` |
@@ -87,8 +87,8 @@ See [win-ricing](https://github.com/kremeshnoi/win-ricing), mounted here as `win
 The Linux side under WSL is [NixOS-WSL](https://github.com/nix-community/NixOS-WSL), built from `flake.nix` at the repo root. The flake pins nixpkgs, NixOS-WSL, home-manager, sops-nix and nix-index-database in `flake.lock`; `nixos/configuration.nix` holds the system — packages, Docker, nix-ld for prebuilt binaries, the ssh-agent and `herdr-navd` user units — and `home/` holds the user side through home-manager.
 
 ```bash
-sudo ln -s ~/dev/dotfiles/flake.nix /etc/nixos/flake.nix
-sudo nixos-rebuild switch --flake ~/dev/dotfiles#nixos
+sudo ln -s ~/dev/dotfiles/dotfiles/flake.nix /etc/nixos/flake.nix
+sudo nixos-rebuild switch --flake ~/dev/dotfiles/dotfiles#nixos
 ssh-add ~/.ssh/id_ed25519
 ```
 
