@@ -27,7 +27,7 @@ in
 {
   sops = {
     age.keyFile = "${config.xdg.configHome}/sops/age/keys.txt";
-    defaultSopsFile = ../secrets/secrets.yaml;
+    defaultSopsFile = ../../shared/secrets/secrets.yaml;
     defaultSymlinkPath = "%r/secrets";
     secrets = lib.mapAttrs (_: _: { }) copies;
   };

@@ -1,7 +1,7 @@
 { stdenvNoCC, fetchurl }:
 
 let
-  version = (builtins.fromTOML (builtins.readFile ../shared/herdr/versions.toml)).herdr;
+  version = (builtins.fromTOML (builtins.readFile ../../shared/herdr/versions.toml)).herdr;
   assets = {
     x86_64-linux = {
       name = "herdr-linux-x86_64";

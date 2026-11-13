@@ -19,7 +19,7 @@ let
 
   reviewr = pkgs.stdenvNoCC.mkDerivation rec {
     pname = "herdr-reviewr";
-    version = (builtins.fromTOML (builtins.readFile ../shared/herdr/versions.toml)).reviewr;
+    version = (builtins.fromTOML (builtins.readFile ../../shared/herdr/versions.toml)).reviewr;
     src = pkgs.fetchurl {
       url = "https://github.com/persiyanov/herdr-reviewr/releases/download/v${version}/${reviewrAsset.name}";
       inherit (reviewrAsset) hash;
@@ -38,7 +38,7 @@ let
 
   plugins = [
     { id = "persiyanov.reviewr"; root = reviewr; }
-    { id = "kremeshnoi.workspace-tabs"; root = "${../shared/herdr/workspace-tabs}"; }
+    { id = "kremeshnoi.workspace-tabs"; root = "${../../shared/herdr/workspace-tabs}"; }
   ];
 
   registerPlugin = plugin: ''
@@ -52,11 +52,11 @@ let
   '';
 in
 {
-  xdg.configFile."herdr/config.toml".source = if isDarwin then ../mac/herdr/config.toml else ../windows/herdr/config.toml;
-  home.file.".local/bin/herdr-nav" = lib.mkIf (!isDarwin) { source = ../windows/herdr/herdr-nav; };
-  home.file.".local/bin/herdr-git-review".source = ../shared/herdr/git-review.sh;
-  home.file.".local/bin/herdr-goto".source = ../shared/herdr/goto.sh;
-  xdg.configFile."herdr/plugins/config/persiyanov.reviewr/config.toml".source = ../shared/herdr/reviewr.toml;
+  xdg.configFile."herdr/config.toml".source = if isDarwin then ../../mac/herdr/config.toml else ../../windows/herdr/config.toml;
+  home.file.".local/bin/herdr-nav" = lib.mkIf (!isDarwin) { source = ../../windows/herdr/herdr-nav; };
+  home.file.".local/bin/herdr-git-review".source = ../../shared/herdr/git-review.sh;
+  home.file.".local/bin/herdr-goto".source = ../../shared/herdr/goto.sh;
+  xdg.configFile."herdr/plugins/config/persiyanov.reviewr/config.toml".source = ../../shared/herdr/reviewr.toml;
 
   home.activation.herdrPlugins = lib.hm.dag.entryAfter [ "writeBoundary" ] ''
     if [ -x ${herdr} ]; then

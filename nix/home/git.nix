@@ -6,6 +6,6 @@
       name = "kremeshnoi";
       email = "alexander.kremeshnoi@gmail.com";
     };
-    includes = [ { path = "${../shared/git/config}"; } ];
+    includes = [ { path = "${../../shared/git/config}"; } ];
   };
 }

@@ -57,7 +57,7 @@ in
     wakatime-cli
   ];
 
-  environment.variables.NH_FLAKE = "/Users/kremeshnoi/dev/dotfiles";
+  environment.variables.NH_FLAKE = "/Users/kremeshnoi/dev/dotfiles/nix";
 
   homebrew = {
     enable = true;

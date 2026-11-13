@@ -35,5 +35,5 @@ in
     package = helix;
   };
 
-  xdg.configFile."helix".source = ../shared/helix;
+  xdg.configFile."helix".source = ../../shared/helix;
 }
