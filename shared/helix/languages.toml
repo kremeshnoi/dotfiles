@@ -1,3 +1,6 @@
+[language-server.phpantom]
+command = "phpantom_lsp"
+
 [language-server.eslint]
 command = "vscode-eslint-language-server"
 args = ["--stdio"]
@@ -49,3 +52,7 @@ formatter = { command = "prettier", args = ["--stdin-filepath", "%{buffer_name}"
 [[language]]
 name = "scss"
 formatter = { command = "prettier", args = ["--stdin-filepath", "%{buffer_name}"] }
+
+[[language]]
+name = "php"
+language-servers = ["phpantom"]

@@ -1,6 +1,8 @@
 { lib, pkgs, ... }:
 
 let
+  phpantom = pkgs.callPackage ../pkgs/phpantom.nix { };
+
   languageServers = with pkgs; [
     typescript-language-server
     vue-language-server
@@ -15,7 +17,7 @@ let
     dockerfile-language-server
     docker-compose-language-service
     rust-analyzer-unwrapped
-    intelephense
+    phpantom
     prettier
   ];
 

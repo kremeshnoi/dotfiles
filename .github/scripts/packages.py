@@ -11,6 +11,7 @@ brew_to_nix = {
     "docker-compose-langserver": "docker-compose-language-service",
     "rust-analyzer": "rust-analyzer-unwrapped",
     "libpq": "postgresql",
+    "phpantom-lsp": "phpantom",
     "zsh-syntax-highlighting": "programs.zsh.syntaxHighlighting",
     "glzr-io/tap/glazewm": "cask:glazewm",
     "swiftbar": "cask:swiftbar",
@@ -78,8 +79,6 @@ for kind, name in re.findall(r'^(brew|cask) "([^"]+)"', brewfile, re.M):
     if kind == "cask" and not mapped.startswith("cask:"):
         mapped = "cask:" + mapped
     brew.add(mapped)
-if "intelephense_version=" in read("mac/install.sh"):
-    brew.add("intelephense")
 if "github.com/kremeshnoi/pgf" in read("mac/install.sh"):
     brew.add("pgf")
 
