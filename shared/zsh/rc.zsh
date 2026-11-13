@@ -6,11 +6,22 @@ SAVEHIST=10000
 setopt SHARE_HISTORY HIST_IGNORE_DUPS HIST_IGNORE_SPACE INC_APPEND_HISTORY
 unsetopt BEEP LIST_BEEP HIST_BEEP
 
-alias ls='ls --color=auto'
+for dircolors in dircolors gdircolors; do
+  if command -v "$dircolors" >/dev/null; then
+    eval "$("$dircolors" -b "$zsh_shared/dir_colors")"
+    break
+  fi
+done
+unset dircolors
+
+if command -v gls >/dev/null; then
+  alias ls='gls --color=auto'
+else
+  alias ls='ls --color=auto'
+fi
 alias grep='grep --color=auto'
 alias fgrep='fgrep --color=auto'
 alias egrep='egrep --color=auto'
-alias v='nvim'
 alias ll='ls -alF'
 alias la='ls -A'
 alias l='ls -CF'
@@ -32,12 +43,6 @@ source "$zsh_shared/ohmyzsh/plugins/git/git.plugin.zsh"
 source "$zsh_shared/fzf-git-branch.zsh"
 
 typeset -U path PATH
-
-unalias claude 2>/dev/null
-function claude {
-  command claude-trust "$PWD" 2>/dev/null
-  command claude "$@"
-}
 
 typeset -gA ZSH_HIGHLIGHT_STYLES
 for style in command builtin function alias suffix-alias global-alias hashed-command autodirectory reserved-word precommand; do
