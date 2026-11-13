@@ -14,10 +14,6 @@
       url = "github:nix-darwin/nix-darwin/nix-darwin-26.05";
       inputs.nixpkgs.follows = "nixpkgs";
     };
-    sops-nix = {
-      url = "github:Mic92/sops-nix";
-      inputs.nixpkgs.follows = "nixpkgs";
-    };
     nix-index-database = {
       url = "github:nix-community/nix-index-database";
       inputs.nixpkgs.follows = "nixpkgs";
@@ -28,7 +24,7 @@
     };
   };
 
-  outputs = { nixpkgs, nixos-wsl, nix-darwin, home-manager, sops-nix, nix-index-database, pgf, ... }:
+  outputs = { nixpkgs, nixos-wsl, nix-darwin, home-manager, nix-index-database, pgf, ... }:
   let
     system = "x86_64-linux";
     pkgs = nixpkgs.legacyPackages.${system};
@@ -38,7 +34,6 @@
         useUserPackages = true;
         backupFileExtension = "hm-backup";
         sharedModules = [
-          sops-nix.homeManagerModules.sops
           pgf.homeManagerModules.default
         ];
         users.kremeshnoi = import ./home;
@@ -49,7 +44,7 @@
     formatter.${system} = pkgs.nixfmt;
 
     devShells.${system}.default = pkgs.mkShell {
-      packages = with pkgs; [ nixfmt sops age nvd ];
+      packages = with pkgs; [ nixfmt nvd ];
     };
 
     nixosConfigurations.nixos = nixpkgs.lib.nixosSystem {
