@@ -31,6 +31,7 @@ in
   environment.systemPackages = with pkgs; [
     herdr
     nh
+    coreutils-prefixed
     git
     git-lfs
     gh
@@ -43,18 +44,15 @@ in
     btop
     nvd
     nix-tree
-    ngrok
     python3
     uv
     pnpm
     go
     stylua
     dprint
-    tree-sitter
     shfmt
     eslint_d
     prettier
-    wakatime-cli
   ];
 
   environment.variables.NH_FLAKE = "/Users/kremeshnoi/dev/dotfiles/nix";
@@ -66,6 +64,7 @@ in
       "glzr-io/tap/glazewm"
       "swiftbar"
       "ghostty"
+      "font-jetbrains-mono-nerd-font"
     ];
     onActivation.cleanup = "none";
   };
