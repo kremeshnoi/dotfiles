@@ -11,9 +11,10 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
-      - run: python3 .github/scripts/packages.py
       - uses: cachix/install-nix-action@v31
       - run: |
           git config --global url."https://github.com/".insteadOf "ssh://git@github.com/"
           git config --global --add url."https://github.com/".insteadOf "git@github.com:"
+      - run: git submodule update --init --depth 1
+      - run: python3 .github/scripts/packages.py
       - run: nix flake check ./nix
