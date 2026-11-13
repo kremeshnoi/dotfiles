@@ -12,7 +12,6 @@ in
     ./claude.nix
     ./git.nix
     ./ssh.nix
-    ./secrets.nix
     ./copy-files.nix
     ./darwin.nix
   ];
@@ -23,19 +22,14 @@ in
 
   home.packages = with pkgs; [
     lazydocker
-    sops
-    age
+    bat
+    fnm
+    postgresql
+    pspg
   ];
 
   home.sessionVariables = lib.optionalAttrs (!isDarwin) {
     SSH_AUTH_SOCK = "\${XDG_RUNTIME_DIR:-/run/user/$(id -u)}/ssh-agent.socket";
-  };
-
-  programs.neovim = {
-    enable = true;
-    sideloadInitLua = true;
-    withPython3 = true;
-    withRuby = true;
   };
 
   programs.fzf = {
@@ -50,5 +44,4 @@ in
     enable = true;
     nix-direnv.enable = true;
   };
-  programs.dircolors.enable = true;
 }

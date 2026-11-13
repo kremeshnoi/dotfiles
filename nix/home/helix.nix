@@ -15,7 +15,6 @@ let
     dockerfile-language-server
     docker-compose-language-service
     rust-analyzer-unwrapped
-    ruby-lsp
     intelephense
     prettier
   ];
