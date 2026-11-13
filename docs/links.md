@@ -14,7 +14,7 @@ So symlinks exist only on the Mac without Nix. On the Nix machines a link in `$H
 
 ## Mac without Nix
 
-Every link points into the checkout at `~/dev/dotfiles`, except pgf and intelephense, which point into their own install directories.
+Every link points into the checkout at `~/dev/dotfiles`, except pgf, which points into its own clone.
 
 | Link | Points to |
 |---|---|
@@ -30,7 +30,6 @@ Every link points into the checkout at `~/dev/dotfiles`, except pgf and inteleph
 | `~/.config/swiftbar/glazewm.sh` | `mac/swiftbar/glazewm.sh` |
 | `~/.config/ghostty/config` | `mac/ghostty/config` |
 | `~/.local/bin/pgf` | `~/.local/src/pgf/bin/pgf` |
-| `~/.local/bin/intelephense` | `~/.local/share/intelephense/node_modules/.bin/intelephense` |
 
 herdr plugins are not file links but registrations in `~/.config/herdr/plugins.json`, made by `herdr plugin link` with the root in the checkout:
 
@@ -49,7 +48,7 @@ herdr plugins are not file links but registrations in `~/.config/herdr/plugins.j
 
 ### Links `install.sh` removes
 
-`~/.local/bin/herdr-goto`, from the tab picker that is gone. Left over from the setup before `shared/zsh` was split: `~/.config/shell/env.sh`, `~/.config/zsh/ohmyzsh`, `~/.config/zsh/zsh-helix-mode`, `~/.config/zsh/fzf-git-branch.zsh`, and the two directories when they end up empty.
+`~/.local/bin/herdr-goto`, from the tab picker that is gone, and `~/.local/bin/intelephense` with `~/.local/share/intelephense`, replaced by phpantom. Left over from the setup before `shared/zsh` was split: `~/.config/shell/env.sh`, `~/.config/zsh/ohmyzsh`, `~/.config/zsh/zsh-helix-mode`, `~/.config/zsh/fzf-git-branch.zsh`, and the two directories when they end up empty.
 
 ### Checking them
 
@@ -70,7 +69,6 @@ done <<EOF
 .config/swiftbar/glazewm.sh $PWD/mac/swiftbar/glazewm.sh
 .config/ghostty/config $PWD/mac/ghostty/config
 .local/bin/pgf $HOME/.local/src/pgf/bin/pgf
-.local/bin/intelephense $HOME/.local/share/intelephense/node_modules/.bin/intelephense
 EOF
 for skill in shared/claude/skills/*/; do skill="$(basename "$skill")"; [ "$(readlink "$HOME/.claude/skills/$skill")" = "$PWD/shared/claude/skills/$skill" ] && echo "ok      ~/.claude/skills/$skill" || echo "WRONG   ~/.claude/skills/$skill"; done
 ```

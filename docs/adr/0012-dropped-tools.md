@@ -18,6 +18,7 @@ These are removed from every machine and from the repo, and are not added back w
 | ngrok | the package and cask, its secret, `~/.config/ngrok` |
 | secrets | with wakatime and ngrok gone nothing was left to encrypt: `shared/secrets/`, `.sops.yaml`, sops-nix, `nix/home/secrets.nix`, the decrypt step in `install.sh`, `sops` and `age` ([0008](0008-secrets-with-sops-and-age.md) is superseded) |
 | Ruby | `ruby-lsp` in Helix and on NixOS, rbenv with `RBENV_ROOT` and its PATH entry, `ruby-build`, Homebrew `ruby`, `~/.rbenv`, `~/.gem` |
+| intelephense | replaced by PHPantom on every machine: the nixpkgs package in the Helix wrapper, the npm install in `install.sh`, `~/.local/share/intelephense` |
 | herdr goto | `shared/herdr/goto.sh`, `~/.local/bin/herdr-goto`, `alt+shift+f` in both herdr configs and `lwin+shift+f` in AutoHotkey |
 | claude wrapper | the `claude` function in `rc.zsh`, which called a `claude-trust` that never existed |
 

@@ -23,6 +23,7 @@ Every tracked file, what it does and where it ends up. "Nix" means both NixOS an
 | `darwin/configuration.nix` | nix-darwin: system packages, Homebrew casks (GlazeWM, SwiftBar, Ghostty), nix gc, user, `NH_FLAKE`, SwiftBar plugin dir |
 | `nixos/configuration.nix` | NixOS-WSL: system packages, Docker, nix-ld, FHS wrappers, `hx-open-tab`, ssh-agent and `herdr-navd` units, `programs.nh.flake` |
 | `pkgs/herdr.nix` | herdr release binary per platform, version from `shared/herdr/versions.toml` |
+| `pkgs/phpantom.nix` | PHPantom language server release binary per platform |
 | `home/default.nix` | imports the modules below; user, home dir, a few packages, `SSH_AUTH_SOCK` on Linux, fzf, pgf, zoxide, direnv |
 | `home/zsh.nix` | zsh with you-should-use and zsh-helix-mode, syntax highlighting; sources `shared/zsh/env.zsh` from `.zshenv`, `startup.zsh` and `rc.zsh` from `.zshrc` |
 | `home/git.nix` | git with lfs and the user; includes `shared/git/config` |
@@ -59,7 +60,7 @@ Every tracked file, what it does and where it ends up. "Nix" means both NixOS an
 | `Brewfile` | packages and casks for the Mac without Nix | — | `brew bundle` |
 | `install.sh` | the whole setup without Nix | — | — |
 | `zsh/.zshrc` | brew shellenv, libpq PATH, plugins, sources `shared/zsh` | — | linked to `~/.zshrc` |
-| `helix/hx` | `hx` wrapper: managed language servers first in `PATH` | — | linked to `~/.local/bin/hx` |
+| `helix/hx` | `hx` wrapper: Homebrew's language servers first in `PATH` | — | linked to `~/.local/bin/hx` |
 | `glazewm/config.yaml` | GlazeWM | copied to `~/.glzr/glazewm/` | linked there |
 | `glazewm/kill-workspace.sh` | quits the apps of the focused workspace | copied | linked |
 | `swiftbar/glazewm.sh` | active workspace in the menu bar | copied to `~/.config/swiftbar/` | linked there |

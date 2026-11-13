@@ -82,7 +82,7 @@ Nix inputs: merge the weekly `update-flake-lock` PR, or run `nix flake update` i
 ### Add a language server
 
 1. `nix/home/helix.nix`: add the package to `languageServers`.
-2. `mac/Brewfile`: add the formula. When Homebrew has none, install it the way `install.sh` installs `intelephense`: a pinned npm package in its own `--prefix`, linked into `~/.local/bin`, with its `.bin` directory added to the front of `PATH` in `mac/helix/hx`.
+2. `mac/Brewfile`: add the formula. When nixpkgs has none, package the release binary in `nix/pkgs/` the way `phpantom.nix` does; when Homebrew has none, install it from `install.sh` into its own directory and add that directory to the front of `PATH` in `mac/helix/hx`.
 3. `shared/helix/languages.toml`: only if Helix has no default server for the language.
 4. Add the row to the table in [helix.md](helix.md).
 

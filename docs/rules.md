@@ -13,7 +13,7 @@
 The dotfiles manage what they declare, not everything on a machine. A machine may carry more: Homebrew formulae, npm globals, apps installed for one job or one employer. That is fine and stays out of the repo. Two things are not fine:
 
 1. **A gap in the managed set.** Everything the repo declares for the Macs is declared for both of them, and everything shared with NixOS is declared there too. The exceptions are explicit lists in `.github/scripts/packages.py`: Nix tooling (`nh`, `nvd`, `nix-tree`, `nil`), the NixOS-only toolchain, and Mac apps. The script runs in CI and fails on any other difference; names that differ between Nix and Homebrew are mapped there.
-2. **A conflict with the managed set.** An extra local package must not replace or shadow a managed one: the same tool from a second source (Homebrew and npm, Homebrew and a curl installer), a second copy earlier in `PATH`, or a local config file in a path the repo owns. When a managed tool needs to come from somewhere else on one machine, the repo says so (like `intelephense` from npm on the Mac without Nix).
+2. **A conflict with the managed set.** An extra local package must not replace or shadow a managed one: the same tool from a second source (Homebrew and npm, Homebrew and a curl installer), a second copy earlier in `PATH`, or a local config file in a path the repo owns. When a managed tool needs to come from somewhere else on one machine, the repo says so.
 
 Neither installer removes extras: `brew bundle` runs without cleanup and nix-darwin has `onActivation.cleanup = "none"`.
 
