@@ -116,6 +116,26 @@
         "type": "github"
       }
     },
+    "pgf": {
+      "inputs": {
+        "nixpkgs": [
+          "nixpkgs"
+        ]
+      },
+      "locked": {
+        "lastModified": 1794576125,
+        "narHash": "sha256-DDlxkmwKru0Suj8uIKbZpJimvfzRPJUmoRbi3K8DEk8=",
+        "owner": "kremeshnoi",
+        "repo": "pgf",
+        "rev": "d09ef20dbe8584e4456c0d5bcfa6faa9c76f9330",
+        "type": "github"
+      },
+      "original": {
+        "owner": "kremeshnoi",
+        "repo": "pgf",
+        "type": "github"
+      }
+    },
     "root": {
       "inputs": {
         "home-manager": "home-manager",
@@ -123,6 +143,7 @@
         "nix-index-database": "nix-index-database",
         "nixos-wsl": "nixos-wsl",
         "nixpkgs": "nixpkgs",
+        "pgf": "pgf",
         "sops-nix": "sops-nix"
       }
     },
