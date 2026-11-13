@@ -26,6 +26,7 @@ alias ll='ls -alF'
 alias la='ls -A'
 alias l='ls -CF'
 alias c='claude --dangerously-skip-permissions'
+alias cls='clear'
 
 zstyle ':completion:*' menu select
 zstyle ':completion:*' matcher-list 'm:{a-zA-Z}={A-Za-z}' 'r:|=*' 'l:|=* r:|=*'
