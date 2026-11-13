@@ -19,7 +19,7 @@ let
 
   reviewr = pkgs.stdenvNoCC.mkDerivation rec {
     pname = "herdr-reviewr";
-    version = "0.49.0";
+    version = (builtins.fromTOML (builtins.readFile ../shared/herdr/versions.toml)).reviewr;
     src = pkgs.fetchurl {
       url = "https://github.com/persiyanov/herdr-reviewr/releases/download/v${version}/${reviewrAsset.name}";
       inherit (reviewrAsset) hash;
@@ -52,7 +52,7 @@ let
   '';
 in
 {
-  xdg.configFile."herdr/config.toml".source = if isDarwin then ../darwin/herdr/config.toml else ../windows/herdr/config.toml;
+  xdg.configFile."herdr/config.toml".source = if isDarwin then ../mac/herdr/config.toml else ../windows/herdr/config.toml;
   home.file.".local/bin/herdr-nav" = lib.mkIf (!isDarwin) { source = ../windows/herdr/herdr-nav; };
   home.file.".local/bin/herdr-git-review".source = ../shared/herdr/git-review.sh;
   home.file.".local/bin/herdr-goto".source = ../shared/herdr/goto.sh;

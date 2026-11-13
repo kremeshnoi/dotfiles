@@ -1,3 +1,6 @@
 [submodule "windows"]
 	path = windows
 	url = git@github.com:kremeshnoi/win-ricing.git
+[submodule "mac"]
+	path = mac
+	url = git@github.com:kremeshnoi/mac-ricing.git
