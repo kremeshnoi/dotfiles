@@ -6,9 +6,9 @@ The shell lives in `shared/zsh` and is the same everywhere:
 
 | File | Sourced | Holds |
 |---|---|---|
-| `env.zsh` | from `.zshenv` with Nix, at the top of `.zshrc` without | `EDITOR`, `VISUAL`, `LESS`, rbenv, deno and fnm roots, fzf defaults, PATH |
-| `startup.zsh` | early in `.zshrc` | rbenv and fnm init, `~/.zshrc.local`, the herdr autostart |
-| `rc.zsh` | after the plugins | history, aliases, completion styles, prompt, the Oh My Zsh git plugin, the fzf branch widgets, the `claude` wrapper, highlight colours |
+| `env.zsh` | from `.zshenv` with Nix, at the top of `.zshrc` without | `EDITOR` and `VISUAL` (`hx`), `LESS`, deno and fnm roots, fzf defaults, PATH |
+| `startup.zsh` | early in `.zshrc` | fnm init, `~/.zshrc.local`, the herdr autostart |
+| `rc.zsh` | after the plugins | history, aliases, completion styles, prompt, the Oh My Zsh git plugin, the fzf branch widgets, highlight colours |
 
 `nix/home/zsh.nix` adds `compinit`, the you-should-use and zsh-helix-mode plugins and syntax highlighting around them. `mac/zsh/.zshrc` does the same with Homebrew, and adds `brew shellenv` and the keg-only `libpq` to PATH.
 
@@ -24,7 +24,7 @@ The herdr autostart runs `herdr && exit` in interactive shells, except inside he
 ### Plugins
 
 - Git aliases come from the Oh My Zsh `git` plugin, vendored with its `lib/git.zsh` dependency and MIT licence under `shared/zsh/ohmyzsh/`, so no Oh My Zsh install is needed. It is sourced after `compinit` because it registers completions.
-- The command line uses Helix keybindings from [zsh-helix-mode](https://github.com/Multirious/zsh-helix-mode), vendored with its MIT licence under `shared/zsh/zsh-helix-mode/` at commit `e8d4940`. It replaces the vi keymap zsh would otherwise pick because `EDITOR=nvim`. It is sourced before syntax highlighting, and `zhm-add-update-region-highlight-hook` runs after it so the selection stays visible. To update, copy `LICENSE`, `zsh-helix-mode.zsh` and `zsh-helix-mode.plugin.zsh` from a newer commit and change the hash here.
+- The command line uses Helix keybindings from [zsh-helix-mode](https://github.com/Multirious/zsh-helix-mode), vendored with its MIT licence under `shared/zsh/zsh-helix-mode/` at commit `e8d4940`. It replaces the keymap zsh would otherwise pick from `EDITOR`. It is sourced before syntax highlighting, and `zhm-add-update-region-highlight-hook` runs after it so the selection stays visible. To update, copy `LICENSE`, `zsh-helix-mode.zsh` and `zsh-helix-mode.plugin.zsh` from a newer commit and change the hash here.
 - `shared/zsh/fzf-git-branch.zsh` puts a branch picker on `ctrl+g` (local) and `ctrl+shift+g` (remote).
 
 The prompt is bash-style with the git branch from `vcs_info`. The accent colour `#FFBAF3` is shared with the syntax highlighting.
@@ -41,4 +41,8 @@ On NixOS `SSH_AUTH_SOCK` points at `$XDG_RUNTIME_DIR/ssh-agent.socket`, served b
 
 - **pgf** — fzf picker for psql connections and saved queries, from [kremeshnoi/pgf](https://github.com/kremeshnoi/pgf). The home-manager module installs it on the Nix machines; `install.sh` clones it and links it into `~/.local/bin`. Connections come from `~/.pg_service.conf`.
 - **direnv** with nix-direnv: a project with its own `flake.nix` and an `.envrc` containing `use flake` gets its toolchain on `cd`.
-- **zoxide**, **fzf**, **dircolors** on every machine; neovim keeps its own `~/.config/nvim` repo, and home-manager passes its settings through the wrapper with `sideloadInitLua` instead of writing `init.lua`.
+- **zoxide** and **fzf** on every machine. The editor is Helix: `EDITOR`, `VISUAL` and git's `core.editor` are `hx`.
+
+## Colours
+
+`ls` is GNU `ls` everywhere, so it colours the same way on every machine: NixOS has it as `ls`, the Macs get it as `gls` from `coreutils-prefixed` (Nix) or `coreutils` (Homebrew), and `rc.zsh` aliases `ls` to whichever exists. The prefixed build leaves the BSD `date`, `stat` and friends in place. `LS_COLORS` comes from `shared/zsh/dir_colors`, the coreutils default database, through `dircolors` or `gdircolors`; completion lists use the same colours.

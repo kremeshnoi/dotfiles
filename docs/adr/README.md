@@ -11,10 +11,13 @@ One file per decision that shaped the repo: what was decided, why, and what it c
 | [0005](0005-mac-without-nix.md) | A Mac without Nix is set up by Homebrew and symlinks | accepted |
 | [0006](0006-pin-herdr-and-reviewr.md) | herdr and reviewr are pinned in one file for every machine | accepted |
 | [0007](0007-editor-tooling-vs-runtimes.md) | Editor tooling comes from the system, runtimes from version managers | accepted |
-| [0008](0008-secrets-with-sops-and-age.md) | Secrets are encrypted with sops and age | accepted |
+| [0008](0008-secrets-with-sops-and-age.md) | Secrets are encrypted with sops and age | superseded by 0012 |
 | [0009](0009-everything-nix-under-nix.md) | Everything Nix lives under `nix/` | accepted |
 | [0010](0010-work-only-herdr-sidebar.md) | The team sidebar in herdr is work-Mac only and generated | accepted |
 | [0011](0011-repo-at-dev-dotfiles.md) | The repo lives at `~/dev/dotfiles` on every machine | accepted |
+| [0012](0012-dropped-tools.md) | neovim, wakatime, Ruby, herdr goto and the claude wrapper are dropped | accepted |
+| [0013](0013-managed-subset.md) | The dotfiles manage a subset of each machine, kept in sync by a check | accepted |
+| [0014](0014-hx-wrapper-without-nix.md) | The Mac without Nix wraps `hx` too | accepted |
 
 ## Template
 

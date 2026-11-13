@@ -4,4 +4,4 @@
 
 Only the skills are shared. `CLAUDE.md`, history, credentials, `settings.json`, commands, output styles and the `skills/synced` folder Claude manages itself stay local.
 
-`shared/zsh/rc.zsh` wraps `claude` so it runs `claude-trust "$PWD"` first, and `c` is an alias for `claude --dangerously-skip-permissions`.
+`shared/zsh/rc.zsh` adds `c` as an alias for `claude --dangerously-skip-permissions`.

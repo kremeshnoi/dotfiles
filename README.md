@@ -4,7 +4,7 @@ Configs for NixOS under WSL, a Mac with nix-darwin, a Mac without Nix and the Wi
 
 ```
 nix/       NixOS-WSL and nix-darwin with one home-manager setup, built from nix/flake.nix
-shared/    configs that work on any OS: zsh, git, Helix, herdr, Claude skills, secrets
+shared/    configs that work on any OS: zsh, git, Helix, herdr, Claude skills
 mac/       submodule → mac-ricing: GlazeWM, SwiftBar, Ghostty, herdr for macOS, and install.sh for a Mac without Nix
 windows/   submodule → win-ricing: the Windows rice
 docs/      how it works, rules, decisions
@@ -23,14 +23,15 @@ git clone --recurse-submodules git@github.com:kremeshnoi/dotfiles.git ~/dev/dotf
 | Mac without Nix | `~/dev/dotfiles/mac/install.sh` |
 | Windows | see [win-ricing](https://github.com/kremeshnoi/win-ricing) |
 
-After the first switch, `nh os switch` and `nh darwin switch` rebuild from the repo. Secrets need the age key in `~/.config/sops/age/keys.txt`. Details per machine are in [docs/machines.md](docs/machines.md).
+After the first switch, `nh os switch` and `nh darwin switch` rebuild from the repo. Details per machine are in [docs/machines.md](docs/machines.md).
 
 ## Docs
 
+- [For agents](docs/agents.md) — start here to set up, update or extend the dotfiles with an AI agent
 - [Architecture](docs/architecture.md) — which machine takes what, how a file reaches `$HOME`
 - [Rules](docs/rules.md) — where a new file goes and how to add things
 - [Keybindings](docs/keybindings.md) — GlazeWM and herdr across macOS and Windows
-- [Shell](docs/shell.md), [Helix](docs/helix.md), [herdr](docs/herdr.md), [NixOS](docs/nixos.md), [Secrets](docs/secrets.md), [Claude Code](docs/claude-code.md)
+- [Shell](docs/shell.md), [Helix](docs/helix.md), [herdr](docs/herdr.md), [NixOS](docs/nixos.md), [Claude Code](docs/claude-code.md)
 - [Decisions](docs/adr/README.md) and the [roadmap](docs/roadmap.md)
 
 ## License

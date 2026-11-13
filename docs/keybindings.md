@@ -40,8 +40,9 @@ Both configs route windows by process name, focus follows the routed window, and
 - The `cmd+ctrl` bindings are grabbed system-wide.
 - `window_process` matches the localized app name (`Microsoft Edge`, `System Settings`), so the rules assume an English system. macOS system apps go to `system`.
 - `cmd+shift+q` runs `kill-workspace.sh`, which jumps to the previous workspace and quits every app on the one it left; Finder windows are only closed. GlazeWM runs commands from `/`, so the binding calls the script through `bash -c $HOME/...`.
+- Ghostty looks like Windows Terminal on the Windows host: `JetBrainsMono Nerd Font`, the `Hyper` palette, a bar cursor, 85% opacity, bold text in bright colours. The font comes from the `font-jetbrains-mono-nerd-font` cask on both Macs.
 - The active workspace is shown in the menu bar by a streamable SwiftBar plugin that re-renders on `glazewm sub` events; clicking it lists every workspace.
-- Ghostty runs `macos-option-as-alt = true`, which frees Alt for nvim and herdr. Splits are on `cmd+ctrl+hjkl`, creating them adds `shift`.
+- Ghostty runs `macos-option-as-alt = true`, which frees Alt for herdr and Helix. Splits are on `cmd+ctrl+hjkl`, creating them adds `shift`.
 
 ## herdr
 
@@ -54,6 +55,6 @@ The same navigation on both systems: `h`/`l` switch tabs, `j`/`k` switch workspa
 | agents | `alt+shift+j` / `alt+shift+k` | `lwin+shift+j` / `lwin+shift+k` |
 | panes | `alt+shift+h` / `alt+shift+l` | `lwin+shift+h` / `lwin+shift+l` |
 | reviewr | `alt+shift+r` | `lwin+shift+r` |
-| go to any tab (`herdr-goto` popup) | `alt+shift+f` | `lwin+shift+f` |
+| pane up / down | `ctrl+z` then `up` / `down` | `ctrl+z` then `up` / `down` |
 
 macOS reaches them in herdr's own config. On Windows, Win combos never reach a TUI behind the terminal, so AutoHotkey catches them and hands them to `herdr-nav`, see [herdr.md](herdr.md).

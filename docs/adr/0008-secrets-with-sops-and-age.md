@@ -1,6 +1,6 @@
 # 0008. Secrets are encrypted with sops and age
 
-- Status: accepted
+- Status: superseded by [0012](0012-dropped-tools.md): no secrets are left
 - Date: 2026-10-28
 
 ## Context

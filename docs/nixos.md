@@ -1,6 +1,6 @@
 # NixOS under WSL
 
-The Linux side is [NixOS-WSL](https://github.com/nix-community/NixOS-WSL), built from `nix/flake.nix`. The flake pins nixpkgs, NixOS-WSL, nix-darwin, home-manager, sops-nix, nix-index-database and pgf in `nix/flake.lock`. `nix/nixos/configuration.nix` holds the system — packages, Docker, nix-ld for prebuilt binaries, the ssh-agent and `herdr-navd` user units — and `nix/home/` holds the user side.
+The Linux side is [NixOS-WSL](https://github.com/nix-community/NixOS-WSL), built from `nix/flake.nix`. The flake pins nixpkgs, NixOS-WSL, nix-darwin, home-manager, nix-index-database and pgf in `nix/flake.lock`. `nix/nixos/configuration.nix` holds the system — packages, Docker, nix-ld for prebuilt binaries, the ssh-agent and `herdr-navd` user units — and `nix/home/` holds the user side.
 
 ## Housekeeping
 
@@ -8,7 +8,7 @@ The Linux side is [NixOS-WSL](https://github.com/nix-community/NixOS-WSL), built
 - The store is garbage-collected weekly (`--delete-older-than 14d`) and optimised by systemd timers.
 - `, <program>` runs anything from nixpkgs without installing it; the prebuilt nix-index database also answers command-not-found.
 - `nix-tree` and `nvd` show what takes up space and what changed between generations.
-- From `nix/`, `nix fmt` formats the Nix files with nixfmt and `nix develop` opens a shell with nixfmt, sops, age and nvd.
+- From `nix/`, `nix fmt` formats the Nix files with nixfmt and `nix develop` opens a shell with nixfmt and nvd.
 
 ## FHS wrappers
 

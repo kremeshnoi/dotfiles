@@ -18,5 +18,5 @@ Adding a Mac without Nix meant the zsh and git settings were written twice: once
 ## Consequences
 
 - A shell or git change is made once and reaches every machine.
-- Package lists cannot be shared: Nix and Homebrew names differ, so `mac/Brewfile` is kept in sync with the Nix lists by hand.
+- Package lists cannot be shared: Nix and Homebrew names differ, so `mac/Brewfile` and the Nix lists are separate; [0013](0013-managed-subset.md) adds a check that keeps them in sync.
 - home-manager options that only switch a feature on (`syntaxHighlighting.enable`) stay in Nix; their values come from `shared/`.

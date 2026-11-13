@@ -1,6 +1,6 @@
 # 0007. Editor tooling comes from the system, runtimes from version managers
 
-- Status: accepted
+- Status: accepted; the rbenv part is dropped by [0012](0012-dropped-tools.md), the Mac without Nix gets the `hx` wrapper by [0014](0014-hx-wrapper-without-nix.md)
 - Date: 2026-11-03
 
 ## Context

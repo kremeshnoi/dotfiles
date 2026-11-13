@@ -15,7 +15,7 @@ nix-darwin builds `darwinConfigurations.mac` (Apple Silicon). Nix comes from the
 sudo nix run nix-darwin/nix-darwin-26.05#darwin-rebuild -- switch --flake ~/dev/dotfiles/nix#mac
 ```
 
-After that `nh darwin switch` rebuilds from the repo (`NH_FLAKE` points to `~/dev/dotfiles/nix`). The first switch moves an existing `~/.zshrc` and the rest out of the way as `<name>.hm-backup`. The age key has to be in `~/.config/sops/age/keys.txt` before the first switch, see [secrets.md](secrets.md).
+After that `nh darwin switch` rebuilds from the repo (`NH_FLAKE` points to `~/dev/dotfiles/nix`). The first switch moves an existing `~/.zshrc` and the rest out of the way as `<name>.hm-backup`.
 
 GlazeWM needs Accessibility access (System Settings → Privacy & Security → Accessibility).
 
@@ -26,7 +26,7 @@ GlazeWM needs Accessibility access (System Settings → Privacy & Security → A
 exec zsh
 ```
 
-`install.sh` runs `brew bundle` on `mac/Brewfile`, links the configs from `shared/` and `mac/`, generates the herdr config, installs the herdr plugins at the pinned versions, clones pgf into `~/.local/src/pgf` and, with an age key present, decrypts the secrets. It is safe to run again; run it after editing a generated file or bumping a version. Details are in the [mac-ricing README](https://github.com/kremeshnoi/mac-ricing).
+`install.sh` runs `brew bundle` on `mac/Brewfile`, links the configs from `shared/` and `mac/`, generates the herdr config, installs the herdr plugins at the pinned versions, clones pgf into `~/.local/src/pgf`. It is safe to run again; run it after editing a generated file or bumping a version. Details are in the [mac-ricing README](https://github.com/kremeshnoi/mac-ricing).
 
 ## NixOS under WSL
 

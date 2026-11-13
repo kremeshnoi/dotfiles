@@ -4,13 +4,12 @@
 
 | File | What it is |
 |---|---|
-| `mac/herdr/config.toml` | macOS config: `alt` as the modifier |
+| `mac/herdr/config.toml` | macOS config: `alt` as the modifier, `ctrl+z` prefix with the arrows for panes up and down |
 | `windows/herdr/config.toml` | NixOS config: the `lwin` jumps blanked out, see below |
 | `windows/herdr/herdr-nav` | the socket client AutoHotkey talks to, NixOS only |
 | `shared/herdr/versions.toml` | herdr and reviewr versions for every machine |
 | `shared/herdr/reviewr.toml` | reviewr config |
 | `shared/herdr/git-review.sh` | the Git Review toggle, installed as `~/.local/bin/herdr-git-review` |
-| `shared/herdr/goto.sh` | fzf popup listing every tab of every workspace, installed as `~/.local/bin/herdr-goto` |
 | `shared/herdr/workspace-tabs/` | plugin that lays out every new workspace |
 | `mac/herdr/space-colors/` | work Mac only: plugin and sidebar config that colour workspaces by team |
 
@@ -28,6 +27,10 @@
 **workspace-tabs** listens to `workspace.created` and turns every new workspace into five tabs in a fixed order — `Claude`, `Code`, `Terminal`, `Git`, `Daemon` — all rooted at the workspace directory, with focus back on `Claude`. The same script runs as the `kremeshnoi.workspace-tabs.bootstrap` action for a workspace that already exists and only adds the tabs it is missing.
 
 **space-colors** tags each workspace with the team directory under `~/dev/teams/` its panes live in; `sidebar.toml` colours the sidebar by those tags. It is registered on the work Mac only ([ADR 0010](adr/0010-work-only-herdr-sidebar.md)).
+
+## Shared behaviour
+
+Both configs keep the same non-key settings by hand, since herdr has no include: the tab bar at the bottom, the native host cursor, agent labels on pane borders, the agent panel sorted by spaces, status shown as symbols, and the theme. A change to one belongs in the other in the same commit.
 
 ## Windows
 

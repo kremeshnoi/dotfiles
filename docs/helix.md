@@ -12,8 +12,7 @@ Helix picks the server for each language itself, and only the servers it picks a
 | Formatter for JS/TS, Vue, HTML/CSS/SCSS | `prettier` | `prettier` | `prettier` |
 | Java | `jdtls` | `jdt-language-server` | `jdtls` |
 | Kotlin | `kotlin-language-server` | `kotlin-language-server` | `kotlin-language-server` |
-| Ruby | `ruby-lsp` | `ruby-lsp` | `ruby-lsp` |
-| PHP | `intelephense` | `intelephense` | — |
+| PHP | `intelephense` | `intelephense` | npm, see below |
 | Rust | `rust-analyzer` | `rust-analyzer-unwrapped` | `rust-analyzer` |
 | Lua | `lua-language-server` | `lua-language-server` | `lua-language-server` |
 | Clojure | `clojure-lsp` | `clojure-lsp` | `clojure-lsp` |
@@ -23,6 +22,8 @@ Helix picks the server for each language itself, and only the servers it picks a
 | Dockerfile | `docker-langserver` | `dockerfile-language-server` | `dockerfile-language-server` |
 | Compose | `docker-compose-langserver` | `docker-compose-language-service` | `docker-compose-langserver` |
 
-With Nix, `hx` is wrapped with the servers prepended to `PATH`, so a binary from `npm i -g` or a rustup proxy in `~/.cargo/bin` never shadows them, and they stay invisible to the shell. The flake takes `rust-analyzer-unwrapped` without the Nix `RUST_SRC_PATH`, so `rust-src` and the proc-macro server come from the active rustup toolchain. Why the servers come from the system while runtimes do not is in [ADR 0007](adr/0007-editor-tooling-vs-runtimes.md).
+`hx` is wrapped on every machine so the managed servers come first in its `PATH`, and a binary from `npm i -g` or a rustup proxy in `~/.cargo/bin` never shadows them. With Nix the wrapper is built in `nix/home/helix.nix` and the servers stay invisible to the shell. Without Nix it is `mac/helix/hx`, linked to `~/.local/bin/hx` ahead of Homebrew's `hx`: it puts `intelephense` and `/opt/homebrew/bin` first and runs `/opt/homebrew/bin/hx`; the servers stay on the shell's `PATH` there. The flake takes `rust-analyzer-unwrapped` without the Nix `RUST_SRC_PATH`, so `rust-src` and the proc-macro server come from the active rustup toolchain. Why the servers come from the system while runtimes do not is in [ADR 0007](adr/0007-editor-tooling-vs-runtimes.md).
+
+Homebrew has no `intelephense`, so `mac/install.sh` installs it with `npm install --prefix ~/.local/share/intelephense` at the version nixpkgs carries (`intelephense_version` in `install.sh`, now 1.18.2) and links it into `~/.local/bin`. A separate prefix keeps it independent of the Node version fnm has active; Node itself comes from fnm at run time. After a flake update, bump `intelephense_version` to the new nixpkgs version. Some features need a paid licence; the free part covers completion, navigation and diagnostics.
 
 Each built-in theme has a `_transparent` variant with the background removed from the editor and the statusline, so the terminal's background shows through.

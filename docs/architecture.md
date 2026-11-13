@@ -11,7 +11,7 @@ windows/  submodule → win-ricing: the Windows rice
 
 Each part has one job:
 
-- `shared/` holds settings: zsh, git, Helix, herdr scripts and plugins, Claude skills, secrets. Nothing in it knows which OS it runs on.
+- `shared/` holds settings: zsh, git, Helix, herdr scripts and plugins, Claude skills. Nothing in it knows which OS it runs on.
 - `mac/` and `windows/` hold settings that only make sense on one OS: the window manager, the menu bar, the terminal, the herdr keybindings of that OS. Every machine on that OS takes them from the same place.
 - `nix/` holds no settings of its own beyond packages and system options. It takes files from `shared/`, `mac/` and `windows/` and puts them where they belong.
 - `mac/install.sh` does the same job as `nix/` for a Mac where Nix is not allowed.
@@ -33,10 +33,7 @@ Both Nix systems share one home-manager configuration in `nix/home/`; the few di
 
 **With Nix.** home-manager builds every managed file into the store, and `nix/home/copy-files.nix` copies it into `$HOME` instead of linking it ([ADR 0002](adr/0002-copy-home-files-instead-of-symlinking.md)). A repo edit takes effect after the next switch. The flake sets `self.submodules`, so files in `mac/` and `windows/` are part of the build.
 
-**Without Nix.** `mac/install.sh` links each file from the checkout into `$HOME`, so a repo edit takes effect at once ([ADR 0005](adr/0005-mac-without-nix.md)). Two kinds of files are not links:
-
-- `~/.config/herdr/config.toml` is generated from `mac/herdr/config.toml` and `mac/herdr/space-colors/sidebar.toml`, since herdr reads a single file ([ADR 0010](adr/0010-work-only-herdr-sidebar.md));
-- decrypted secrets are written with mode 600 ([secrets.md](secrets.md)).
+**Without Nix.** `mac/install.sh` links each file from the checkout into `$HOME`, so a repo edit takes effect at once ([ADR 0005](adr/0005-mac-without-nix.md)). One file is not a link: `~/.config/herdr/config.toml` is generated from `mac/herdr/config.toml` and `mac/herdr/space-colors/sidebar.toml`, since herdr reads a single file ([ADR 0010](adr/0010-work-only-herdr-sidebar.md)).
 
 A file in the way is moved aside: `<name>.hm-backup` with Nix, `<name>.backup-<timestamp>` with `install.sh`.
 
@@ -59,4 +56,4 @@ home-manager and `mac/zsh/.zshrc` only add what differs: where the plugins come 
 
 ## CI
 
-`.github/workflows/flake-check.yml` runs `nix flake check ./nix` on every push. `update-flake-lock.yml` runs `nix flake update` every Monday, checks the result and opens a pull request. Both rewrite the GitHub ssh URLs to https, since the runner has no SSH key and the submodules are public.
+`.github/workflows/flake-check.yml` runs `.github/scripts/packages.py`, which fails when the package lists of the machines drift apart, and `nix flake check ./nix` on every push. `update-flake-lock.yml` runs `nix flake update` every Monday, checks the result and opens a pull request. Both rewrite the GitHub ssh URLs to https, since the runner has no SSH key and the submodules are public.
