@@ -27,29 +27,12 @@ in
     age
   ];
 
-  home.sessionVariables = {
-    VISUAL = "nvim";
-    LESS = "-R -F -X -i";
-    RBENV_ROOT = "$HOME/.rbenv";
-    DENO_INSTALL = "$HOME/.deno";
-    FNM_PATH = "$HOME/.local/share/fnm";
-  } // lib.optionalAttrs (!isDarwin) {
+  home.sessionVariables = lib.optionalAttrs (!isDarwin) {
     SSH_AUTH_SOCK = "\${XDG_RUNTIME_DIR:-/run/user/$(id -u)}/ssh-agent.socket";
   };
 
-  home.sessionPath = [
-    "$HOME/bin"
-    "$HOME/.local/bin"
-    "$HOME/.rbenv/bin"
-    "$HOME/.deno/bin"
-    "$HOME/.local/share/fnm"
-    "$HOME/go/bin"
-    "$HOME/.cargo/bin"
-  ];
-
   programs.neovim = {
     enable = true;
-    defaultEditor = true;
     sideloadInitLua = true;
     withPython3 = true;
     withRuby = true;
@@ -58,8 +41,6 @@ in
   programs.fzf = {
     enable = true;
     enableZshIntegration = false;
-    defaultCommand = "rg --files --hidden --glob '!.git/*'";
-    defaultOptions = [ "--height 40%" "--layout=reverse" "--border" "--info=inline" ];
   };
 
   programs.zoxide.enable = true;

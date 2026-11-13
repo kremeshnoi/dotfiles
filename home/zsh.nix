@@ -1,10 +1,7 @@
 { lib, pkgs, ... }:
 
 let
-  accent = "fg=#FFBAF3";
-  ohmyzsh = ../shared/zsh/ohmyzsh;
-  zsh-helix-mode = ../shared/zsh/zsh-helix-mode;
-  fzf-git-branch = ../shared/zsh/fzf-git-branch.zsh;
+  zsh = ../shared/zsh;
 in
 {
   programs.zsh = {
@@ -19,88 +16,23 @@ in
       }
       {
         name = "zsh-helix-mode";
-        src = zsh-helix-mode;
+        src = "${zsh}/zsh-helix-mode";
         file = "zsh-helix-mode.plugin.zsh";
       }
     ];
 
-    history = {
-      size = 10000;
-      save = 10000;
-      share = true;
-      ignoreDups = true;
-      ignoreSpace = true;
-    };
+    syntaxHighlighting.enable = true;
 
-    syntaxHighlighting = {
-      enable = true;
-      styles = {
-        command = accent;
-        builtin = accent;
-        function = accent;
-        alias = accent;
-        suffix-alias = accent;
-        global-alias = accent;
-        hashed-command = accent;
-        autodirectory = accent;
-        reserved-word = accent;
-        precommand = accent;
-        path = "none";
-        path_pathseparator = "none";
-        path_prefix = "none";
-        path_prefix_pathseparator = "none";
-      };
-    };
-
-    shellAliases = {
-      ls = "ls --color=auto";
-      grep = "grep --color=auto";
-      fgrep = "fgrep --color=auto";
-      egrep = "egrep --color=auto";
-      v = "nvim";
-      ll = "ls -alF";
-      la = "ls -A";
-      l = "ls -CF";
-      c = "claude --dangerously-skip-permissions";
-    };
+    envExtra = ''
+      source ${zsh}/env.zsh
+    '';
 
     initContent = lib.mkMerge [
       (lib.mkOrder 510 ''
-        command -v rbenv >/dev/null && eval "$(rbenv init - zsh)"
-        command -v fnm >/dev/null && eval "$(fnm env --use-on-cd --log-level quiet --shell zsh)"
-
-        [ -r "$HOME/.zshrc.local" ] && source "$HOME/.zshrc.local"
-
-        if [[ -o interactive && -z "$HERDR_ENV" && -z "$NO_HERDR" && -z "$SSH_CONNECTION" && "$TERM_PROGRAM" != "vscode" ]] && command -v herdr >/dev/null; then
-          herdr && exit
-        fi
+        source ${zsh}/startup.zsh
       '')
       ''
-        setopt INC_APPEND_HISTORY
-        unsetopt BEEP LIST_BEEP HIST_BEEP
-
-        zstyle ':completion:*' menu select
-        zstyle ':completion:*' matcher-list 'm:{a-zA-Z}={A-Za-z}' 'r:|=*' 'l:|=* r:|=*'
-        zstyle ':completion:*' list-colors "''${(s.:.)LS_COLORS}" 'ma=27;01'
-
-        autoload -Uz vcs_info
-        precmd() { vcs_info }
-        zstyle ':vcs_info:git:*' formats ' (%b)'
-        zstyle ':vcs_info:*' enable git
-        setopt PROMPT_SUBST
-        PROMPT='%F{green}%n@%m%f:%F{blue}%~%f%F{#FFBAF3}''${vcs_info_msg_0_}%f$ '
-
-        source ${ohmyzsh}/lib/git.zsh
-        source ${ohmyzsh}/plugins/git/git.plugin.zsh
-        source ${fzf-git-branch}
-
-        typeset -U path PATH
-
-        unalias claude 2>/dev/null
-        function claude {
-          command claude-trust "$PWD" 2>/dev/null
-          command claude "$@"
-        }
+        source ${zsh}/rc.zsh
       ''
       (lib.mkAfter ''
         zhm-add-update-region-highlight-hook
