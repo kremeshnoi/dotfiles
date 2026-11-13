@@ -162,7 +162,6 @@ in
     fastfetch
     nvd
     nix-tree
-    ngrok
     jdk17
     php
     python3
@@ -177,13 +176,10 @@ in
     gh-dash
     stylua
     dprint
-    tree-sitter
     shfmt
-    ruby-lsp
     eslint_d
     prettier
     railway
-    wakatime-cli
     docker-compose
   ];
 
