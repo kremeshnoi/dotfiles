@@ -2,7 +2,7 @@
 	ui = true
 [core]
 	autocrlf = input
-	editor = nvim
+	editor = hx
 	eol = lf
 [pull]
 	rebase = false
