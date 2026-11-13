@@ -6,26 +6,26 @@ Configs for two systems — macOS with nix-darwin and Windows 11 with NixOS unde
 flake.nix                        NixOS-WSL + nix-darwin systems with home-manager, pinned by flake.lock
 .github/workflows/               nix flake check on push, weekly flake.lock update PR
 darwin/configuration.nix         nix-darwin — packages, Homebrew casks, macOS defaults
-darwin/glazewm/config.yaml       GlazeWM — tiling WM, same setup as on Windows
-darwin/glazewm/kill-workspace.sh quits every app on the focused workspace
-darwin/swiftbar/glazewm.sh       SwiftBar plugin showing the active GlazeWM workspace
-darwin/ghostty/config            Ghostty — terminal
-darwin/herdr/config.toml         herdr — alt as the modifier
 pkgs/herdr.nix                   herdr release binary for both systems
+mac/                             submodule → mac-ricing, the macOS app configs and the setup for a Mac without Nix
 windows/                         submodule → win-ricing, the whole Windows rice
 nixos/configuration.nix          NixOS-WSL — packages, services, FHS wrappers
 nixos/ROADMAP.md                 NixOS features planned but not set up yet
 home/                            home-manager for both systems — zsh, git, ssh, neovim, helix, fzf, zoxide, direnv, herdr, claude, secrets
 secrets/secrets.yaml             sops-encrypted wakatime and ngrok configs
 .sops.yaml                       age recipients for secrets/
+shared/zsh/env.zsh               environment variables and PATH, sourced from .zshenv
+shared/zsh/startup.zsh           rbenv, fnm, ~/.zshrc.local and the herdr autostart, sourced early
+shared/zsh/rc.zsh                aliases, prompt, completion, highlight colours, git and fzf widgets
+shared/git/config                git settings without the user, included by home/git.nix
 shared/zsh/ohmyzsh/              vendored Oh My Zsh git plugin — git aliases (gst, gco, gp…)
 shared/zsh/zsh-helix-mode/       vendored zsh-helix-mode — Helix keybindings on the command line
 shared/helix/                    Helix — editor config, LSP setup and transparent themes
-shared/herdr/                    herdr — reviewr config, the Git Review toggle script and the workspace-tabs plugin
+shared/herdr/                    herdr — pinned herdr and reviewr versions, reviewr config, the Git Review toggle script and the workspace-tabs plugin
 shared/claude/                   Claude Code skills, currently commit
 ```
 
-The whole Windows side — configs and the rest of the rice — lives in [win-ricing](https://github.com/kremeshnoi/win-ricing) and is pulled in here as the `windows` submodule:
+The whole Windows side — configs and the rest of the rice — lives in [win-ricing](https://github.com/kremeshnoi/win-ricing) and is pulled in here as the `windows` submodule. The macOS app configs — GlazeWM, SwiftBar, Ghostty, herdr — live in [mac-ricing](https://github.com/kremeshnoi/mac-ricing) as the `mac` submodule; nix-darwin copies them from there, and a Mac where Nix is not allowed takes the same files through `mac/install.sh`:
 
 ```bash
 git clone --recurse-submodules git@github.com:kremeshnoi/dotfiles.git
@@ -60,11 +60,11 @@ Both configs route windows by process name, focus follows the routed window, and
 
 ## macOS
 
-[GlazeWM](https://github.com/glzr-io/glazewm) + [Ghostty](https://ghostty.org), set up by [nix-darwin](https://github.com/nix-darwin/nix-darwin) from `darwinConfigurations.mac` (Apple Silicon). Nix itself comes from the [official installer](https://nixos.org/download/), Homebrew from [brew.sh](https://brew.sh): nix-darwin drives it for the casks — GlazeWM, SwiftBar, Ghostty — and leaves anything else installed alone. The SwiftBar plugin directory is set through `system.defaults`.
+[GlazeWM](https://github.com/glzr-io/glazewm) + [Ghostty](https://ghostty.org), set up by [nix-darwin](https://github.com/nix-darwin/nix-darwin) from `darwinConfigurations.mac` (Apple Silicon), with the app configs taken from the `mac` submodule. A Mac where Nix cannot be installed uses `mac/install.sh` from [mac-ricing](https://github.com/kremeshnoi/mac-ricing) instead: Homebrew for the packages and symlinks into this repo for the configs, `shared/` included. Nix itself comes from the [official installer](https://nixos.org/download/), Homebrew from [brew.sh](https://brew.sh): nix-darwin drives it for the casks — GlazeWM, SwiftBar, Ghostty — and leaves anything else installed alone. The SwiftBar plugin directory is set through `system.defaults`.
 
 ```bash
-git clone --recurse-submodules git@github.com:kremeshnoi/dotfiles.git ~/dev/dotfiles/dotfiles
-sudo nix run nix-darwin/nix-darwin-26.05#darwin-rebuild -- switch --flake ~/dev/dotfiles/dotfiles#mac
+git clone --recurse-submodules git@github.com:kremeshnoi/dotfiles.git ~/dev/dotfiles
+sudo nix run nix-darwin/nix-darwin-26.05#darwin-rebuild -- switch --flake ~/dev/dotfiles#mac
 ```
 
 After that `nh darwin switch` rebuilds from the repo. The first switch moves an existing `~/.zshrc` and the rest out of the way as `<name>.hm-backup`.
@@ -82,7 +82,7 @@ See [win-ricing](https://github.com/kremeshnoi/win-ricing), mounted here as `win
 The Linux side under WSL is [NixOS-WSL](https://github.com/nix-community/NixOS-WSL), built from `flake.nix` at the repo root. The flake pins nixpkgs, NixOS-WSL, home-manager, sops-nix and nix-index-database in `flake.lock`; `nixos/configuration.nix` holds the system — packages, Docker, nix-ld for prebuilt binaries, the ssh-agent and `herdr-navd` user units — and `home/` holds the user side through home-manager.
 
 ```bash
-sudo nixos-rebuild switch --flake ~/dev/dotfiles/dotfiles#nixos
+sudo nixos-rebuild switch --flake ~/dev/dotfiles#nixos
 ssh-add ~/.ssh/id_ed25519
 ```
 
@@ -104,7 +104,7 @@ Docker runs on the NixOS engine only, `lazydocker` is the dashboard.
 
 ## zsh
 
-`home/zsh.nix` builds the shell on both systems. Git aliases come from the Oh My Zsh `git` plugin, vendored with its `lib/git.zsh` dependency and MIT licence under `shared/zsh/ohmyzsh/`, so no Oh My Zsh install is needed; it is sourced after `compinit` because it registers completions. Anything machine-specific goes into `~/.zshrc.local`, which is sourced early and never committed.
+`home/zsh.nix` builds the shell on both systems, and the shell itself lives in `shared/zsh`: `env.zsh` sets the environment and PATH from `.zshenv`, `startup.zsh` runs early, `rc.zsh` holds the history, aliases, prompt, completion styles, highlight colours and widgets. home-manager only adds the plugins and syntax highlighting around them, and `mac/zsh/.zshrc` does the same with Homebrew on the Mac without Nix. git works the same way: `shared/git/config` holds the settings, `home/git.nix` includes it and adds the user. Git aliases come from the Oh My Zsh `git` plugin, vendored with its `lib/git.zsh` dependency and MIT licence under `shared/zsh/ohmyzsh/`, so no Oh My Zsh install is needed; it is sourced after `compinit` because it registers completions. Anything machine-specific goes into `~/.zshrc.local`, which is sourced early and never committed.
 
 The command line uses Helix keybindings from [zsh-helix-mode](https://github.com/Multirious/zsh-helix-mode), vendored with its MIT licence under `shared/zsh/zsh-helix-mode/` at commit `e8d4940`. It replaces the vi keymap zsh would otherwise pick because `EDITOR=nvim`. It is sourced before syntax-highlighting, and `zhm-add-update-region-highlight-hook` runs after syntax-highlighting so the selection stays visible. To update, copy `LICENSE`, `zsh-helix-mode.zsh` and `zsh-helix-mode.plugin.zsh` from a newer commit and change the hash here.
 
@@ -141,13 +141,13 @@ Language servers are editor tooling, so they come from Nix on both systems, `rus
 
 The same `hjkl` navigation on both systems — `h`/`l` switch tabs, `j`/`k` switch workspaces, adding `shift` switches agents with `j`/`k` and panes with `h`/`l` — but reached in two different ways, because only macOS can express it in herdr's own config.
 
-macOS uses `alt`: Ghostty passes Option through as Alt, so herdr sees the combo itself. `home/herdr.nix` copies `darwin/herdr/config.toml` there and `windows/herdr/config.toml` on NixOS.
+macOS uses `alt`: Ghostty passes Option through as Alt, so herdr sees the combo itself. `home/herdr.nix` copies `mac/herdr/config.toml` there and `windows/herdr/config.toml` on NixOS.
 
 The one third-party plugin is [reviewr](https://github.com/persiyanov/herdr-reviewr): it shows the agent's diff in a pane, lets you comment on lines and sends the comments back to the agent. `alt+shift+r` toggles it on macOS, `lwin+shift+r` on Windows. It opens in its own tab, set by `toggle_placement` in `shared/herdr/reviewr.toml`. reviewr always names that tab `reviewr`, so the toggle goes through a wrapper that waits for that tab, renames it to `Git Review` and focuses it: `shared/herdr/git-review.sh`, copied to `~/.local/bin/herdr-git-review`, on macOS and NixOS, and `herdr-nav reviewr` on Windows. On both systems `home/herdr.nix` builds the plugin root from the release binary and the manifest of a pinned tag, and a home-manager activation step runs `herdr plugin link` on that store path whenever it changes, so the version moves with the flake. The root is read-only, which reviewr is fine with: it only writes under `~/.local/state` and `~/.local/bin`.
 
 The local plugin `shared/herdr/workspace-tabs` listens to `workspace.created` and turns every new workspace into five tabs in a fixed order — `Claude`, `Code`, `Terminal`, `Git`, `Daemon` — all rooted at the workspace directory, with focus back on `Claude`. The same script runs as the `kremeshnoi.workspace-tabs.bootstrap` action for a workspace that already exists and only adds the tabs it is missing. It is registered from its store copy by the same activation step, so an edit applies after the next switch.
 
-Windows runs the same jumps on `lwin` without touching `[keys]` at all. Win combos never reach a TUI sitting behind the terminal, so AutoHotkey catches the key on the Windows side and hands it to `herdr-nav` running as `herdr-navd` inside NixOS, which drives herdr over its socket API. Those six entries are blanked out in the Windows copy of `config.toml` to keep a single path per action; `lwin+shift+h` / `lwin+shift+l` focus panes and `lwin+shift+n` toggles the nvim sessions sidebar and `lwin+shift+r` the reviewr pane the same way, and `prefix = "ctrl+z"` with the arrows stays for the up and down neighbours. Both files live in [win-ricing](https://github.com/kremeshnoi/win-ricing) under `herdr/`, together with the setup notes and the registry policy that frees `Win+L`.
+Windows runs the same jumps on `lwin` without touching `[keys]` at all. Win combos never reach a TUI sitting behind the terminal, so AutoHotkey catches the key on the Windows side and hands it to `herdr-nav` running as `herdr-navd` inside NixOS, which drives herdr over its socket API. Those six entries are blanked out in the Windows copy of `config.toml` to keep a single path per action; `lwin+shift+h` / `lwin+shift+l` focus panes and `lwin+shift+r` toggles the reviewr pane the same way, and `prefix = "ctrl+z"` with the arrows stays for the up and down neighbours. Both files live in [win-ricing](https://github.com/kremeshnoi/win-ricing) under `herdr/`, together with the setup notes and the registry policy that frees `Win+L`.
 
 ## Claude Code
 
