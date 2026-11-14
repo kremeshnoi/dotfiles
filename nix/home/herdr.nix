@@ -39,6 +39,7 @@ let
   plugins = [
     { id = "persiyanov.reviewr"; root = reviewr; }
     { id = "kremeshnoi.workspace-tabs"; root = "${../../shared/herdr/workspace-tabs}"; }
+    { id = "kremeshnoi.project-colors"; root = "${../../shared/herdr/project-colors}"; }
   ];
 
   registerPlugin = plugin: ''
@@ -52,7 +53,10 @@ let
   '';
 in
 {
-  xdg.configFile."herdr/config.toml".source = if isDarwin then ../../mac/herdr/config.toml else ../../windows/herdr/config.toml;
+  xdg.configFile."herdr/config.toml".text = lib.concatMapStringsSep "\n" builtins.readFile [
+    (if isDarwin then ../../mac/herdr/config.toml else ../../windows/herdr/config.toml)
+    ../../shared/herdr/project-colors/sidebar.toml
+  ];
   home.file.".local/bin/herdr-nav" = lib.mkIf (!isDarwin) { source = ../../windows/herdr/herdr-nav; };
   home.file.".local/bin/herdr-git-review".source = ../../shared/herdr/git-review.sh;
   xdg.configFile."herdr/plugins/config/persiyanov.reviewr/config.toml".source = ../../shared/herdr/reviewr.toml;
