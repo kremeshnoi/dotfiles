@@ -18,6 +18,7 @@ One file per decision that shaped the repo: what was decided, why, and what it c
 | [0012](0012-dropped-tools.md) | neovim, wakatime, Ruby, herdr goto and the claude wrapper are dropped | accepted |
 | [0013](0013-managed-subset.md) | The dotfiles manage a subset of each machine, kept in sync by a check | accepted |
 | [0014](0014-hx-wrapper-without-nix.md) | The Mac without Nix wraps `hx` too | accepted |
+| [0015](0015-project-colors-on-nix-machines.md) | The Nix machines colour herdr workspaces by project | accepted |
 
 ## Template
 

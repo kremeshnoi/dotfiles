@@ -29,7 +29,7 @@ Every tracked file, what it does and where it ends up. "Nix" means both NixOS an
 | `home/git.nix` | git with lfs and the user; includes `shared/git/config` |
 | `home/ssh.nix` | `~/.ssh/config` with `AddKeysToAgent` |
 | `home/helix.nix` | Helix wrapped with the language servers; `shared/helix` → `~/.config/helix` |
-| `home/herdr.nix` | herdr config from `mac/` or `windows/`, herdr scripts from `shared/`, reviewr plugin from its release, plugin registration on activation |
+| `home/herdr.nix` | herdr config from `mac/` or `windows/` with the project-colors sidebar appended, herdr scripts from `shared/`, reviewr plugin from its release, plugin registration on activation |
 | `home/claude.nix` | each `shared/claude/skills/<name>` → `~/.claude/skills/<name>` |
 | `home/darwin.nix` | macOS only: GlazeWM, kill-workspace, SwiftBar plugin, Ghostty from `mac/` |
 | `home/copy-files.nix` | replaces the home-manager link step with a copy step ([ADR 0002](adr/0002-copy-home-files-instead-of-symlinking.md)) |
@@ -51,6 +51,7 @@ Every tracked file, what it does and where it ends up. "Nix" means both NixOS an
 | `herdr/reviewr.toml` | reviewr config | copied | linked |
 | `herdr/git-review.sh` | Git Review toggle | `~/.local/bin/herdr-git-review` | linked there |
 | `herdr/workspace-tabs/` | herdr plugin: five tabs per new workspace | linked from the store | linked from the checkout |
+| `herdr/project-colors/` | herdr plugin and `sidebar.toml`: workspace colours by project | plugin linked from the store, `sidebar.toml` appended to the herdr config | — (the work Mac colours by team) |
 | `claude/skills/<name>/` | Claude Code skills | copied to `~/.claude/skills/` | linked there |
 
 ## mac/ (mac-ricing)

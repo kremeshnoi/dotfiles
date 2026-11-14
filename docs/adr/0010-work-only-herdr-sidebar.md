@@ -1,6 +1,6 @@
 # 0010. The team sidebar in herdr is work-Mac only and generated
 
-- Status: accepted
+- Status: accepted, the Nix side amended by [0015](0015-project-colors-on-nix-machines.md)
 - Date: 2026-11-13
 
 ## Context

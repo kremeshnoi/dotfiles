@@ -40,7 +40,7 @@ It is pinned with `brew pin`, so `brew upgrade` skips it. Unpin, upgrade, pin ag
 
 ### An edit to the herdr config does nothing
 
-On the work Mac `~/.config/herdr/config.toml` is generated: rerun `install.sh`. herdr reads one file; there is no include, only `HERDR_CONFIG_PATH`.
+On the work Mac `~/.config/herdr/config.toml` is generated: rerun `install.sh`. On the Nix machines it is generated too, with the project-colors sidebar appended: switch. herdr reads one file; there is no include, only `HERDR_CONFIG_PATH`.
 
 ## Nix
 
