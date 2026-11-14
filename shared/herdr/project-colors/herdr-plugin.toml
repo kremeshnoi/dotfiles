@@ -1,0 +1,27 @@
+id = "kremeshnoi.project-colors"
+name = "Project Colors"
+version = "0.1.0"
+min_herdr_version = "0.9.3"
+description = "Colour every workspace in the sidebar by the project under ~/dev it lives in"
+platforms = ["linux", "macos"]
+
+[[startup]]
+command = ["bash", "color.sh"]
+
+[[events]]
+on = "workspace.created"
+command = ["bash", "color.sh"]
+
+[[events]]
+on = "workspace.renamed"
+command = ["bash", "color.sh"]
+
+[[events]]
+on = "workspace.focused"
+command = ["bash", "color.sh"]
+
+[[actions]]
+id = "color"
+title = "Recolor the workspaces"
+contexts = ["workspace"]
+command = ["bash", "color.sh"]

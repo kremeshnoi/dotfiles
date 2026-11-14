@@ -1,0 +1,16 @@
+[ui.sidebar.spaces]
+row_gap = 0
+rows = [
+  [
+    "state_icon",
+    { token = "$project_blue", fg = "#82AAFF" },
+    { token = "$project_purple", fg = "#C4A7E7" },
+    { token = "$project_green", fg = "#A6E3A1" },
+    { token = "$project_red", fg = "#F28B82" },
+    { token = "$project_yellow", fg = "#F9E2AF" },
+    { token = "$project_teal", fg = "#94E2D5" },
+    { token = "$project_orange", fg = "#FFC799" },
+    { token = "$project_white", fg = "#FFFFFF" },
+  ],
+  ["branch", "git_status"],
+]
