@@ -8,7 +8,7 @@ Both systems run [GlazeWM](https://github.com/glzr-io/glazewm) with the same key
 |---|---|---|
 | focus a workspace | `cmd+shift+<key>` | `ctrl+shift+<key>` |
 | move the window to a workspace | `cmd+ctrl+shift+<key>` | `ctrl+alt+shift+<key>` |
-| new terminal | `cmd+enter` | `ctrl+enter` |
+| new terminal | `cmd+enter` | — |
 | focus left / down / up / right | `cmd+ctrl+hjkl` | `ctrl+alt+hjkl` |
 | move the window | `cmd+ctrl+shift+hjkl` | `ctrl+alt+shift+hjkl` |
 | previous / next active workspace | `cmd+shift+h` / `cmd+shift+l` | `ctrl+shift+h` / `ctrl+shift+l` |
@@ -30,7 +30,6 @@ Everything else sits on `cmd+ctrl` on macOS and on `ctrl+alt` on Windows, so her
 | discord | — | `x` |
 | telegram | — | `m` |
 | eve | — | `e` |
-| games | — | `g` |
 | misc | `9` | `9` |
 
 Both configs route windows by process name, focus follows the routed window, and everything unmatched goes to `misc` through a catch-all rule.

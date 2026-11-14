@@ -70,7 +70,7 @@ Every tracked file, what it does and where it ends up. "Nix" means both NixOS an
 
 ## windows/ (win-ricing)
 
-Only two files are read from here by this repo: `herdr/config.toml` (copied to `~/.config/herdr/config.toml` on NixOS) and `herdr/herdr-nav` (copied to `~/.local/bin/herdr-nav` on NixOS). Everything else is applied on the Windows host by hand; see its README.
+Only two files are read from here by this repo: `herdr/config.toml` (copied to `~/.config/herdr/config.toml` on NixOS) and `herdr/herdr-nav` (copied to `~/.local/bin/herdr-nav` on NixOS). Everything else is applied on the Windows host by hand; see its `docs/`.
 
 ## Outside git, on purpose
 
