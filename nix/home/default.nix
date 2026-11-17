@@ -11,6 +11,7 @@ in
     ./herdr.nix
     ./claude.nix
     ./git.nix
+    ./lazygit.nix
     ./ssh.nix
     ./copy-files.nix
     ./darwin.nix
