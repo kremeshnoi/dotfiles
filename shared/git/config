@@ -3,7 +3,16 @@
 [core]
 	autocrlf = input
 	editor = hx
+	pager = delta
 	eol = lf
+[interactive]
+	diffFilter = delta --color-only
+[delta]
+	navigate = true
+	dark = true
+	line-numbers = true
+[merge]
+	conflictStyle = zdiff3
 [pull]
 	rebase = false
 [fetch]
