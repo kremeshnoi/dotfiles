@@ -11,6 +11,7 @@ brew_to_nix = {
     "docker-compose-langserver": "docker-compose-language-service",
     "rust-analyzer": "rust-analyzer-unwrapped",
     "libpq": "postgresql",
+    "git-delta": "delta",
     "phpantom-lsp": "phpantom",
     "zsh-syntax-highlighting": "programs.zsh.syntaxHighlighting",
     "glzr-io/tap/glazewm": "cask:glazewm",

@@ -22,6 +22,8 @@ in
 
   home.packages = with pkgs; [
     lazydocker
+    lazygit
+    delta
     bat
     fnm
     postgresql
