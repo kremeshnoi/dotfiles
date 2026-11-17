@@ -33,9 +33,10 @@ herdr plugin list
 diff <(cat ~/dev/dotfiles/mac/herdr/config.toml ~/dev/dotfiles/mac/herdr/space-colors/sidebar.toml) ~/.config/herdr/config.toml
 pgf services
 git config --get diff.algorithm
+git config --get core.pager
 ```
 
-herdr matches `shared/herdr/versions.toml`; the plugin list shows reviewr at `v<version>`, workspace-tabs and space-colors from the checkout; the diff is empty; pgf lists the connections; git prints `histogram`.
+herdr matches `shared/herdr/versions.toml`; the plugin list shows reviewr at `v<version>`, workspace-tabs and space-colors from the checkout; the diff is empty; pgf lists the connections; git prints `histogram` and `delta`.
 
 Links: run the check in [links.md § Checking them](links.md#checking-them); every line must be `ok`.
 

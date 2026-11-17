@@ -33,6 +33,8 @@ The prompt is bash-style with the git branch from `vcs_info`. The accent colour 
 
 `shared/git/config` holds the settings. `nix/home/git.nix` includes it and adds the user and git-lfs; on the Mac without Nix it is linked to `~/.config/git/config`, the user stays in `~/.gitconfig`, and `install.sh` runs `git lfs install`.
 
+Diffs go through [delta](https://github.com/dandavison/delta): `core.pager` and `interactive.diffFilter` call it, the `[delta]` section turns on line numbers, `n`/`N` jumps between files and the dark palette. Merge conflicts use `zdiff3`. The package is `delta` in `nix/home/default.nix` and `git-delta` in `mac/Brewfile`.
+
 ## ssh
 
 On NixOS `SSH_AUTH_SOCK` points at `$XDG_RUNTIME_DIR/ssh-agent.socket`, served by the `ssh-agent` user unit, which stops git from asking for the key passphrase on every push. `~/.ssh/config` from `nix/home/ssh.nix` carries `AddKeysToAgent yes`, so the passphrase is asked once per WSL start, and linger keeps the agent alive after the last terminal closes. The Mac without Nix keeps its own `~/.ssh/config`.
@@ -41,6 +43,7 @@ On NixOS `SSH_AUTH_SOCK` points at `$XDG_RUNTIME_DIR/ssh-agent.socket`, served b
 
 - **pgf** — fzf picker for psql connections and saved queries, from [kremeshnoi/pgf](https://github.com/kremeshnoi/pgf). The home-manager module installs it on the Nix machines; `install.sh` clones it and links it into `~/.local/bin`. Connections come from `~/.pg_service.conf`.
 - **direnv** with nix-direnv: a project with its own `flake.nix` and an `.envrc` containing `use flake` gets its toolchain on `cd`.
+- **lazygit** reads its default path: `~/Library/Application Support/lazygit/config.yml` on macOS, `~/.config/lazygit/config.yml` on NixOS. It renders diffs with delta through `git.diffRenderers`; it ignores `core.pager`.
 - **zoxide** and **fzf** on every machine. The editor is Helix: `EDITOR`, `VISUAL` and git's `core.editor` are `hx`.
 
 ## Colours
