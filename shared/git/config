@@ -11,6 +11,7 @@
 	navigate = true
 	dark = true
 	line-numbers = true
+	syntax-theme = GitHub Dark
 [merge]
 	conflictStyle = zdiff3
 [pull]
