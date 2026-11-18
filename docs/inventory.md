@@ -24,11 +24,15 @@ Every tracked file, what it does and where it ends up. "Nix" means both NixOS an
 | `nixos/configuration.nix` | NixOS-WSL: system packages, Docker, nix-ld, FHS wrappers, `hx-open-tab`, ssh-agent and `herdr-navd` units, `programs.nh.flake` |
 | `pkgs/herdr.nix` | herdr release binary per platform, version from `shared/herdr/versions.toml` |
 | `pkgs/phpantom.nix` | PHPantom language server release binary per platform |
+| `pkgs/lazygit.nix` | lazygit release binary per platform; nixpkgs 26.05 ships 0.61, which predates `git.diffRenderers` |
+| `pkgs/delta.nix` | delta release binary per platform; lazygit 0.66 needs delta 0.20 to render the focused diff view, nixpkgs 26.05 ships 0.19 |
 | `home/default.nix` | imports the modules below; user, home dir, a few packages, `SSH_AUTH_SOCK` on Linux, fzf, pgf, zoxide, direnv |
 | `home/zsh.nix` | zsh with you-should-use and zsh-helix-mode, syntax highlighting; sources `shared/zsh/env.zsh` from `.zshenv`, `startup.zsh` and `rc.zsh` from `.zshrc` |
 | `home/git.nix` | git with lfs and the user; includes `shared/git/config` |
 | `home/ssh.nix` | `~/.ssh/config` with `AddKeysToAgent` |
 | `home/lazygit.nix` | `shared/lazygit/config.yml` → `~/Library/Application Support/lazygit/config.yml` on macOS, `~/.config/lazygit/config.yml` on NixOS |
+| `home/lazydocker.nix` | `shared/lazydocker/config.yml` → `~/Library/Application Support/lazydocker/config.yml` on macOS, `~/.config/lazydocker/config.yml` on NixOS |
+| `home/bat.nix` | builds the bat cache from `shared/bat` on activation, so bat and delta see the custom syntax themes |
 | `home/helix.nix` | Helix wrapped with the language servers; `shared/helix` → `~/.config/helix` |
 | `home/herdr.nix` | herdr config from `mac/` or `windows/` with the project-colors sidebar appended, herdr scripts from `shared/`, reviewr plugin from its release, plugin registration on activation |
 | `home/claude.nix` | each `shared/claude/skills/<name>` → `~/.claude/skills/<name>` |
@@ -47,7 +51,9 @@ Every tracked file, what it does and where it ends up. "Nix" means both NixOS an
 | `zsh/ohmyzsh/` | vendored Oh My Zsh git plugin | via `rc.zsh` | via `rc.zsh` |
 | `zsh/zsh-helix-mode/` | vendored Helix keymap for zsh | home-manager plugin | sourced from `mac/zsh/.zshrc` |
 | `git/config` | git settings without the user, delta as the pager | included by `home/git.nix` | linked to `~/.config/git/config` |
-| `lazygit/config.yml` | lazygit with delta as the diff renderer | copied to lazygit's default path | linked to `~/Library/Application Support/lazygit/config.yml` |
+| `lazygit/config.yml` | lazygit with delta as the diff renderer, without the status panel and the command log | copied to lazygit's default path | linked to `~/Library/Application Support/lazygit/config.yml` |
+| `lazydocker/config.yml` | lazydocker shows stopped containers too, returns from commands at once, opens logs with the last 500 lines | copied to lazydocker's default path | not placed yet |
+| `bat/themes/GitHub Dark.tmTheme` | syntax theme with the palette of Helix `github_dark`, used by delta | `bat cache --build --source` in `home/bat.nix` | `bat cache --build --source` in `install.sh` |
 | `helix/` | Helix config, languages, transparent themes | copied to `~/.config/helix` | linked to `~/.config/helix` |
 | `herdr/versions.toml` | herdr and reviewr versions | read by `pkgs/herdr.nix`, `home/herdr.nix` | read by `install.sh` |
 | `herdr/reviewr.toml` | reviewr config | copied | linked |

@@ -29,7 +29,7 @@
 
 **space-colors** tags each workspace with the team directory under `~/dev/teams/` its panes live in; `sidebar.toml` colours the sidebar by those tags. It is registered on the work Mac only ([ADR 0010](adr/0010-work-only-herdr-sidebar.md)).
 
-**project-colors** does the same on the Nix machines by project: `color.sh` matches the directory of the first tab of each workspace against `~/dev/otaku-library` blue, `optimum` purple, `turtle-van` green, `dotfiles` red, `edu` yellow, `nvim` teal, `kremeshnoi` orange, anything else white, on startup and whenever a workspace is created, renamed or focused. `nix/home/herdr.nix` appends its `sidebar.toml` to the herdr config ([ADR 0015](adr/0015-project-colors-on-nix-machines.md)). The `Recolor the workspaces` action runs it by hand.
+**project-colors** does the same on the Nix machines by project: `color.sh` matches the directory of the first tab of each workspace against `~/dev/otaku-library` blue, `optimum` purple, `turtle-van` green, `edu/clojure-koans` lime, `edu/rustlings` rust, the rest of `edu` yellow, `nvim` teal, `kremeshnoi` orange, `fernbloom` fernbloom, anything else white, `dotfiles` included, on startup and whenever a workspace is created, renamed or focused. `nix/home/herdr.nix` appends its `sidebar.toml` to the herdr config ([ADR 0015](adr/0015-project-colors-on-nix-machines.md)). The `Recolor the workspaces` action runs it by hand.
 
 ## Shared behaviour
 

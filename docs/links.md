@@ -89,6 +89,8 @@ The same files, as copies. `nix/home/` decides what lands where:
 | `~/.config/helix` | `shared/helix` | both |
 | `~/Library/Application Support/lazygit/config.yml` | `shared/lazygit/config.yml` | Mac |
 | `~/.config/lazygit/config.yml` | `shared/lazygit/config.yml` | NixOS |
+| `~/Library/Application Support/lazydocker/config.yml` | `shared/lazydocker/config.yml` | Mac |
+| `~/.config/lazydocker/config.yml` | `shared/lazydocker/config.yml` | NixOS |
 | `~/.claude/skills/<name>` | `shared/claude/skills/<name>` | both |
 | `~/.config/herdr/config.toml` | generated: `mac/herdr/config.toml` + `shared/herdr/project-colors/sidebar.toml` | Mac |
 | `~/.config/herdr/config.toml` | generated: `windows/herdr/config.toml` + `shared/herdr/project-colors/sidebar.toml` | NixOS |
