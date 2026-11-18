@@ -1,0 +1,6 @@
+gui:
+  returnImmediately: true
+  showAllContainers: true
+logs:
+  since: ''
+  tail: '500'
