@@ -1,3 +1,10 @@
+gui:
+  showCommandLog: false
+  sidePanels:
+    - [files, worktrees, submodules]
+    - [branches, remotes, tags]
+    - [commits, reflog]
+    - [stash]
 git:
   diffRenderers:
     - command: delta --{{colorScheme}} --paging=never --line-numbers
