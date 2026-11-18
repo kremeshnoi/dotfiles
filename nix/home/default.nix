@@ -2,6 +2,8 @@
 
 let
   isDarwin = pkgs.stdenv.hostPlatform.isDarwin;
+  lazygit = pkgs.callPackage ../pkgs/lazygit.nix { };
+  delta = pkgs.callPackage ../pkgs/delta.nix { };
 in
 
 {
@@ -24,6 +26,7 @@ in
   home.packages = with pkgs; [
     lazydocker
     lazygit
+    lazysql
     delta
     bat
     fnm
