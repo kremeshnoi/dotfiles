@@ -80,8 +80,8 @@ for kind, name in re.findall(r'^(brew|cask) "([^"]+)"', brewfile, re.M):
     if kind == "cask" and not mapped.startswith("cask:"):
         mapped = "cask:" + mapped
     brew.add(mapped)
-if "github.com/kremeshnoi/pgf" in read("mac/install.sh"):
-    brew.add("pgf")
+if "uv tool install --quiet sqlit-tui" in read("mac/install.sh"):
+    brew.add("sqlit-tui")
 
 darwin.discard("zsh")
 nixos.discard("zsh")
