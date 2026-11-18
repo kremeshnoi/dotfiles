@@ -1,4 +1,4 @@
-theme = "jetbrains_dark_transparent"
+theme = "github_dark_transparent"
 
 [editor]
 line-number = "relative"
