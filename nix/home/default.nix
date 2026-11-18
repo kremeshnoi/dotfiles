@@ -45,8 +45,6 @@ in
     enableZshIntegration = false;
   };
 
-  programs.pgf.enable = true;
-
   programs.zoxide.enable = true;
   programs.direnv = {
     enable = true;

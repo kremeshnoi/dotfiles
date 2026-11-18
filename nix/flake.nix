@@ -18,13 +18,9 @@
       url = "github:nix-community/nix-index-database";
       inputs.nixpkgs.follows = "nixpkgs";
     };
-    pgf = {
-      url = "github:kremeshnoi/pgf";
-      inputs.nixpkgs.follows = "nixpkgs";
-    };
   };
 
-  outputs = { nixpkgs, nixos-wsl, nix-darwin, home-manager, nix-index-database, pgf, ... }:
+  outputs = { nixpkgs, nixos-wsl, nix-darwin, home-manager, nix-index-database, ... }:
   let
     system = "x86_64-linux";
     pkgs = nixpkgs.legacyPackages.${system};
@@ -33,9 +29,6 @@
         useGlobalPkgs = true;
         useUserPackages = true;
         backupFileExtension = "hm-backup";
-        sharedModules = [
-          pgf.homeManagerModules.default
-        ];
         users.kremeshnoi = import ./home;
       };
     };
