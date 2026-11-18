@@ -29,6 +29,7 @@ in
     lazydocker
     lazygit
     lazysql
+    sqlit-tui
     delta
     bat
     fnm
