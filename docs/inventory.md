@@ -18,7 +18,7 @@ Every tracked file, what it does and where it ends up. "Nix" means both NixOS an
 
 | File | Purpose |
 |---|---|
-| `flake.nix` | inputs (nixpkgs 26.05, nixos-wsl, home-manager, nix-darwin, nix-index-database, pgf); `nixosConfigurations.nixos`, `darwinConfigurations.mac`; home-manager for user `kremeshnoi` with the pgf module; formatter and dev shell |
+| `flake.nix` | inputs (nixpkgs 26.05, nixos-wsl, home-manager, nix-darwin, nix-index-database); `nixosConfigurations.nixos`, `darwinConfigurations.mac`; home-manager for user `kremeshnoi`; formatter and dev shell |
 | `flake.lock` | pinned inputs |
 | `darwin/configuration.nix` | nix-darwin: system packages, Homebrew casks (GlazeWM, SwiftBar, Ghostty), nix gc, user, `NH_FLAKE`, SwiftBar plugin dir |
 | `nixos/configuration.nix` | NixOS-WSL: system packages, Docker, nix-ld, FHS wrappers, `hx-open-tab`, ssh-agent and `herdr-navd` units, `programs.nh.flake` |
@@ -26,7 +26,7 @@ Every tracked file, what it does and where it ends up. "Nix" means both NixOS an
 | `pkgs/phpantom.nix` | PHPantom language server release binary per platform |
 | `pkgs/lazygit.nix` | lazygit release binary per platform; nixpkgs 26.05 ships 0.61, which predates `git.diffRenderers` |
 | `pkgs/delta.nix` | delta release binary per platform; lazygit 0.66 needs delta 0.20 to render the focused diff view, nixpkgs 26.05 ships 0.19 |
-| `home/default.nix` | imports the modules below; user, home dir, a few packages, `SSH_AUTH_SOCK` on Linux, fzf, pgf, zoxide, direnv |
+| `home/default.nix` | imports the modules below; user, home dir, a few packages, `SSH_AUTH_SOCK` on Linux, fzf, zoxide, direnv |
 | `home/zsh.nix` | zsh with you-should-use and zsh-helix-mode, syntax highlighting; sources `shared/zsh/env.zsh` from `.zshenv`, `startup.zsh` and `rc.zsh` from `.zshrc` |
 | `home/git.nix` | git with lfs and the user; includes `shared/git/config` |
 | `home/ssh.nix` | `~/.ssh/config` with `AddKeysToAgent` |
@@ -88,5 +88,4 @@ Only two files are read from here by this repo: `herdr/config.toml` (copied to `
 | `~/.zshrc.local` | per-machine environment, `NO_HERDR`, `PSQL_PAGER` |
 | `~/.gitconfig` | user name and email on the Mac without Nix |
 | `~/.ssh/config` | on the Mac without Nix |
-| `~/.pg_service.conf`, `~/.pgpass` | database connections and passwords for pgf |
-| `~/.config/pgf/` | own pgf queries and connection files |
+| `~/.pg_service.conf`, `~/.pgpass` | database connections and passwords for psql |

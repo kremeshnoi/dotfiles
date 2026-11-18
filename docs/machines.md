@@ -26,7 +26,7 @@ GlazeWM needs Accessibility access (System Settings → Privacy & Security → A
 exec zsh
 ```
 
-`install.sh` runs `brew bundle` on `mac/Brewfile`, links the configs from `shared/` and `mac/`, generates the herdr config, installs the herdr plugins at the pinned versions, clones pgf into `~/.local/src/pgf`. It is safe to run again; run it after editing a generated file or bumping a version. Details are in the [mac-ricing README](https://github.com/kremeshnoi/mac-ricing).
+`install.sh` runs `brew bundle` on `mac/Brewfile`, links the configs from `shared/` and `mac/`, generates the herdr config, installs the herdr plugins at the pinned versions and builds the bat cache. It is safe to run again; run it after editing a generated file or bumping a version. Details are in the [mac-ricing README](https://github.com/kremeshnoi/mac-ricing).
 
 ## NixOS under WSL
 
@@ -48,7 +48,6 @@ Set up by hand from [win-ricing](https://github.com/kremeshnoi/win-ricing), moun
 | Nix inputs | merge the weekly `update-flake-lock` pull request, or `nix flake update` in `nix/`, then switch |
 | Homebrew on the Mac without Nix | `brew upgrade`; herdr stays pinned |
 | herdr, reviewr | bump `shared/herdr/versions.toml` and the hashes, switch or rerun `install.sh` |
-| pgf | `nix flake update pgf` in `nix/`; `install.sh` pulls `~/.local/src/pgf` |
 | a submodule | commit and push inside it, then commit the bump here |
 
 ## Undoing a change

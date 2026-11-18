@@ -14,7 +14,7 @@ So symlinks exist only on the Mac without Nix. On the Nix machines a link in `$H
 
 ## Mac without Nix
 
-Every link points into the checkout at `~/dev/dotfiles`, except pgf, which points into its own clone.
+Every link points into the checkout at `~/dev/dotfiles`.
 
 | Link | Points to |
 |---|---|
@@ -30,7 +30,6 @@ Every link points into the checkout at `~/dev/dotfiles`, except pgf, which point
 | `~/.glzr/glazewm/kill-workspace.sh` | `mac/glazewm/kill-workspace.sh` |
 | `~/.config/swiftbar/glazewm.sh` | `mac/swiftbar/glazewm.sh` |
 | `~/.config/ghostty/config` | `mac/ghostty/config` |
-| `~/.local/bin/pgf` | `~/.local/src/pgf/bin/pgf` |
 
 herdr plugins are not file links but registrations in `~/.config/herdr/plugins.json`, made by `herdr plugin link` with the root in the checkout:
 
@@ -69,7 +68,6 @@ done <<EOF
 .glzr/glazewm/kill-workspace.sh $PWD/mac/glazewm/kill-workspace.sh
 .config/swiftbar/glazewm.sh $PWD/mac/swiftbar/glazewm.sh
 .config/ghostty/config $PWD/mac/ghostty/config
-.local/bin/pgf $HOME/.local/src/pgf/bin/pgf
 EOF
 l="$HOME/Library/Application Support/lazygit/config.yml"; [ "$(readlink "$l")" = "$PWD/shared/lazygit/config.yml" ] && echo "ok      $l" || echo "WRONG   $l"
 for skill in shared/claude/skills/*/; do skill="$(basename "$skill")"; [ "$(readlink "$HOME/.claude/skills/$skill")" = "$PWD/shared/claude/skills/$skill" ] && echo "ok      ~/.claude/skills/$skill" || echo "WRONG   ~/.claude/skills/$skill"; done

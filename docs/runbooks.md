@@ -69,7 +69,7 @@ The Nix side hardcodes `kremeshnoi` in `nix/flake.nix` (`users.kremeshnoi`), `ni
 | Mac with Nix | `nh darwin switch` |
 | Mac without Nix | `~/dev/dotfiles/mac/install.sh`, then `exec zsh` |
 
-Nix inputs: merge the weekly `update-flake-lock` PR, or run `nix flake update` in `nix/` and switch. One input: `nix flake update pgf`.
+Nix inputs: merge the weekly `update-flake-lock` PR, or run `nix flake update` in `nix/` and switch. One input: `nix flake update home-manager`.
 
 ## Changing
 

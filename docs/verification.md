@@ -31,14 +31,13 @@ The second run must print only `ok` lines besides `brew bundle` output. Then:
 herdr --version
 herdr plugin list
 diff <(cat ~/dev/dotfiles/mac/herdr/config.toml ~/dev/dotfiles/mac/herdr/space-colors/sidebar.toml) ~/.config/herdr/config.toml
-pgf services
 git config --get diff.algorithm
 git config --get core.pager
 git config --get delta.syntax-theme
 delta --list-syntax-themes | grep 'GitHub Dark'
 ```
 
-herdr matches `shared/herdr/versions.toml`; the plugin list shows reviewr at `v<version>`, workspace-tabs and space-colors from the checkout; the diff is empty; pgf lists the connections; git prints `histogram`, `delta` and `GitHub Dark`, and delta lists `GitHub Dark`.
+herdr matches `shared/herdr/versions.toml`; the plugin list shows reviewr at `v<version>`, workspace-tabs and space-colors from the checkout; the diff is empty; git prints `histogram`, `delta` and `GitHub Dark`, and delta lists `GitHub Dark`.
 
 Links: run the check in [links.md § Checking them](links.md#checking-them); every line must be `ok`.
 

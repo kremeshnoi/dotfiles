@@ -8,7 +8,7 @@ Things not done yet. Each item says what is left and how to finish it.
 
 - Move the checkout: `~/dev/dotfiles/dotfiles` → `~/dev/dotfiles`, then `git submodule update --init`.
 - Run the first switch from [machines.md § Mac with Nix](machines.md#mac-with-nix) and fix what breaks.
-- Check with [verification.md](verification.md): shell, GNU `ls` colours, Ghostty font and palette, herdr config, `pgf`.
+- Check with [verification.md](verification.md): shell, GNU `ls` colours, Ghostty font and palette, herdr config.
 
 ## 2. Switch NixOS
 

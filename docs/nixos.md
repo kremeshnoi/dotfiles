@@ -1,6 +1,6 @@
 # NixOS under WSL
 
-The Linux side is [NixOS-WSL](https://github.com/nix-community/NixOS-WSL), built from `nix/flake.nix`. The flake pins nixpkgs, NixOS-WSL, nix-darwin, home-manager, nix-index-database and pgf in `nix/flake.lock`. `nix/nixos/configuration.nix` holds the system — packages, Docker, nix-ld for prebuilt binaries, the ssh-agent and `herdr-navd` user units — and `nix/home/` holds the user side.
+The Linux side is [NixOS-WSL](https://github.com/nix-community/NixOS-WSL), built from `nix/flake.nix`. The flake pins nixpkgs, NixOS-WSL, nix-darwin, home-manager and nix-index-database in `nix/flake.lock`. `nix/nixos/configuration.nix` holds the system — packages, Docker, nix-ld for prebuilt binaries, the ssh-agent and `herdr-navd` user units — and `nix/home/` holds the user side.
 
 ## Housekeeping
 

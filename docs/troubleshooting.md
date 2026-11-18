@@ -22,7 +22,7 @@ GlazeWM runs `shell-exec` commands from `/` and does not expand `~` or `$HOME` i
 
 ### `psql` not found
 
-Homebrew's `libpq` is keg-only. `mac/zsh/.zshrc` adds `/opt/homebrew/opt/libpq/bin` to PATH, and pgf finds it by itself.
+Homebrew's `libpq` is keg-only. `mac/zsh/.zshrc` adds `/opt/homebrew/opt/libpq/bin` to PATH.
 
 ### A docs page is read as instructions
 
