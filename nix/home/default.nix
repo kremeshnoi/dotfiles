@@ -1,7 +1,6 @@
-{ lib, pkgs, ... }:
+{ pkgs, ... }:
 
 let
-  isDarwin = pkgs.stdenv.hostPlatform.isDarwin;
   lazygit = pkgs.callPackage ../pkgs/lazygit.nix { };
   delta = pkgs.callPackage ../pkgs/delta.nix { };
 in
@@ -13,16 +12,12 @@ in
     ./herdr.nix
     ./claude.nix
     ./git.nix
-    ./lazygit.nix
-    ./lazydocker.nix
     ./bat.nix
     ./ssh.nix
     ./copy-files.nix
-    ./darwin.nix
   ];
 
   home.username = "kremeshnoi";
-  home.homeDirectory = if isDarwin then "/Users/kremeshnoi" else "/home/kremeshnoi";
   home.stateVersion = "26.05";
 
   home.packages = with pkgs; [
@@ -33,10 +28,6 @@ in
     bat
     fnm
   ];
-
-  home.sessionVariables = lib.optionalAttrs (!isDarwin) {
-    SSH_AUTH_SOCK = "\${XDG_RUNTIME_DIR:-/run/user/$(id -u)}/ssh-agent.socket";
-  };
 
   programs.fzf = {
     enable = true;

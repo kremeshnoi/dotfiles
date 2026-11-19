@@ -24,12 +24,12 @@
   let
     system = "x86_64-linux";
     pkgs = nixpkgs.legacyPackages.${system};
-    homeManager = {
+    homeManager = platform: {
       home-manager = {
         useGlobalPkgs = true;
         useUserPackages = true;
         backupFileExtension = "hm-backup";
-        users.kremeshnoi = import ./home;
+        users.kremeshnoi.imports = [ ./home platform ];
       };
     };
   in
@@ -46,7 +46,7 @@
         nix-index-database.nixosModules.nix-index
         home-manager.nixosModules.home-manager
         ./nixos/configuration.nix
-        homeManager
+        (homeManager ./home/nixos)
       ];
     };
 
@@ -55,7 +55,7 @@
         nix-index-database.darwinModules.nix-index
         home-manager.darwinModules.home-manager
         ./darwin/configuration.nix
-        homeManager
+        (homeManager ./home/darwin)
       ];
     };
   };

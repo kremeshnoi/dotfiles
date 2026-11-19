@@ -3,8 +3,6 @@
 let
   herdr = "/run/current-system/sw/bin/herdr";
 
-  isDarwin = pkgs.stdenv.hostPlatform.isDarwin;
-
   plugins = [
     { id = "kremeshnoi.workspace-tabs"; root = "${../../shared/herdr/workspace-tabs}"; }
     { id = "kremeshnoi.space-colors"; root = "${../../shared/herdr/space-colors}"; }
@@ -21,12 +19,6 @@ let
   '';
 in
 {
-  xdg.configFile."herdr/config.toml".text = lib.concatMapStringsSep "\n" builtins.readFile [
-    (if isDarwin then ../../mac/herdr/config.toml else ../../windows/herdr/config.toml)
-    ../../shared/herdr/space-colors/sidebar.toml
-  ];
-  home.file.".local/bin/herdr-nav" = lib.mkIf (!isDarwin) { source = ../../windows/herdr/herdr-nav; };
-
   home.activation.herdrPlugins = lib.hm.dag.entryAfter [ "writeBoundary" ] ''
     if [ -x ${herdr} ]; then
       pluginsJson="${config.xdg.configHome}/herdr/plugins.json"
