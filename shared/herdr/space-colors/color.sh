@@ -39,5 +39,5 @@ color_for() {
         *) args+=(--clear-token "$token") ;;
       esac
     done
-    "$herdr" workspace report-metadata "$workspace" --source kremeshnoi.project-colors "${args[@]}" >/dev/null
+    "$herdr" workspace report-metadata "$workspace" --source space-colors "${args[@]}" >/dev/null
   done

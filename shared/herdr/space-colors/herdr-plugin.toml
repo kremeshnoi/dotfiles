@@ -1,5 +1,5 @@
-id = "kremeshnoi.project-colors"
-name = "Project Colors"
+id = "kremeshnoi.space-colors"
+name = "Space Colors"
 version = "0.1.0"
 min_herdr_version = "0.9.3"
 description = "Colour every workspace in the sidebar by the project under ~/dev it lives in"
