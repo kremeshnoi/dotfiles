@@ -1,6 +1,6 @@
 # 0005. A Mac without Nix is set up by Homebrew and symlinks
 
-- Status: accepted
+- Status: accepted; the symlinks are superseded by [0016](0016-mac-without-nix-copies-files.md)
 - Date: 2026-11-13
 
 ## Context

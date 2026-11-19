@@ -22,7 +22,7 @@ GlazeWM runs `shell-exec` commands from `/` and does not expand `~` or `$HOME` i
 
 ### A docs page is read as instructions
 
-The macOS file system is case-insensitive, so `docs/claude.md` is the same file as `docs/CLAUDE.md`, which Claude Code loads as instructions for that directory. The Claude Code page is `docs/claude-code.md` for that reason.
+The macOS file system is case-insensitive, so `docs/claude.md` is the same file as `docs/CLAUDE.md`, which Claude Code loads as instructions for that directory. Never name a docs page `claude.md`.
 
 ### `herdr` stays at an old version
 

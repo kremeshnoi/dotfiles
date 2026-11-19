@@ -4,9 +4,10 @@
 
 | File | What it is |
 |---|---|
-| `mac/herdr/config.toml` | macOS config: `alt` as the modifier, the default `ctrl+b` prefix with the arrows for panes up and down |
-| `windows/herdr/config.toml` | NixOS config: the `lwin` jumps blanked out, see below |
-| `windows/herdr/herdr-nav` | the socket client AutoHotkey talks to, NixOS only |
+| `shared/herdr/base.toml` | theme, sound and UI for every machine |
+| `shared/herdr/keys-macos.toml` | both Macs: `alt` as the modifier, the default `ctrl+b` prefix with the arrows for panes up and down |
+| `shared/herdr/keys-windows.toml` | NixOS: the `lwin` jumps blanked out, see below |
+| `nix/home/nixos/herdr-nav` | the socket server AutoHotkey talks to, NixOS only |
 | `shared/herdr/versions.toml` | herdr version for every machine |
 | `shared/herdr/workspace-tabs/` | plugin that lays out every new workspace |
 | `shared/herdr/space-colors/` | Nix machines: plugin and sidebar config that colour workspaces by project |
@@ -33,4 +34,4 @@ Both configs keep the same non-key settings by hand, since herdr has no include:
 
 ## Windows
 
-Windows runs the same jumps on `lwin` without touching `[keys]` at all. Win combos never reach a TUI sitting behind the terminal, so AutoHotkey catches the key and hands it to `herdr-nav` running as `herdr-navd` inside NixOS, which drives herdr over its socket API. Those entries are blanked out in the Windows copy of `config.toml` to keep a single path per action, and the default `ctrl+b` prefix with the arrows stays for the up and down neighbours. The setup notes and the registry policy that frees `Win+L` live in [win-ricing](https://github.com/kremeshnoi/win-ricing) under `herdr/`. How `herdr-navd` is served is in [nixos.md](nixos.md).
+Windows runs the same jumps on `lwin` without touching `[keys]` at all. Win combos never reach a TUI sitting behind the terminal, so AutoHotkey catches the key and hands it to `herdr-nav` running as `herdr-navd` inside NixOS, which drives herdr over its socket API. Those entries are blanked out in `keys-windows.toml` to keep a single path per action, and the default `ctrl+b` prefix with the arrows stays for the up and down neighbours. The registry policy that frees `Win+L` lives in [win-ricing](https://github.com/kremeshnoi/win-ricing). How `herdr-navd` is served is in [architecture.md § NixOS under WSL](architecture.md#nixos-under-wsl).

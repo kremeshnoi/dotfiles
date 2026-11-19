@@ -75,9 +75,9 @@ Nix inputs: merge the weekly `update-flake-lock` PR, or run `nix flake update` i
 
 ### Add a CLI tool
 
-1. Nix: add the nixpkgs attribute to `environment.systemPackages` in `nix/darwin/configuration.nix` and `nix/nixos/configuration.nix`, or to `home.packages` in `nix/home/default.nix` when it is user tooling.
+1. Nix: add the nixpkgs attribute to `home.packages` in `nix/home/default.nix` for both Nix machines, in `nix/home/nixos/default.nix` for NixOS only, or in `nix/home/darwin/default.nix` for the Mac with Nix only. `systemPackages` is only for what the system calls by path.
 2. Mac without Nix: `brew "<formula>"` in `mac/Brewfile`; a GUI app is `cask "<name>"`. Check the name with `brew info <formula>`.
-3. Check: `python3 .github/scripts/packages.py` must print `package lists in sync`; then [verification.md § Nix](verification.md#nix) and `brew bundle --file mac/Brewfile`. A tool meant for NixOS only goes into `nixos_only` in that script, so the choice is explicit.
+3. Check: `python3 .github/scripts/packages.py` must print `package lists in sync`; then [verification.md § Nix](verification.md#nix) and `brew bundle --file mac/Brewfile`.
 
 ### Add a language server
 
@@ -96,9 +96,9 @@ Nix inputs: merge the weekly `update-flake-lock` PR, or run `nix flake update` i
    }
    ```
    For a whole directory: `xdg.configFile."<tool>".source = ../../shared/<tool>;`. For a file in `$HOME`: `home.file."<path>".source = …;`.
-3. Mac without Nix, in `mac/install.sh` next to the other `link` lines:
+3. Mac without Nix, in `mac/install.sh` next to the other `copy` lines:
    ```bash
-   link "$shared/<tool>/<file>" "$HOME/.config/<tool>/<file>"
+   copy "$shared/<tool>/<file>" "$HOME/.config/<tool>/<file>"
    ```
 4. Install the tool on both sides ([Add a CLI tool](#add-a-cli-tool)).
 5. Add the file to [inventory.md](inventory.md).
@@ -106,7 +106,7 @@ Nix inputs: merge the weekly `update-flake-lock` PR, or run `nix flake update` i
 ### Add a macOS-only config file
 
 1. Mac with Nix: put it in `nix/home/darwin/<tool>/` and place it from `nix/home/darwin/default.nix`: `xdg.configFile."<tool>/<file>".source = ./<tool>/<file>;`.
-2. Work Mac: put it in `mac/<tool>/` (the mac-ricing repo) and link it from `mac/install.sh`: `link "$mac/<tool>/<file>" "$HOME/.config/<tool>/<file>"`. Commit in `mac/` first, then the bump here.
+2. Work Mac: put it in `mac/<tool>/` (the mac-ricing repo) and copy it from `mac/install.sh`: `copy "$mac/<tool>/<file>" "$HOME/.config/<tool>/<file>"`. Commit in `mac/` first, then the bump here.
 
 ### Change the shell
 
@@ -148,8 +148,8 @@ Create `shared/claude/skills/<name>/SKILL.md`. Nothing else: both sides pick up 
 
 ### Change a keybinding
 
-1. macOS: `mac/glazewm/config.yaml` or `mac/herdr/config.toml`.
-2. Windows: the matching file in `windows/` (and `windows/glazewm/index.ahk` for herdr jumps).
+1. herdr: `shared/herdr/keys-macos.toml` for both Macs, `shared/herdr/keys-windows.toml` for NixOS (and `windows/glazewm/index.ahk` for the `lwin` jumps). A setting that is not a key goes to `shared/herdr/base.toml`.
+2. GlazeWM: `nix/home/darwin/glazewm/config.yaml` for the Mac with Nix, `mac/glazewm/config.yaml` for the work Mac, `windows/glazewm/config.yaml` for Windows.
 3. Keep the letter the same on both, update [keybindings.md](keybindings.md).
 
 ### Record a decision

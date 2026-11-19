@@ -1,6 +1,6 @@
 # 0003. OS-specific rice lives in submodules
 
-- Status: accepted
+- Status: accepted, amended by [0017](0017-herdr-config-from-base-and-keys.md)
 - Date: 2026-08-08 for Windows, 2026-11-13 for macOS
 
 ## Context

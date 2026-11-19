@@ -1,6 +1,6 @@
 # 0013. The dotfiles manage a subset of each machine, kept in sync by a check
 
-- Status: accepted
+- Status: accepted, amended by [0018](0018-user-tools-in-home-packages.md)
 - Date: 2026-11-13
 
 ## Context

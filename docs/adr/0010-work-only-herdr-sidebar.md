@@ -1,6 +1,6 @@
 # 0010. The team sidebar in herdr is work-Mac only and generated
 
-- Status: accepted, the Nix side amended by [0015](0015-space-colors-on-nix-machines.md)
+- Status: accepted, the Nix side amended by [0015](0015-space-colors-on-nix-machines.md), the config split by [0017](0017-herdr-config-from-base-and-keys.md)
 - Date: 2026-11-13
 
 ## Context

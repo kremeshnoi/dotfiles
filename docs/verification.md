@@ -30,7 +30,7 @@ The second run must print only `ok` lines besides `brew bundle` output. Then:
 ```bash
 herdr --version
 herdr plugin list
-diff <(cat ~/dev/dotfiles/mac/herdr/config.toml ~/dev/dotfiles/mac/herdr/space-colors/sidebar.toml) ~/.config/herdr/config.toml
+diff <(cat ~/dev/dotfiles/shared/herdr/base.toml ~/dev/dotfiles/shared/herdr/keys-macos.toml ~/dev/dotfiles/mac/herdr/space-colors/sidebar.toml) ~/.config/herdr/config.toml
 git config --get diff.algorithm
 git config --get core.pager
 git config --get delta.syntax-theme
@@ -39,9 +39,9 @@ delta --list-syntax-themes | grep 'GitHub Dark'
 
 herdr matches `shared/herdr/versions.toml`; the plugin list shows workspace-tabs and space-colors from the checkout; the diff is empty; git prints `histogram`, `delta` and `GitHub Dark`, and delta lists `GitHub Dark`.
 
-Links: run the check in [links.md § Checking them](links.md#checking-them); every line must be `ok`.
+No links: `find ~ -maxdepth 4 -type l -lname "*dotfiles*"` prints nothing ([inventory.md § Checking a machine](inventory.md#checking-a-machine)).
 
-herdr configs: `herdr config check` validates the active one, `HERDR_CONFIG_PATH=windows/herdr/config.toml herdr config check` the NixOS one; `herdr server reload-config` applies a change without restarting herdr and prints its diagnostics.
+herdr configs: `herdr config check` validates the active one, `cat shared/herdr/base.toml shared/herdr/keys-windows.toml shared/herdr/space-colors/sidebar.toml > /tmp/h.toml && HERDR_CONFIG_PATH=/tmp/h.toml herdr config check` the NixOS one; `herdr server reload-config` applies a change without restarting herdr and prints its diagnostics.
 
 ## Packages
 

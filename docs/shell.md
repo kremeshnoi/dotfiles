@@ -31,7 +31,7 @@ The prompt is bash-style with the git branch from `vcs_info`. The accent colour 
 
 ## git
 
-`shared/git/config` holds the settings. `nix/home/git.nix` includes it and adds the user; on the Mac without Nix it is linked to `~/.config/git/config`, the user stays in `~/.gitconfig`.
+`shared/git/config` holds the settings. `nix/home/git.nix` includes it and adds the user; on the Mac without Nix it is copied to `~/.config/git/config`, the user stays in `~/.gitconfig`.
 
 Diffs go through [delta](https://github.com/dandavison/delta): `core.pager` and `interactive.diffFilter` call it, the `[delta]` section turns on line numbers, `n`/`N` jumps between files and the dark palette. Merge conflicts use `zdiff3`. The package is `delta` in `nix/home/default.nix` and `git-delta` in `mac/Brewfile`.
 

@@ -26,7 +26,7 @@ Never install Nix on a machine without asking: on the work Mac it is not allowed
 ## 2. Know the invariants
 
 - The checkout is `~/dev/dotfiles`, cloned with `--recurse-submodules`.
-- `shared/` works on any OS; `mac/` and `windows/` hold OS-only files; `nix/` and `mac/install.sh` only place files ([rules.md](rules.md)).
+- `shared/` works on any OS; `nix/home/nixos` and `nix/home/darwin` hold what one Nix machine needs; `mac/` is the work Mac, `windows/` the Windows host; `nix/` and `mac/install.sh` only place files, never link them ([rules.md](rules.md)).
 - A setting goes into exactly one file. If you are about to write the same value in a Nix file and in `mac/`, it belongs in `shared/`.
 - `mac/` and `windows/` are separate repos. Commit and push inside them first, then commit the bumped submodule here.
 - No comments in configs and scripts.
@@ -39,7 +39,7 @@ Never install Nix on a machine without asking: on the work Mac it is not allowed
 
 [inventory.md](inventory.md) lists every tracked file, what it is for and who reads it. Look there before creating a new file.
 
-[links.md](links.md) says which paths in `$HOME` are symlinks (only on the Mac without Nix), which are copies, and where each one points.
+Every machine gets copies, never links; the end of [inventory.md](inventory.md#checking-a-machine) says how to check it.
 
 ## 4. Change it
 
@@ -57,9 +57,8 @@ Never install Nix on a machine without asking: on the work Mac it is not allowed
 
 - [ ] the change lives in one place, in the right part of the repo
 - [ ] every consumer is wired: the Nix module **and** `mac/install.sh`, or the reason one side does not need it
-- [ ] [links.md](links.md) lists the new path for every machine
 - [ ] `python3 .github/scripts/packages.py` prints `package lists in sync`
 - [ ] the checks from [verification.md](verification.md) pass
-- [ ] [inventory.md](inventory.md) and the topic page in `docs/` describe the new state
+- [ ] [inventory.md](inventory.md) and the topic page in `docs/` describe the new state, with the target path on every machine
 - [ ] a decision that changes the layout has an ADR in [adr/](adr/README.md)
 - [ ] submodules are committed and pushed before the bump here, if the user asked for commits
