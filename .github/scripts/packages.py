@@ -10,7 +10,6 @@ brew_to_nix = {
     "jdtls": "jdt-language-server",
     "docker-compose-langserver": "docker-compose-language-service",
     "rust-analyzer": "rust-analyzer-unwrapped",
-    "libpq": "postgresql",
     "git-delta": "delta",
     "phpantom-lsp": "phpantom",
     "zsh-syntax-highlighting": "programs.zsh.syntaxHighlighting",
@@ -26,9 +25,9 @@ darwin_only = {"coreutils-prefixed"}
 
 nixos_only = {
     "autoconf", "automake", "bison", "clojure", "cmake", "curl", "docker-compose",
-    "dos2unix", "dotnet-sdk", "fastfetch", "file", "gcc", "gettext", "gh-dash",
+    "dos2unix", "dotnet-sdk", "file", "gcc", "gettext", "gh-dash",
     "gnumake", "hxOpenTab", "jdk17", "k9s", "leiningen", "lsof", "php", "pkg-config",
-    "railway", "re2c", "rlwrap", "rsync", "sox", "sqlite", "unzip", "yt-dlp", "zip",
+    "railway", "re2c", "rlwrap", "rsync", "sox", "unzip", "yt-dlp", "zip",
 }
 
 
@@ -52,8 +51,6 @@ def programs(paths):
         if re.search(r"syntaxHighlighting\.enable\s*=\s*true", text):
             found.add("programs.zsh.syntaxHighlighting")
         found.update(re.findall(r"src = pkgs\.([\w-]+);", text))
-        if re.search(r"lfs\.enable\s*=\s*true", text):
-            found.add("git-lfs")
     return found
 
 
