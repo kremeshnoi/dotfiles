@@ -1,7 +1,7 @@
 #!/usr/bin/env bash
 set -euo pipefail
 
-tabs=(Claude Code Terminal Git Daemon)
+tabs=(Claude Code Git Terminal Daemon)
 herdr="${HERDR_BIN_PATH:-herdr}"
 
 workspace="${HERDR_WORKSPACE_ID:-}"
