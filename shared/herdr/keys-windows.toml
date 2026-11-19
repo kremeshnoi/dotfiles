@@ -1,0 +1,11 @@
+[keys]
+previous_tab = ""
+next_tab = ""
+previous_agent = ""
+next_agent = ""
+previous_workspace = ""
+next_workspace = ""
+focus_pane_left = "prefix+left"
+focus_pane_down = "prefix+down"
+focus_pane_up = "prefix+up"
+focus_pane_right = "prefix+right"
