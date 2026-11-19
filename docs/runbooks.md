@@ -58,7 +58,7 @@ Later switches: `nh darwin switch`.
 
 ### Another user name
 
-The Nix side hardcodes `kremeshnoi` in `nix/flake.nix` (`users.kremeshnoi`), `nix/home/default.nix` (`home.username`, `home.homeDirectory`), `nix/darwin/configuration.nix` (`system.primaryUser`, `users.users`, `NH_FLAKE`, SwiftBar plugin dir) and `nix/nixos/configuration.nix` (`wsl.defaultUser`, `users.users`, `programs.nh.flake`, the `ConditionUser` of a unit). Supporting another user means turning these into one parameter passed through `specialArgs` and `extraSpecialArgs`; agree on it with the user first. `mac/install.sh` works for any user as is.
+The Nix side hardcodes `kremeshnoi` in `nix/flake.nix` (`users.kremeshnoi`), `nix/home/default.nix` (`home.username`), `nix/home/darwin/default.nix` and `nix/home/nixos/default.nix` (`home.homeDirectory`), `nix/darwin/configuration.nix` (`system.primaryUser`, `users.users`, `NH_FLAKE`, SwiftBar plugin dir) and `nix/nixos/configuration.nix` (`wsl.defaultUser`, `users.users`, `programs.nh.flake`, the `ConditionUser` of a unit). Supporting another user means turning these into one parameter passed through `specialArgs` and `extraSpecialArgs`; agree on it with the user first. `mac/install.sh` works for any user as is.
 
 ## Updating
 
@@ -105,10 +105,8 @@ Nix inputs: merge the weekly `update-flake-lock` PR, or run `nix flake update` i
 
 ### Add a macOS-only config file
 
-1. Put it in `mac/<tool>/` (the mac-ricing repo).
-2. Nix: in `nix/home/darwin.nix`, `xdg.configFile."<tool>/<file>".source = ../../mac/<tool>/<file>;`.
-3. `mac/install.sh`: `link "$mac/<tool>/<file>" "$HOME/.config/<tool>/<file>"`.
-4. Commit in `mac/` first, then the bump here.
+1. Mac with Nix: put it in `nix/home/darwin/<tool>/` and place it from `nix/home/darwin/default.nix`: `xdg.configFile."<tool>/<file>".source = ./<tool>/<file>;`.
+2. Work Mac: put it in `mac/<tool>/` (the mac-ricing repo) and link it from `mac/install.sh`: `link "$mac/<tool>/<file>" "$HOME/.config/<tool>/<file>"`. Commit in `mac/` first, then the bump here.
 
 ### Change the shell
 
@@ -118,7 +116,7 @@ Nix inputs: merge the weekly `update-flake-lock` PR, or run `nix flake update` i
 | environment variable, PATH entry | `shared/zsh/env.zsh` |
 | something that must run before everything else | `shared/zsh/startup.zsh` |
 | macOS-only PATH (Homebrew kegs) | `mac/zsh/.zshrc` |
-| Linux-only variable | `home.sessionVariables` in `nix/home/default.nix` |
+| Linux-only variable | `home.sessionVariables` in `nix/home/nixos/default.nix` |
 | a plugin | `plugins` in `nix/home/zsh.nix` **and** a `source` line plus the Brewfile formula in `mac/zsh/.zshrc` |
 
 ### Change git settings

@@ -29,7 +29,7 @@ Neither installer removes extras: `brew bundle` runs without cleanup and nix-dar
 | a CLI tool | add it to `nix/home/default.nix` (every Nix machine) or `nix/darwin/configuration.nix` **and** to `mac/Brewfile`, then run `python3 .github/scripts/packages.py`; a different name on one side goes into its `brew_to_nix` map, a tool for one machine only into its exception lists |
 | a language server | `nix/home/helix.nix` **and** `mac/Brewfile`, plus `shared/helix/languages.toml` only if Helix has no default for it |
 | a zsh alias, option or widget | `shared/zsh/rc.zsh` |
-| an environment variable or a PATH entry | `shared/zsh/env.zsh`; macOS-only ones go to `mac/zsh/.zshrc`, Linux-only ones to `nix/home/default.nix` |
+| an environment variable or a PATH entry | `shared/zsh/env.zsh`; macOS-only ones go to `mac/zsh/.zshrc`, Linux-only ones to `nix/home/nixos/default.nix` |
 | a git setting | `shared/git/config` |
 | a herdr setting | `mac/herdr/config.toml` and `windows/herdr/config.toml`; a herdr script or plugin goes to `shared/herdr/` |
 | a herdr upgrade | bump `shared/herdr/versions.toml` and the hashes in `nix/pkgs/herdr.nix` |

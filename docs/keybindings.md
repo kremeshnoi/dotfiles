@@ -39,9 +39,9 @@ Both configs route windows by process name, focus follows the routed window, and
 - The `cmd+ctrl` bindings are grabbed system-wide.
 - `window_process` matches the localized app name (`Microsoft Edge`, `System Settings`), so the rules assume an English system. macOS system apps go to `system`.
 - `cmd+shift+q` runs `kill-workspace.sh`, which jumps to the previous workspace and quits every app on the one it left; Finder windows are only closed. GlazeWM runs commands from `/`, so the binding calls the script through `bash -c $HOME/...`.
-- Ghostty looks like Windows Terminal on the Windows host: `JetBrainsMono Nerd Font`, the `Hyper` palette, a bar cursor, 85% opacity, bold text in bright colours. The font comes from the `font-jetbrains-mono-nerd-font` cask on both Macs.
+- The terminal on the Mac with Nix is Optimum, as on the Windows host: GlazeWM sends it to `terminal` and `cmd+enter` opens it. Ghostty is the terminal of the work Mac only: `JetBrainsMono Nerd Font`, the `Hyper` palette, a bar cursor, 85% opacity, bold text in bright colours.
 - The active workspace is shown in the menu bar by a streamable SwiftBar plugin that re-renders on `glazewm sub` events; clicking it lists every workspace.
-- Ghostty runs `macos-option-as-alt = true`, which frees Alt for herdr and Helix. Splits are on `cmd+ctrl+hjkl`, creating them adds `shift`.
+- On the work Mac Ghostty runs `macos-option-as-alt = true`, which frees Alt for herdr and Helix. Splits are on `cmd+ctrl+hjkl`, creating them adds `shift`.
 
 ## herdr
 

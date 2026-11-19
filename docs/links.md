@@ -85,12 +85,11 @@ The same files, as copies. `nix/home/` decides what lands where:
 | `~/Library/Application Support/lazydocker/config.yml` | `shared/lazydocker/config.yml` | Mac |
 | `~/.config/lazydocker/config.yml` | `shared/lazydocker/config.yml` | NixOS |
 | `~/.claude/skills/<name>` | `shared/claude/skills/<name>` | both |
-| `~/.config/herdr/config.toml` | generated: `mac/herdr/config.toml` + `shared/herdr/space-colors/sidebar.toml` | Mac |
+| `~/.config/herdr/config.toml` | generated: `nix/home/darwin/herdr/config.toml` + `shared/herdr/space-colors/sidebar.toml` | Mac |
 | `~/.config/herdr/config.toml` | generated: `windows/herdr/config.toml` + `shared/herdr/space-colors/sidebar.toml` | NixOS |
 | `~/.local/bin/herdr-nav` | `windows/herdr/herdr-nav` | NixOS |
-| `~/.glzr/glazewm/config.yaml`, `kill-workspace.sh` | `mac/glazewm/` | Mac |
-| `~/.config/swiftbar/glazewm.sh` | `mac/swiftbar/glazewm.sh` | Mac |
-| `~/.config/ghostty/config` | `mac/ghostty/config` | Mac |
+| `~/.glzr/glazewm/config.yaml`, `kill-workspace.sh` | `nix/home/darwin/glazewm/` | Mac |
+| `~/.config/swiftbar/glazewm.sh` | `nix/home/darwin/swiftbar/glazewm.sh` | Mac |
 
 herdr plugins are registered from store paths: `kremeshnoi.workspace-tabs` from `shared/herdr/workspace-tabs`, `kremeshnoi.space-colors` from `shared/herdr/space-colors` ([ADR 0015](adr/0015-space-colors-on-nix-machines.md)). The team variant from `mac/herdr/space-colors` is not registered on the Nix machines.
 

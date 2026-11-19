@@ -9,7 +9,7 @@ git submodule update --init   # if already cloned
 
 ## Mac with Nix
 
-nix-darwin builds `darwinConfigurations.mac` (Apple Silicon). Nix comes from the [official installer](https://nixos.org/download/), Homebrew from [brew.sh](https://brew.sh); nix-darwin drives Homebrew for the casks — GlazeWM, SwiftBar, Ghostty — and leaves anything else installed alone (`onActivation.cleanup = "none"`).
+nix-darwin builds `darwinConfigurations.mac` (Apple Silicon). Nix comes from the [official installer](https://nixos.org/download/), Homebrew from [brew.sh](https://brew.sh); nix-darwin drives Homebrew for the casks — GlazeWM, SwiftBar and the font — and leaves anything else installed alone (`onActivation.cleanup = "none"`).
 
 ```bash
 sudo nix run nix-darwin/nix-darwin-26.05#darwin-rebuild -- switch --flake ~/dev/dotfiles/nix#mac

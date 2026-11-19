@@ -23,11 +23,11 @@ See [ADR 0003](adr/0003-os-specific-rice-in-submodules.md), [0004](adr/0004-shar
 | Machine | Built by | Takes from |
 |---|---|---|
 | NixOS under WSL | `nix/flake.nix#nixos` | `nix/`, `shared/`, `windows/` (herdr config, `herdr-nav`) |
-| Mac at home | `nix/flake.nix#mac` (nix-darwin) | `nix/`, `shared/`, `mac/` |
+| Mac at home | `nix/flake.nix#mac` (nix-darwin) | `nix/`, `shared/`; its macOS configs live in `nix/home/darwin/`, `mac/` is the work Mac only |
 | Mac at work, no Nix | `mac/install.sh` | `shared/`, `mac/` |
 | Windows host | by hand, see win-ricing | `windows/` |
 
-Both Nix systems share one home-manager configuration in `nix/home/`; the few differences are guarded by `isDarwin`.
+Both Nix systems share the home-manager modules in `nix/home/`, which carry no platform conditions; what differs lives in `nix/home/darwin/` and `nix/home/nixos/`, and `flake.nix` adds the one that belongs to each machine.
 
 ## How a file reaches `$HOME`
 
