@@ -66,6 +66,10 @@ The flake reads `shared/` from its `dotfiles` input, pinned in `nix/flake.lock`,
 
 ## CI
 
+### `NAR hash mismatch in input 'github:kremeshnoi/dotfiles/…'`
+
+Nix 2.34 and 2.35 hash the dotfiles input differently. nix-config CI installs the Nix the machines run, 2.34.9, through `install_url`. When the machines move to a new Nix, change `install_url` in both nix-config workflows and run `nix flake update dotfiles`.
+
 ### `Failed to fetch git repository 'ssh://git@github.com/…'`
 
 The runner has no SSH key. The dotfiles workflow rewrites `ssh://git@github.com/` and `git@github.com:` to https before `nix`. A new workflow needs the same step, and a new submodule has to be public.
