@@ -50,7 +50,7 @@ home-manager and `mac/zsh/.zshrc` only add what differs: where the plugins come 
 ## Versions
 
 - Nix inputs are pinned in `nix/flake.lock` and updated weekly by CI.
-- herdr and reviewr are pinned in `shared/herdr/versions.toml` for every machine ([ADR 0006](adr/0006-pin-herdr-and-reviewr.md)).
+- herdr is pinned in `shared/herdr/versions.toml` for every machine ([ADR 0006](adr/0006-pin-herdr.md)).
 - Homebrew packages on the Mac without Nix follow Homebrew, except herdr, which is pinned there.
 - Runtimes come from version managers that read the project's own files ([ADR 0007](adr/0007-editor-tooling-vs-runtimes.md)).
 

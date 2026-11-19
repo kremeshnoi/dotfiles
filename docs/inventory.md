@@ -28,13 +28,13 @@ Every tracked file, what it does and where it ends up. "Nix" means both NixOS an
 | `pkgs/delta.nix` | delta release binary per platform; lazygit 0.66 needs delta 0.20 to render the focused diff view, nixpkgs 26.05 ships 0.19 |
 | `home/default.nix` | imports the modules below; user, home dir, a few packages, `SSH_AUTH_SOCK` on Linux, fzf, zoxide, direnv |
 | `home/zsh.nix` | zsh with you-should-use and zsh-helix-mode, syntax highlighting; sources `shared/zsh/env.zsh` from `.zshenv`, `startup.zsh` and `rc.zsh` from `.zshrc` |
-| `home/git.nix` | git with lfs and the user; includes `shared/git/config` |
+| `home/git.nix` | git with the user; includes `shared/git/config` |
 | `home/ssh.nix` | `~/.ssh/config` with `AddKeysToAgent` |
 | `home/lazygit.nix` | `shared/lazygit/config.yml` → `~/Library/Application Support/lazygit/config.yml` on macOS, `~/.config/lazygit/config.yml` on NixOS |
 | `home/lazydocker.nix` | `shared/lazydocker/config.yml` → `~/Library/Application Support/lazydocker/config.yml` on macOS, `~/.config/lazydocker/config.yml` on NixOS |
 | `home/bat.nix` | builds the bat cache from `shared/bat` on activation, so bat and delta see the custom syntax themes |
 | `home/helix.nix` | Helix wrapped with the language servers; `shared/helix` → `~/.config/helix` |
-| `home/herdr.nix` | herdr config from `mac/` or `windows/` with the project-colors sidebar appended, herdr scripts from `shared/`, reviewr plugin from its release, plugin registration on activation |
+| `home/herdr.nix` | herdr config from `mac/` or `windows/` with the space-colors sidebar appended and plugin registration on activation |
 | `home/claude.nix` | each `shared/claude/skills/<name>` → `~/.claude/skills/<name>` |
 | `home/darwin.nix` | macOS only: GlazeWM, kill-workspace, SwiftBar plugin, Ghostty from `mac/` |
 | `home/copy-files.nix` | replaces the home-manager link step with a copy step ([ADR 0002](adr/0002-copy-home-files-instead-of-symlinking.md)) |
@@ -55,11 +55,9 @@ Every tracked file, what it does and where it ends up. "Nix" means both NixOS an
 | `lazydocker/config.yml` | lazydocker shows stopped containers too, returns from commands at once, opens logs with the last 500 lines | copied to lazydocker's default path | not placed yet |
 | `bat/themes/GitHub Dark.tmTheme` | syntax theme with the palette of Helix `github_dark`, used by delta | `bat cache --build --source` in `home/bat.nix` | `bat cache --build --source` in `install.sh` |
 | `helix/` | Helix config, languages, transparent themes | copied to `~/.config/helix` | linked to `~/.config/helix` |
-| `herdr/versions.toml` | herdr and reviewr versions | read by `pkgs/herdr.nix`, `home/herdr.nix` | read by `install.sh` |
-| `herdr/reviewr.toml` | reviewr config | copied | linked |
-| `herdr/git-review.sh` | Git Review toggle | `~/.local/bin/herdr-git-review` | linked there |
+| `herdr/versions.toml` | herdr version | read by `pkgs/herdr.nix` | read by `install.sh` |
 | `herdr/workspace-tabs/` | herdr plugin: five tabs per new workspace | linked from the store | linked from the checkout |
-| `herdr/project-colors/` | herdr plugin and `sidebar.toml`: workspace colours by project | plugin linked from the store, `sidebar.toml` appended to the herdr config | — (the work Mac colours by team) |
+| `herdr/space-colors/` | herdr plugin and `sidebar.toml`: workspace colours by project | plugin linked from the store, `sidebar.toml` appended to the herdr config | — (the work Mac colours by team) |
 | `claude/skills/<name>/` | Claude Code skills | copied to `~/.claude/skills/` | linked there |
 
 ## mac/ (mac-ricing)
@@ -68,7 +66,7 @@ Every tracked file, what it does and where it ends up. "Nix" means both NixOS an
 |---|---|---|---|
 | `Brewfile` | packages and casks for the Mac without Nix | — | `brew bundle` |
 | `install.sh` | the whole setup without Nix | — | — |
-| `zsh/.zshrc` | brew shellenv, libpq PATH, plugins, sources `shared/zsh` | — | linked to `~/.zshrc` |
+| `zsh/.zshrc` | brew shellenv, plugins, sources `shared/zsh` | — | linked to `~/.zshrc` |
 | `helix/hx` | `hx` wrapper: Homebrew's language servers first in `PATH` | — | linked to `~/.local/bin/hx` |
 | `glazewm/config.yaml` | GlazeWM | copied to `~/.glzr/glazewm/` | linked there |
 | `glazewm/kill-workspace.sh` | quits the apps of the focused workspace | copied | linked |
@@ -85,7 +83,6 @@ Only two files are read from here by this repo: `herdr/config.toml` (copied to `
 
 | File | Holds |
 |---|---|
-| `~/.zshrc.local` | per-machine environment, `NO_HERDR`, `PSQL_PAGER` |
+| `~/.zshrc.local` | per-machine environment, `NO_HERDR` |
 | `~/.gitconfig` | user name and email on the Mac without Nix |
 | `~/.ssh/config` | on the Mac without Nix |
-| `~/.pg_service.conf`, `~/.pgpass` | database connections and passwords for psql |

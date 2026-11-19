@@ -37,7 +37,7 @@ git config --get delta.syntax-theme
 delta --list-syntax-themes | grep 'GitHub Dark'
 ```
 
-herdr matches `shared/herdr/versions.toml`; the plugin list shows reviewr at `v<version>`, workspace-tabs and space-colors from the checkout; the diff is empty; git prints `histogram`, `delta` and `GitHub Dark`, and delta lists `GitHub Dark`.
+herdr matches `shared/herdr/versions.toml`; the plugin list shows workspace-tabs and space-colors from the checkout; the diff is empty; git prints `histogram`, `delta` and `GitHub Dark`, and delta lists `GitHub Dark`.
 
 Links: run the check in [links.md § Checking them](links.md#checking-them); every line must be `ok`.
 

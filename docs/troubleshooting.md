@@ -6,7 +6,7 @@ Failures already met, with the cause and the fix.
 
 ### A downloaded binary dies with `Killed: 9`
 
-On the work Mac a release binary downloaded with curl into `$HOME` is killed with SIGKILL (exit 137), although `codesign -v` says it is valid and the same bytes run from `/tmp`. Install the tool from Homebrew instead; that is why herdr comes from Homebrew there ([ADR 0006](adr/0006-pin-herdr-and-reviewr.md)).
+On the work Mac a release binary downloaded with curl into `$HOME` is killed with SIGKILL (exit 137), although `codesign -v` says it is valid and the same bytes run from `/tmp`. Install the tool from Homebrew instead; that is why herdr comes from Homebrew there ([ADR 0006](adr/0006-pin-herdr.md)).
 
 ### GlazeWM cannot find a script
 
@@ -19,10 +19,6 @@ GlazeWM runs `shell-exec` commands from `/` and does not expand `~` or `$HOME` i
 ### `brew bundle` fails on a font, and `install.sh` stops
 
 `It seems the existing Font is different from the one being installed` means the font files are already in `~/Library/Fonts`, copied there by hand. `brew install --cask --force <font cask>` puts the cask's copy over them; then rerun `install.sh`. The script runs with `set -e`, so any failed step stops everything after it: check the exit code.
-
-### `psql` not found
-
-Homebrew's `libpq` is keg-only. `mac/zsh/.zshrc` adds `/opt/homebrew/opt/libpq/bin` to PATH.
 
 ### A docs page is read as instructions
 
@@ -40,7 +36,7 @@ It is pinned with `brew pin`, so `brew upgrade` skips it. Unpin, upgrade, pin ag
 
 ### An edit to the herdr config does nothing
 
-On the work Mac `~/.config/herdr/config.toml` is generated: rerun `install.sh`. On the Nix machines it is generated too, with the project-colors sidebar appended: switch. herdr reads one file; there is no include, only `HERDR_CONFIG_PATH`.
+On the work Mac `~/.config/herdr/config.toml` is generated: rerun `install.sh`. On the Nix machines it is generated too, with the space-colors sidebar appended: switch. herdr reads one file; there is no include, only `HERDR_CONFIG_PATH`.
 
 ## Nix
 

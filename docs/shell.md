@@ -10,7 +10,7 @@ The shell lives in `shared/zsh` and is the same everywhere:
 | `startup.zsh` | early in `.zshrc` | fnm init, `~/.zshrc.local`, the herdr autostart |
 | `rc.zsh` | after the plugins | history, aliases, completion styles, prompt, the Oh My Zsh git plugin, the fzf branch widgets, highlight colours |
 
-`nix/home/zsh.nix` adds `compinit`, the you-should-use and zsh-helix-mode plugins and syntax highlighting around them. `mac/zsh/.zshrc` does the same with Homebrew, and adds `brew shellenv` and the keg-only `libpq` to PATH.
+`nix/home/zsh.nix` adds `compinit`, the you-should-use and zsh-helix-mode plugins and syntax highlighting around them. `mac/zsh/.zshrc` does the same with Homebrew, and adds `brew shellenv`.
 
 Order matters in two places:
 
@@ -31,7 +31,7 @@ The prompt is bash-style with the git branch from `vcs_info`. The accent colour 
 
 ## git
 
-`shared/git/config` holds the settings. `nix/home/git.nix` includes it and adds the user and git-lfs; on the Mac without Nix it is linked to `~/.config/git/config`, the user stays in `~/.gitconfig`, and `install.sh` runs `git lfs install`.
+`shared/git/config` holds the settings. `nix/home/git.nix` includes it and adds the user; on the Mac without Nix it is linked to `~/.config/git/config`, the user stays in `~/.gitconfig`.
 
 Diffs go through [delta](https://github.com/dandavison/delta): `core.pager` and `interactive.diffFilter` call it, the `[delta]` section turns on line numbers, `n`/`N` jumps between files and the dark palette. Merge conflicts use `zdiff3`. The package is `delta` in `nix/home/default.nix` and `git-delta` in `mac/Brewfile`.
 
@@ -46,7 +46,6 @@ On NixOS `SSH_AUTH_SOCK` points at `$XDG_RUNTIME_DIR/ssh-agent.socket`, served b
 - **lazygit** reads its default path: `~/Library/Application Support/lazygit/config.yml` on macOS, `~/.config/lazygit/config.yml` on NixOS. It renders diffs with delta through `git.diffRenderers`, which needs lazygit 0.66 or newer; Nix installs the release binaries from `nix/pkgs/lazygit.nix` and `nix/pkgs/delta.nix` because nixpkgs 26.05 ships lazygit 0.61 and delta 0.19, and the focused diff view of lazygit 0.66 needs delta 0.20. It ignores `core.pager`.
 - **delta** highlights with `GitHub Dark`, a bat theme in `shared/bat/themes` built from the palette of Helix `github_dark`, the theme Helix uses. Nothing is copied: activation and `install.sh` run `bat cache --build --source shared/bat`, and delta reads bat's cache. The cache only works when bat and delta are built on the same bat version; otherwise delta falls back to its default theme.
 - **lazydocker** reads `~/Library/Application Support/lazydocker/config.yml` on macOS and `~/.config/lazydocker/config.yml` on NixOS; the older `jesseduffield/lazydocker` path wins when it exists, so keep it absent.
-- **lazysql** is installed without a tracked config: it saves connections, passwords included, into its own `config.toml`, and a copy from the repo would wipe them on every switch.
 - **zoxide** and **fzf** on every machine. The editor is Helix: `EDITOR`, `VISUAL` and git's `core.editor` are `hx`.
 
 ## Colours

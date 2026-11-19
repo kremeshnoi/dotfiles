@@ -5,7 +5,7 @@
 
 ## Context
 
-The work Mac carries some 35 Homebrew formulae the repo does not declare: tools for one job, one employer or one experiment. Putting all of them into the repo would make it a dump of every machine; leaving the declared lists to drift apart left real gaps: `bat`, `fnm`, `psql` and `pspg` were on one Mac and not in Nix, while the shared shell called `fnm` everywhere.
+The work Mac carries some 35 Homebrew formulae the repo does not declare: tools for one job, one employer or one experiment. Putting all of them into the repo would make it a dump of every machine; leaving the declared lists to drift apart left real gaps: `bat` and `fnm` were on one Mac and not in Nix, while the shared shell called `fnm` everywhere.
 
 ## Decision
 

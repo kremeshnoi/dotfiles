@@ -9,7 +9,7 @@ NixOS coloured each workspace in the herdr sidebar by the project under `~/dev` 
 
 ## Decision
 
-- `shared/herdr/project-colors/` holds the plugin and `sidebar.toml`: `color.sh` maps the directory of a workspace's first tab to a colour token, `sidebar.toml` colours the sidebar by those tokens.
+- `shared/herdr/space-colors/` holds the plugin and `sidebar.toml`: `color.sh` maps the directory of a workspace's first tab to a colour token, `sidebar.toml` colours the sidebar by those tokens.
 - `nix/home/herdr.nix` registers the plugin and writes `~/.config/herdr/config.toml` as the OS config followed by `sidebar.toml`, on NixOS and on the Mac with Nix.
 - `mac/install.sh` does not take it: the work Mac keeps the team colours from `mac/herdr/space-colors/`.
 

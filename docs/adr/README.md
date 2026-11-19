@@ -9,7 +9,7 @@ One file per decision that shaped the repo: what was decided, why, and what it c
 | [0003](0003-os-specific-rice-in-submodules.md) | OS-specific rice lives in submodules | accepted |
 | [0004](0004-shared-holds-os-independent-configs.md) | `shared/` holds only OS-independent configs, installers only place files | accepted |
 | [0005](0005-mac-without-nix.md) | A Mac without Nix is set up by Homebrew and symlinks | accepted |
-| [0006](0006-pin-herdr-and-reviewr.md) | herdr and reviewr are pinned in one file for every machine | accepted |
+| [0006](0006-pin-herdr.md) | herdr is pinned in one file for every machine | accepted |
 | [0007](0007-editor-tooling-vs-runtimes.md) | Editor tooling comes from the system, runtimes from version managers | accepted |
 | [0008](0008-secrets-with-sops-and-age.md) | Secrets are encrypted with sops and age | superseded by 0012 |
 | [0009](0009-everything-nix-under-nix.md) | Everything Nix lives under `nix/` | accepted |
@@ -18,7 +18,7 @@ One file per decision that shaped the repo: what was decided, why, and what it c
 | [0012](0012-dropped-tools.md) | neovim, wakatime, Ruby, herdr goto and the claude wrapper are dropped | accepted |
 | [0013](0013-managed-subset.md) | The dotfiles manage a subset of each machine, kept in sync by a check | accepted |
 | [0014](0014-hx-wrapper-without-nix.md) | The Mac without Nix wraps `hx` too | accepted |
-| [0015](0015-project-colors-on-nix-machines.md) | The Nix machines colour herdr workspaces by project | accepted |
+| [0015](0015-space-colors-on-nix-machines.md) | The Nix machines colour herdr workspaces by project | accepted |
 
 ## Template
 

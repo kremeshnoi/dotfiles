@@ -24,8 +24,6 @@ Every link points into the checkout at `~/dev/dotfiles`.
 | `~/Library/Application Support/lazygit/config.yml` | `shared/lazygit/config.yml` |
 | `~/.local/bin/hx` | `mac/helix/hx`, the wrapper that puts the managed language servers first |
 | `~/.claude/skills/<name>` | `shared/claude/skills/<name>`, one link per skill |
-| `~/.config/herdr/plugins/config/persiyanov.reviewr/config.toml` | `shared/herdr/reviewr.toml` |
-| `~/.local/bin/herdr-git-review` | `shared/herdr/git-review.sh` |
 | `~/.glzr/glazewm/config.yaml` | `mac/glazewm/config.yaml` |
 | `~/.glzr/glazewm/kill-workspace.sh` | `mac/glazewm/kill-workspace.sh` |
 | `~/.config/swiftbar/glazewm.sh` | `mac/swiftbar/glazewm.sh` |
@@ -37,14 +35,13 @@ herdr plugins are not file links but registrations in `~/.config/herdr/plugins.j
 |---|---|
 | `kremeshnoi.workspace-tabs` | `shared/herdr/workspace-tabs` |
 | `kremeshnoi.space-colors` | `mac/herdr/space-colors` |
-| `persiyanov.reviewr` | installed by herdr from GitHub at `v<reviewr version>`, not a link |
 
 ### Not links, on purpose
 
 | File | What it is | Why not a link |
 |---|---|---|
 | `~/.config/herdr/config.toml` | generated: `mac/herdr/config.toml` + `mac/herdr/space-colors/sidebar.toml` | herdr reads one file and has no include ([ADR 0010](adr/0010-work-only-herdr-sidebar.md)); rerun `install.sh` after editing either |
-| `~/.zshenv`, `~/.zshrc.local`, `~/.gitconfig`, `~/.ssh/config`, `~/.pg_service.conf` | per-machine files | not in git ([rules.md](rules.md)) |
+| `~/.zshenv`, `~/.zshrc.local`, `~/.gitconfig`, `~/.ssh/config` | per-machine files | not in git ([rules.md](rules.md)) |
 
 ### Links `install.sh` removes
 
@@ -62,8 +59,6 @@ done <<EOF
 .config/git/config $PWD/shared/git/config
 .config/helix $PWD/shared/helix
 .local/bin/hx $PWD/mac/helix/hx
-.config/herdr/plugins/config/persiyanov.reviewr/config.toml $PWD/shared/herdr/reviewr.toml
-.local/bin/herdr-git-review $PWD/shared/herdr/git-review.sh
 .glzr/glazewm/config.yaml $PWD/mac/glazewm/config.yaml
 .glzr/glazewm/kill-workspace.sh $PWD/mac/glazewm/kill-workspace.sh
 .config/swiftbar/glazewm.sh $PWD/mac/swiftbar/glazewm.sh
@@ -90,16 +85,14 @@ The same files, as copies. `nix/home/` decides what lands where:
 | `~/Library/Application Support/lazydocker/config.yml` | `shared/lazydocker/config.yml` | Mac |
 | `~/.config/lazydocker/config.yml` | `shared/lazydocker/config.yml` | NixOS |
 | `~/.claude/skills/<name>` | `shared/claude/skills/<name>` | both |
-| `~/.config/herdr/config.toml` | generated: `mac/herdr/config.toml` + `shared/herdr/project-colors/sidebar.toml` | Mac |
-| `~/.config/herdr/config.toml` | generated: `windows/herdr/config.toml` + `shared/herdr/project-colors/sidebar.toml` | NixOS |
-| `~/.config/herdr/plugins/config/persiyanov.reviewr/config.toml` | `shared/herdr/reviewr.toml` | both |
-| `~/.local/bin/herdr-git-review` | `shared/herdr/git-review.sh` | both |
+| `~/.config/herdr/config.toml` | generated: `mac/herdr/config.toml` + `shared/herdr/space-colors/sidebar.toml` | Mac |
+| `~/.config/herdr/config.toml` | generated: `windows/herdr/config.toml` + `shared/herdr/space-colors/sidebar.toml` | NixOS |
 | `~/.local/bin/herdr-nav` | `windows/herdr/herdr-nav` | NixOS |
 | `~/.glzr/glazewm/config.yaml`, `kill-workspace.sh` | `mac/glazewm/` | Mac |
 | `~/.config/swiftbar/glazewm.sh` | `mac/swiftbar/glazewm.sh` | Mac |
 | `~/.config/ghostty/config` | `mac/ghostty/config` | Mac |
 
-herdr plugins are registered from store paths: reviewr built from its release, `kremeshnoi.workspace-tabs` from `shared/herdr/workspace-tabs`, `kremeshnoi.project-colors` from `shared/herdr/project-colors` ([ADR 0015](adr/0015-project-colors-on-nix-machines.md)). space-colors is not registered on the Nix machines.
+herdr plugins are registered from store paths: `kremeshnoi.workspace-tabs` from `shared/herdr/workspace-tabs`, `kremeshnoi.space-colors` from `shared/herdr/space-colors` ([ADR 0015](adr/0015-space-colors-on-nix-machines.md)). The team variant from `mac/herdr/space-colors` is not registered on the Nix machines.
 
 The list of copied paths is kept in `~/.local/state/home-manager/copied-files`; a path a new generation drops is removed on the next switch.
 

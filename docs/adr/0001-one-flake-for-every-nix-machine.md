@@ -17,5 +17,5 @@ NixOS under WSL started with its own configuration, and the Mac with a portable 
 
 - A change to the user environment lands on both systems with one switch each.
 - Rolling back is a generation switch or a git revert.
-- Platform-specific binaries (herdr, reviewr) need a hash per platform.
+- Platform-specific binaries such as herdr need a hash per platform.
 - A machine that cannot run Nix is not covered; see [0005](0005-mac-without-nix.md).

@@ -47,7 +47,7 @@ Set up by hand from [win-ricing](https://github.com/kremeshnoi/win-ricing), moun
 |---|---|
 | Nix inputs | merge the weekly `update-flake-lock` pull request, or `nix flake update` in `nix/`, then switch |
 | Homebrew on the Mac without Nix | `brew upgrade`; herdr stays pinned |
-| herdr, reviewr | bump `shared/herdr/versions.toml` and the hashes, switch or rerun `install.sh` |
+| herdr | bump `shared/herdr/versions.toml` and the hashes, switch or rerun `install.sh` |
 | a submodule | commit and push inside it, then commit the bump here |
 
 ## Undoing a change

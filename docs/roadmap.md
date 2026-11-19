@@ -12,7 +12,7 @@ Things not done yet. Each item says what is left and how to finish it.
 
 ## 2. Switch NixOS
 
-NixOS still runs the generation from before these changes: neovim, wakatime, ngrok, Ruby and sops are still there, `fnm`, `bat`, `psql` and `pspg` are not, and `ls`, the herdr config and the zsh files are old.
+NixOS still runs the generation from before these changes: neovim, wakatime, ngrok, Ruby and sops are still there, `fnm` and `bat` are not, and `ls`, the herdr config and the zsh files are old.
 
 - `git pull && git submodule update --init`, then `nh os switch`.
 - Run [verification.md § Shell](verification.md#shell) and `herdr config check`.
@@ -24,7 +24,7 @@ The NixOS engine is the only one in use: uninstall Docker Desktop and remove the
 
 ## 4. Version drift between Homebrew and Nix
 
-Homebrew on the Mac without Nix is newer than the pinned nixpkgs (helix, fzf, git, ripgrep, fd and others). Only herdr is pinned on both sides. Decide per tool:
+Homebrew on the Mac without Nix is newer than the pinned nixpkgs (helix, fzf, git and others). Only herdr is pinned on both sides. Decide per tool:
 
 - accept the drift for tools whose config does not depend on the version;
 - pin with `brew pin` and record the version next to the Nix one, as herdr does, for tools whose config does.

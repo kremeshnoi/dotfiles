@@ -125,7 +125,7 @@ Nix inputs: merge the weekly `update-flake-lock` PR, or run `nix flake update` i
 
 `shared/git/config`. The user and email stay in `nix/home/git.nix` and in `~/.gitconfig` on the Mac without Nix.
 
-### Bump herdr or reviewr
+### Bump herdr
 
 1. `shared/herdr/versions.toml`: new version.
 2. Hashes for every platform:
@@ -133,8 +133,8 @@ Nix inputs: merge the weekly `update-flake-lock` PR, or run `nix flake update` i
    v=0.9.6
    for a in herdr-linux-x86_64 herdr-macos-aarch64; do nix store prefetch-file --json "https://github.com/herdrdev/herdr/releases/download/v$v/$a" | jq -r .hash; done
    ```
-   Put them into `assets` in `nix/pkgs/herdr.nix`. For reviewr the same with `herdr-reviewr-x86_64-unknown-linux-musl.tar.gz`, `herdr-reviewr-aarch64-apple-darwin.tar.gz` and `https://raw.githubusercontent.com/persiyanov/herdr-reviewr/v$v/herdr-plugin.toml` into `nix/home/herdr.nix`. Without Nix, run the command in the container from [verification.md § Nix without Nix](verification.md#nix-without-nix).
-3. Mac without Nix: `brew unpin herdr && brew upgrade herdr && brew pin herdr`, then `install.sh` (it reinstalls reviewr at the new tag).
+   Put them into `assets` in `nix/pkgs/herdr.nix`. Without Nix, run the command in the container from [verification.md § Nix without Nix](verification.md#nix-without-nix).
+3. Mac without Nix: `brew unpin herdr && brew upgrade herdr && brew pin herdr`, then `install.sh`.
 4. Check the herdr config still loads: `herdr` starts without a config warning.
 
 ### Add a herdr plugin
@@ -142,7 +142,7 @@ Nix inputs: merge the weekly `update-flake-lock` PR, or run `nix flake update` i
 1. Local plugin, any OS: `shared/herdr/<name>/` with `herdr-plugin.toml`.
 2. Nix: add `{ id = "<id>"; root = "${../../shared/herdr/<name>}"; }` to `plugins` in `nix/home/herdr.nix`.
 3. `mac/install.sh`: add `"$shared/herdr/<name>"` to the `for root in …` list of local plugins.
-4. A third-party plugin from GitHub follows reviewr: release asset in Nix, `herdr plugin install --ref` in `install.sh`, version in `shared/herdr/versions.toml`.
+4. A third-party plugin from GitHub: its release asset as a store path in `nix/home/herdr.nix`, `herdr plugin install --ref` in `install.sh`, its version in `shared/herdr/versions.toml`.
 
 ### Add a Claude Code skill
 

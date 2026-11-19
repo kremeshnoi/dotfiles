@@ -53,7 +53,6 @@ The same navigation on both systems: `h`/`l` switch tabs, `j`/`k` switch workspa
 | workspaces | `alt+j` / `alt+k` | `lwin+j` / `lwin+k` |
 | agents | `alt+shift+j` / `alt+shift+k` | `lwin+shift+j` / `lwin+shift+k` |
 | panes | `alt+shift+h` / `alt+shift+l` | `lwin+shift+h` / `lwin+shift+l` |
-| reviewr | `alt+shift+r` or `ctrl+b` then `ctrl+r` | `lwin+shift+r` or `ctrl+b` then `ctrl+r` |
 | pane up / down | `ctrl+b` then `up` / `down` | `ctrl+b` then `up` / `down` |
 
 macOS reaches them in herdr's own config. On Windows, Win combos never reach a TUI behind the terminal, so AutoHotkey catches them and hands them to `herdr-nav`, see [herdr.md](herdr.md).

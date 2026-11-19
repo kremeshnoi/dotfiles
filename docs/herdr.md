@@ -7,29 +7,25 @@
 | `mac/herdr/config.toml` | macOS config: `alt` as the modifier, the default `ctrl+b` prefix with the arrows for panes up and down |
 | `windows/herdr/config.toml` | NixOS config: the `lwin` jumps blanked out, see below |
 | `windows/herdr/herdr-nav` | the socket client AutoHotkey talks to, NixOS only |
-| `shared/herdr/versions.toml` | herdr and reviewr versions for every machine |
-| `shared/herdr/reviewr.toml` | reviewr config |
-| `shared/herdr/git-review.sh` | the Git Review toggle, installed as `~/.local/bin/herdr-git-review` |
+| `shared/herdr/versions.toml` | herdr version for every machine |
 | `shared/herdr/workspace-tabs/` | plugin that lays out every new workspace |
-| `shared/herdr/project-colors/` | Nix machines: plugin and sidebar config that colour workspaces by project |
+| `shared/herdr/space-colors/` | Nix machines: plugin and sidebar config that colour workspaces by project |
 | `mac/herdr/space-colors/` | work Mac only: plugin and sidebar config that colour workspaces by team |
 
 ## Versions
 
-`shared/herdr/versions.toml` pins herdr and reviewr ([ADR 0006](adr/0006-pin-herdr-and-reviewr.md)).
+`shared/herdr/versions.toml` pins herdr ([ADR 0006](adr/0006-pin-herdr.md)).
 
-- With Nix, `nix/pkgs/herdr.nix` fetches the herdr release binary and `nix/home/herdr.nix` builds the reviewr plugin root from the release binary and the manifest of that tag; the hashes live next to them. An activation step runs `herdr plugin link` on the store path whenever it changes. The root is read-only, which reviewr is fine with: it only writes under `~/.local/state` and `~/.local/bin`.
-- Without Nix, herdr comes from Homebrew and is pinned with `brew pin`; `install.sh` warns when its version differs from the file and installs reviewr with `herdr plugin install --ref v<version>`.
+- With Nix, `nix/pkgs/herdr.nix` fetches the herdr release binary; the hashes live next to it. An activation step in `nix/home/herdr.nix` runs `herdr plugin link` on each plugin's store path whenever it changes.
+- Without Nix, herdr comes from Homebrew and is pinned with `brew pin`; `install.sh` warns when its version differs from the file.
 
 ## Plugins
 
-**reviewr** ([persiyanov/herdr-reviewr](https://github.com/persiyanov/herdr-reviewr)) shows the agent's diff in a pane, lets you comment on lines and sends the comments back to the agent. It opens in its own tab, set by `toggle_placement` in `reviewr.toml`. reviewr always names that tab `reviewr`, so the toggle goes through `git-review.sh`, which waits for that tab, renames it to `Git Review` and focuses it; on Windows `herdr-nav reviewr` does the same. Both configs also run `git-review.sh` on `ctrl+b` then `ctrl+r`, so the toggle works without AutoHotkey.
+**workspace-tabs** listens to `workspace.created` and turns every new workspace into five tabs in a fixed order — `Claude`, `Code`, `Git`, `Terminal`, `Daemon` — all rooted at the workspace directory, with focus back on `Claude`. The same script runs as the `kremeshnoi.workspace-tabs.bootstrap` action for a workspace that already exists and only adds the tabs it is missing.
 
-**workspace-tabs** listens to `workspace.created` and turns every new workspace into five tabs in a fixed order — `Claude`, `Code`, `Terminal`, `Git`, `Daemon` — all rooted at the workspace directory, with focus back on `Claude`. The same script runs as the `kremeshnoi.workspace-tabs.bootstrap` action for a workspace that already exists and only adds the tabs it is missing.
+**space-colors** on the work Mac (`mac/herdr/space-colors/`) tags each workspace with the team directory under `~/dev/teams/` its panes live in; `sidebar.toml` colours the sidebar by those tags. It is registered on the work Mac only ([ADR 0010](adr/0010-work-only-herdr-sidebar.md)).
 
-**space-colors** tags each workspace with the team directory under `~/dev/teams/` its panes live in; `sidebar.toml` colours the sidebar by those tags. It is registered on the work Mac only ([ADR 0010](adr/0010-work-only-herdr-sidebar.md)).
-
-**project-colors** does the same on the Nix machines by project: `color.sh` matches the directory of the first tab of each workspace against `~/dev/otaku-library` blue, `optimum` purple, `turtle-van` green, `edu/clojure-koans` lime, `edu/rustlings` rust, the rest of `edu` yellow, `nvim` teal, `kremeshnoi` orange, `fernbloom` fernbloom, anything else white, `dotfiles` included, on startup and whenever a workspace is created, renamed or focused. `nix/home/herdr.nix` appends its `sidebar.toml` to the herdr config ([ADR 0015](adr/0015-project-colors-on-nix-machines.md)). The `Recolor the workspaces` action runs it by hand.
+On the Nix machines **space-colors** comes from `shared/herdr/space-colors/` and colours by project instead: `color.sh` matches the directory of the first tab of each workspace against `~/dev/otaku-library` blue, `optimum` purple, `turtle-van` green, `edu/clojure-koans` lime, `edu/rustlings` rust, the rest of `edu` yellow, `nvim` teal, `kremeshnoi` orange, `fernbloom` fernbloom, anything else white, `dotfiles` included, on startup and whenever a workspace is created, renamed or focused. `nix/home/herdr.nix` appends its `sidebar.toml` to the herdr config ([ADR 0015](adr/0015-space-colors-on-nix-machines.md)). The `Recolor the workspaces` action runs it by hand.
 
 ## Shared behaviour
 

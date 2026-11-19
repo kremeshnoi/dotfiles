@@ -5,7 +5,7 @@
 1. **Works on any OS** → `shared/`. If a file needs `if macOS` or a path that exists on one OS only, it does not belong there.
 2. **Works on one OS, on every machine with that OS** → `mac/` or `windows/`.
 3. **Packages, system options, services** → `nix/` for the machines with Nix, `mac/Brewfile` for the Mac without Nix.
-4. **Only on one machine** → not in git: `~/.zshrc.local`, `~/.gitconfig` for the user and email, `~/.pg_service.conf`, `~/.ssh/config`.
+4. **Only on one machine** → not in git: `~/.zshrc.local`, `~/.gitconfig` for the user and email, `~/.ssh/config`.
 5. The repo root holds only `nix/`, `shared/`, `mac/`, `windows/`, `docs/`, the files every repo has and `.claude/CLAUDE.md`, the entry point for agents.
 
 ## What the dotfiles manage
@@ -32,13 +32,13 @@ Neither installer removes extras: `brew bundle` runs without cleanup and nix-dar
 | an environment variable or a PATH entry | `shared/zsh/env.zsh`; macOS-only ones go to `mac/zsh/.zshrc`, Linux-only ones to `nix/home/default.nix` |
 | a git setting | `shared/git/config` |
 | a herdr setting | `mac/herdr/config.toml` and `windows/herdr/config.toml`; a herdr script or plugin goes to `shared/herdr/` |
-| a herdr or reviewr upgrade | bump `shared/herdr/versions.toml` and the hashes in `nix/pkgs/herdr.nix` and `nix/home/herdr.nix` |
+| a herdr upgrade | bump `shared/herdr/versions.toml` and the hashes in `nix/pkgs/herdr.nix` |
 | a Claude skill | a folder under `shared/claude/skills/` |
 | a decision that changes the layout | an ADR in `docs/adr/` |
 
 ## Never in git
 
-- secrets, tokens, passwords, plain or encrypted: the repo has no secret store; `.pg_service.conf` with a password belongs in `.gitignore` or in `~/.pgpass`;
+- secrets, tokens, passwords, plain or encrypted: the repo has no secret store; a config file with a password stays on the machine;
 - anything a tool rewrites by itself (`~/.railway/config.json`, Claude history and credentials).
 
 ## Keybindings

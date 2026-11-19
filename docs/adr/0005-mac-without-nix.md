@@ -12,7 +12,7 @@ The work Mac may not run Nix or nix-darwin. It still needs the same shell, edito
 - `mac/install.sh` sets it up: `brew bundle` on `mac/Brewfile`, symlinks from `$HOME` into the checkout for `shared/` and `mac/`, herdr plugins at the pinned versions, and the secrets when an age key is present.
 - Links, not copies: an edit in the checkout applies at once.
 - A file in the way is moved to `<name>.backup-<timestamp>`; running the script again is safe.
-- Machine-specific settings stay out of git: `~/.zshrc.local`, `~/.gitconfig`, `~/.ssh/config`, `~/.pg_service.conf`.
+- Machine-specific settings stay out of git: `~/.zshrc.local`, `~/.gitconfig`, `~/.ssh/config`.
 
 ## Consequences
 
