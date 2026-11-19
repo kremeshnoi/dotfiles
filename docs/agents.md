@@ -28,7 +28,8 @@ Never install Nix on a machine without asking: on the work Mac it is not allowed
 - The checkout is `~/dev/dotfiles`, cloned with `--recurse-submodules`.
 - `shared/` works on any OS; `nix/home/nixos` and `nix/home/darwin` hold what one Nix machine needs; `mac/` is the work Mac, `windows/` the Windows host; `nix/` and `mac/install.sh` only place files, never link them ([rules.md](rules.md)).
 - A setting goes into exactly one file. If you are about to write the same value in a Nix file and in `mac/`, it belongs in `shared/`.
-- `mac/` and `windows/` are separate repos. Commit and push inside them first, then commit the bumped submodule here.
+- `nix/`, `mac/` and `windows/` are separate repos. Commit and push inside them first, then commit the bumped submodule here.
+- The flake takes `shared/` from its `dotfiles` input, pinned in `nix/flake.lock`: a change to `shared/` reaches a Nix machine after a push and `nix flake update dotfiles` in `nix/` ([ADR 0019](adr/0019-nix-in-its-own-repo.md)).
 - No comments in configs and scripts.
 - The repo holds no secrets, encrypted or not; credentials stay on the machine.
 - Anything a single machine needs goes to `~/.zshrc.local`, `~/.gitconfig` or another untracked file.

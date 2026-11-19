@@ -4,17 +4,17 @@
 
 ```
 shared/   settings that work on any OS
-nix/      the two machines with Nix: NixOS under WSL and the Mac at home
+nix/      submodule → nix-config: the two machines with Nix, NixOS under WSL and the Mac at home
 mac/      submodule → mac-ricing: the work Mac, set up without Nix
 windows/  submodule → win-ricing: the Windows host
 ```
 
 - `shared/` holds settings: zsh, git, Helix, lazygit, lazydocker, the bat theme, the herdr base config and plugins, Claude skills. Nothing in it knows which machine it runs on, except the two herdr key files, which are named after the OS they serve.
-- `nix/` places files from `shared/` and from its own platform modules, and declares packages and system options.
+- `nix/` is the Nix machines' own repo. It places files from `shared/`, which it takes from its `dotfiles` flake input, and from its own platform modules, and declares packages and system options.
 - `mac/` is the work Mac's own repo: its Brewfile, `install.sh` and the configs only that Mac uses.
 - `windows/` is the Windows host's own repo, applied there by hand. Nothing in it is read by a Nix machine.
 
-See [ADR 0003](adr/0003-os-specific-rice-in-submodules.md), [0004](adr/0004-shared-holds-os-independent-configs.md) and [0009](adr/0009-everything-nix-under-nix.md).
+See [ADR 0003](adr/0003-os-specific-rice-in-submodules.md), [0004](adr/0004-shared-holds-os-independent-configs.md), [0009](adr/0009-everything-nix-under-nix.md) and [0019](adr/0019-nix-in-its-own-repo.md).
 
 ## Machines
 
@@ -97,4 +97,4 @@ home-manager and `mac/zsh/.zshrc` only add what differs: where the plugins come 
 
 ## CI
 
-`.github/workflows/flake-check.yml` runs `.github/scripts/packages.py` and `nix flake check ./nix` on every push. `update-flake-lock.yml` runs `nix flake update` every Monday and opens a pull request.
+`.github/workflows/flake-check.yml` runs `.github/scripts/packages.py` and `nix flake check ./nix` against this checkout's `shared/` on every push. In nix-config, `flake-check.yml` runs `nix flake check` on every push and `update-flake-lock.yml` runs `nix flake update` every Monday and opens a pull request.

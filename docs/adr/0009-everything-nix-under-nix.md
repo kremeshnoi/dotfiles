@@ -1,6 +1,6 @@
 # 0009. Everything Nix lives under `nix/`
 
-- Status: accepted
+- Status: accepted, amended by [0019](0019-nix-in-its-own-repo.md)
 - Date: 2026-11-13
 
 ## Context

@@ -61,7 +61,7 @@ nix eval --raw ./nix#nixosConfigurations.nixos.config.system.build.toplevel.drvP
 nix eval --raw ./nix#darwinConfigurations.mac.config.system.build.toplevel.drvPath
 ```
 
-Both commands print a store path when the system evaluates. On the machine itself, `nh os build` or `nh darwin build` builds without switching.
+Both commands print a store path when the system evaluates. They read `shared/` from the locked `dotfiles` input; to check this checkout's `shared/`, add `--override-input dotfiles git+file:$PWD` to each. On the machine itself, `nh os build` or `nh darwin build` builds without switching.
 
 New files must be `git add`ed first: a flake only sees tracked files.
 

@@ -60,15 +60,15 @@ home-manager writes its parts of `.zshrc` by order: `startup.zsh` at 510, `compi
 
 `nix/home/copy-files.nix` copies with `cp -RL`, which follows links ([ADR 0002](adr/0002-copy-home-files-instead-of-symlinking.md)).
 
-### `path:` flake cannot find `../../shared`
+### A change to `shared/` does not reach a Nix machine
 
-A `path:` flake reference copies only the flake directory. Use the git checkout (`./nix` inside the repo), which copies the whole repo with the submodules.
+The flake reads `shared/` from its `dotfiles` input, pinned in `nix/flake.lock`, not from the checkout ([ADR 0019](adr/0019-nix-in-its-own-repo.md)). Push dotfiles and run `nix flake update dotfiles` in `nix/`, or switch with `-- --override-input dotfiles git+file:$HOME/dev/dotfiles`. A new file in `shared/` must be `git add`ed for the override to see it.
 
 ## CI
 
 ### `Failed to fetch git repository 'ssh://git@github.com/…'`
 
-The runner has no SSH key. Both workflows rewrite `ssh://git@github.com/` and `git@github.com:` to https before `nix`. A new workflow needs the same step, and a new submodule has to be public.
+The runner has no SSH key. The dotfiles workflow rewrites `ssh://git@github.com/` and `git@github.com:` to https before `nix`. A new workflow needs the same step, and a new submodule has to be public.
 
 ## git
 

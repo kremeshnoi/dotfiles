@@ -12,7 +12,7 @@ Before setting up a machine, updating it or changing anything here, read `docs/a
 
 The short version:
 
-- `shared/` works on any OS; `nix/home/nixos` and `nix/home/darwin` are the two Nix machines; `mac/` is the work Mac and `windows/` the Windows host, both submodules; `nix/` and `mac/install.sh` copy files, never link them.
+- `shared/` works on any OS; `nix/home/nixos` and `nix/home/darwin` are the two Nix machines; `nix/` (nix-config), `mac/` (the work Mac) and `windows/` (the Windows host) are submodules; `nix/` and `mac/install.sh` copy files, never link them.
 - One setting lives in one file; wire it into both `nix/` and `mac/install.sh`.
 - A tool for both Nix machines goes to `home.packages` in `nix/home/default.nix`; keep `mac/Brewfile` in sync with it.
 - Never install Nix, or commit and push without the user asking.

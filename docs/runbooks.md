@@ -69,7 +69,9 @@ The Nix side hardcodes `kremeshnoi` in `nix/flake.nix` (`users.kremeshnoi`), `ni
 | Mac with Nix | `nh darwin switch` |
 | Mac without Nix | `~/dev/dotfiles/mac/install.sh`, then `exec zsh` |
 
-Nix inputs: merge the weekly `update-flake-lock` PR, or run `nix flake update` in `nix/` and switch. One input: `nix flake update home-manager`.
+Nix inputs: merge the weekly `update-flake-lock` PR in nix-config, or run `nix flake update` in `nix/` and switch. One input: `nix flake update home-manager`.
+
+A change to `shared/` reaches a Nix machine through the `dotfiles` input: push dotfiles, run `nix flake update dotfiles` in `nix/`, switch. To try it before pushing: `nh os switch -- --override-input dotfiles git+file:$HOME/dev/dotfiles` (`nh darwin switch -- …` on the Mac).
 
 ## Changing
 
@@ -92,10 +94,10 @@ Nix inputs: merge the weekly `update-flake-lock` PR, or run `nix flake update` i
 2. Nix: a module `nix/home/<tool>.nix`, imported in `nix/home/default.nix`:
    ```nix
    {
-     xdg.configFile."<tool>/<file>".source = ../../shared/<tool>/<file>;
+     xdg.configFile."<tool>/<file>".source = "${shared}/<tool>/<file>";
    }
    ```
-   For a whole directory: `xdg.configFile."<tool>".source = ../../shared/<tool>;`. For a file in `$HOME`: `home.file."<path>".source = …;`.
+   The module takes `shared` as an argument: `{ shared, ... }:`. For a whole directory: `xdg.configFile."<tool>".source = "${shared}/<tool>";`. For a file in `$HOME`: `home.file."<path>".source = …;`.
 3. Mac without Nix, in `mac/install.sh` next to the other `copy` lines:
    ```bash
    copy "$shared/<tool>/<file>" "$HOME/.config/<tool>/<file>"
@@ -138,7 +140,7 @@ Nix inputs: merge the weekly `update-flake-lock` PR, or run `nix flake update` i
 ### Add a herdr plugin
 
 1. Local plugin, any OS: `shared/herdr/<name>/` with `herdr-plugin.toml`.
-2. Nix: add `{ id = "<id>"; root = "${../../shared/herdr/<name>}"; }` to `plugins` in `nix/home/herdr.nix`.
+2. Nix: add `{ id = "<id>"; root = "${shared}/herdr/<name>"; }` to `plugins` in `nix/home/herdr.nix`.
 3. `mac/install.sh`: add `"$shared/herdr/<name>"` to the `for root in …` list of local plugins.
 4. A third-party plugin from GitHub: its release asset as a store path in `nix/home/herdr.nix`, `herdr plugin install --ref` in `install.sh`, its version in `shared/herdr/versions.toml`.
 
@@ -158,8 +160,8 @@ Copy the template from [adr/README.md](adr/README.md) to `docs/adr/NNNN-<slug>.m
 
 ## Committing
 
-1. In `mac/` or `windows/`: commit, push.
+1. In `nix/`, `mac/` or `windows/`: commit, push. A change to `shared/` that a Nix machine needs: push dotfiles first, then `nix flake update dotfiles` in `nix/`, commit, push.
 2. Here: commit the changes and the submodule bump, push.
-3. Watch CI: `gh run list -R kremeshnoi/dotfiles -L 1`.
+3. Watch CI: `gh run list -R kremeshnoi/dotfiles -L 1`, and `-R kremeshnoi/nix-config` after a change in `nix/`.
 
 Conventional Commits; a layout change carries `!` and a `BREAKING CHANGE:` footer with what to do on a machine. Commit only when the user asks.

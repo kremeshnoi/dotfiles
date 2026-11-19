@@ -8,18 +8,21 @@ Every tracked file, what it does and where it ends up. "Nix" means both NixOS an
 |---|---|
 | `README.md` | what the repo is, layout, install commands |
 | `LICENSE` | Unlicense |
-| `.gitmodules` | `mac` → mac-ricing, `windows` → win-ricing, both over ssh |
+| `.gitmodules` | `nix` → nix-config, `mac` → mac-ricing, `windows` → win-ricing, all over ssh |
 | `.claude/CLAUDE.md` | entry point for Claude Code, points here |
-| `.github/workflows/flake-check.yml` | the package sync check and `nix flake check ./nix` on every push and PR |
+| `.github/workflows/flake-check.yml` | the package sync check and `nix flake check ./nix` with `--override-input dotfiles` set to this checkout, on every push and PR |
 | `.github/scripts/packages.py` | compares the managed packages of the three machines; holds the Nix ↔ Homebrew name map and the exception lists |
-| `.github/workflows/update-flake-lock.yml` | weekly `nix flake update --flake ./nix`, opens a PR |
 
 ## nix/
 
+The submodule nix-config ([ADR 0019](adr/0019-nix-in-its-own-repo.md)).
+
 | File | Purpose |
 |---|---|
-| `flake.nix` | inputs (nixpkgs 26.05, nixos-wsl, home-manager, nix-darwin, nix-index-database); `nixosConfigurations.nixos`, `darwinConfigurations.mac`; home-manager for user `kremeshnoi` from `home/` plus `home/darwin/` or `home/nixos/`; formatter and dev shell |
-| `flake.lock` | pinned inputs |
+| `flake.nix` | inputs (nixpkgs 26.05, nixos-wsl, home-manager, nix-darwin, nix-index-database, `dotfiles` for `shared/`); `nixosConfigurations.nixos`, `darwinConfigurations.mac`; home-manager for user `kremeshnoi` from `home/` plus `home/darwin/` or `home/nixos/`; `shared` passed to every module; formatter and dev shell |
+| `flake.lock` | pinned inputs, including the dotfiles commit whose `shared/` the machines get |
+| `.github/workflows/flake-check.yml` | `nix flake check` on every push and PR to nix-config |
+| `.github/workflows/update-flake-lock.yml` | weekly `nix flake update`, opens a PR in nix-config |
 | `darwin/configuration.nix` | nix-darwin: herdr and nh as system packages, Homebrew casks (GlazeWM, SwiftBar, the font), nix gc, user, `NH_FLAKE`, SwiftBar plugin dir |
 | `nixos/configuration.nix` | NixOS-WSL: herdr and `hx-open-tab` as system packages, Docker, nix-ld, FHS wrappers, `hx-open-tab`, ssh-agent and `herdr-navd` units, `programs.nh.flake` |
 | `pkgs/herdr.nix` | herdr release binary per platform, version from `shared/herdr/versions.toml` |

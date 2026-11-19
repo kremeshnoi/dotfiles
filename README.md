@@ -3,7 +3,7 @@
 Configs for NixOS under WSL, a Mac with nix-darwin, a Mac without Nix and the Windows host. Every system runs a tiling WM, the same shell, Helix and herdr, and the keybinding letters are kept the same across all of them wherever the platform allows it.
 
 ```
-nix/       NixOS-WSL and nix-darwin with one home-manager setup, built from nix/flake.nix
+nix/       submodule → nix-config: NixOS-WSL and nix-darwin with one home-manager setup
 shared/    configs that work on any OS: zsh, git, Helix, herdr, Claude skills
 mac/       submodule → mac-ricing: GlazeWM, SwiftBar, Ghostty, herdr for macOS, and install.sh for a Mac without Nix
 windows/   submodule → win-ricing: the Windows rice
