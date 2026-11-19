@@ -58,7 +58,6 @@ in
     casks = [
       "glzr-io/tap/glazewm"
       "swiftbar"
-      "ghostty"
       "font-jetbrains-mono-nerd-font"
     ];
     onActivation.cleanup = "none";
