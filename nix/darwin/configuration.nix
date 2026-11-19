@@ -33,20 +33,15 @@ in
     nh
     coreutils-prefixed
     git
-    git-lfs
     gh
-    ripgrep
-    fd
     tree
     wget
     jq
-    htop
     btop
     nvd
     nix-tree
     python3
     uv
-    pnpm
     go
     stylua
     dprint

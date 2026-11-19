@@ -28,13 +28,10 @@ in
   home.packages = with pkgs; [
     lazydocker
     lazygit
-    lazysql
     sqlit-tui
     delta
     bat
     fnm
-    postgresql
-    pspg
   ];
 
   home.sessionVariables = lib.optionalAttrs (!isDarwin) {

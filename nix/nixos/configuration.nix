@@ -131,10 +131,7 @@ in
     herdr
     hxOpenTab
     git
-    git-lfs
     gh
-    ripgrep
-    fd
     tree
     unzip
     zip
@@ -142,7 +139,6 @@ in
     curl
     file
     lsof
-    htop
     jq
     rsync
     gnumake
@@ -154,19 +150,16 @@ in
     bison
     re2c
     gettext
-    sqlite
     rlwrap
     dos2unix
     sox
     yt-dlp
-    fastfetch
     nvd
     nix-tree
     jdk17
     php
     python3
     uv
-    pnpm
     go
     dotnet-sdk
     clojure
