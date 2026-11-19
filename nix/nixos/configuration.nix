@@ -130,50 +130,6 @@ in
   environment.systemPackages = with pkgs; [
     herdr
     hxOpenTab
-    git
-    gh
-    tree
-    unzip
-    zip
-    wget
-    curl
-    file
-    lsof
-    jq
-    rsync
-    gnumake
-    gcc
-    cmake
-    pkg-config
-    autoconf
-    automake
-    bison
-    re2c
-    gettext
-    rlwrap
-    dos2unix
-    sox
-    yt-dlp
-    nvd
-    nix-tree
-    jdk17
-    php
-    python3
-    uv
-    go
-    dotnet-sdk
-    clojure
-    leiningen
-    k9s
-    btop
-    gh-dash
-    stylua
-    dprint
-    shfmt
-    eslint_d
-    prettier
-    railway
-    docker-compose
   ];
 
   system.stateVersion = "26.05";

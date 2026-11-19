@@ -27,6 +27,22 @@ in
     delta
     bat
     fnm
+    git
+    gh
+    tree
+    wget
+    jq
+    btop
+    nvd
+    nix-tree
+    python3
+    uv
+    go
+    stylua
+    dprint
+    shfmt
+    eslint_d
+    prettier
   ];
 
   programs.fzf = {

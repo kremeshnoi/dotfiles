@@ -31,23 +31,6 @@ in
   environment.systemPackages = with pkgs; [
     herdr
     nh
-    coreutils-prefixed
-    git
-    gh
-    tree
-    wget
-    jq
-    btop
-    nvd
-    nix-tree
-    python3
-    uv
-    go
-    stylua
-    dprint
-    shfmt
-    eslint_d
-    prettier
   ];
 
   environment.variables.NH_FLAKE = "/Users/kremeshnoi/dev/dotfiles/nix";

@@ -1,4 +1,10 @@
+{ pkgs, ... }:
+
 {
+  home.packages = with pkgs; [
+    coreutils-prefixed
+  ];
+
   home.homeDirectory = "/Users/kremeshnoi";
 
   home.file.".glzr/glazewm/config.yaml".source = ./glazewm/config.yaml;
