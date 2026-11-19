@@ -4,3 +4,6 @@
 [submodule "mac"]
 	path = mac
 	url = git@github.com:kremeshnoi/mac-ricing.git
+[submodule "nix"]
+	path = nix
+	url = git@github.com:kremeshnoi/nix-config.git
