@@ -23,6 +23,8 @@ nix_only = {"nh", "nvd", "nix-tree", "nil"}
 
 darwin_only = {"coreutils-prefixed"}
 
+work_mac_only = {"cask:ghostty"}
+
 nixos_only = {
     "autoconf", "automake", "bison", "clojure", "cmake", "curl", "docker-compose",
     "dos2unix", "dotnet-sdk", "file", "gcc", "gettext", "gh-dash",
@@ -92,7 +94,7 @@ def compare(label, left, right):
 
 
 compare("on the Mac with Nix, missing on the Mac without Nix", darwin - nix_only, brew)
-compare("on the Mac without Nix, missing on the Mac with Nix", brew, darwin)
+compare("on the Mac without Nix, missing on the Mac with Nix", brew - work_mac_only, darwin)
 
 shared = {name for name in darwin if not name.startswith("cask:")} - darwin_only - nix_only
 compare("on the Macs, missing on NixOS", shared, nixos)
