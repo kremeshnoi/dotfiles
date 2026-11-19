@@ -62,28 +62,31 @@ workspaces:
   - name: '2-system'
     display_name: 'system'
     keep_alive: true
-  - name: '3-term'
-    display_name: 'term'
+  - name: '3-terminal'
+    display_name: 'terminal'
     keep_alive: true
-  - name: '4-edge'
-    display_name: 'edge'
+  - name: '4-browser'
+    display_name: 'browser'
     keep_alive: true
-  - name: '5-claude'
-    display_name: 'claude'
-    keep_alive: true
-  - name: '6-slack'
-    display_name: 'slack'
-    keep_alive: true
-  - name: '7-obsidian'
+  - name: '6-obsidian'
     display_name: 'obsidian'
     keep_alive: true
-  - name: '8-docker'
+  - name: '7-docker'
     display_name: 'docker'
     keep_alive: true
-  - name: '9-tabularis'
-    display_name: 'tabularis'
+  - name: '9-spotify'
+    display_name: 'spotify'
     keep_alive: true
-  - name: '10-misc'
+  - name: '10-discord'
+    display_name: 'discord'
+    keep_alive: true
+  - name: '11-telegram'
+    display_name: 'telegram'
+    keep_alive: true
+  - name: '12-eve'
+    display_name: 'eve'
+    keep_alive: true
+  - name: '14-misc'
     display_name: 'misc'
     keep_alive: true
 
@@ -93,50 +96,55 @@ window_rules:
       - window_process: { regex: '(?i)^(zebar|raycast|usernotificationcenter|scshost|logi options\+|endpointconnect|endpoint security)$' }
       - window_title: { regex: '[Pp]icture.in.[Pp]icture' }
 
-  - commands: ['set-tiling', 'move --workspace 3-term', 'focus --workspace 3-term']
+  - commands: ['set-tiling', 'move --workspace 3-terminal', 'focus --workspace 3-terminal']
     on: ['manage']
     match:
-      - window_process: { regex: '(?i)^ghostty$' }
+      - window_process: { regex: '(?i)^optimum$' }
 
-  - commands: ['move --workspace 4-edge', 'focus --workspace 4-edge']
+  - commands: ['move --workspace 4-browser', 'focus --workspace 4-browser']
     on: ['manage']
     match:
-      - window_process: { regex: '(?i)^microsoft edge$' }
+      - window_process: { regex: '(?i)^(zen)$' }
 
-  - commands: ['move --workspace 5-claude', 'focus --workspace 5-claude']
+  - commands: ['move --workspace 6-obsidian', 'focus --workspace 6-obsidian']
     on: ['manage']
     match:
-      - window_process: { regex: '(?i)^claude$' }
+      - window_process: { regex: '(?i)^(obsidian)$' }
 
-  - commands: ['move --workspace 6-slack', 'focus --workspace 6-slack']
+  - commands: ['move --workspace 7-docker', 'focus --workspace 7-docker']
     on: ['manage']
     match:
-      - window_process: { regex: '(?i)^slack$' }
+      - window_process: { regex: '(?i)^(docker desktop)$' }
 
-  - commands: ['move --workspace 7-obsidian', 'focus --workspace 7-obsidian']
+  - commands: ['set-tiling', 'move --workspace 9-spotify', 'focus --workspace 9-spotify']
     on: ['manage']
     match:
-      - window_process: { regex: '(?i)^obsidian$' }
+      - window_process: { regex: '(?i)^(spotify)$' }
 
-  - commands: ['move --workspace 8-docker', 'focus --workspace 8-docker']
+  - commands: ['move --workspace 10-discord', 'focus --workspace 10-discord']
     on: ['manage']
     match:
-      - window_process: { regex: '(?i)^docker desktop$' }
+      - window_process: { regex: '(?i)^(discord)$' }
 
-  - commands: ['move --workspace 9-tabularis', 'focus --workspace 9-tabularis']
+  - commands: ['move --workspace 11-telegram', 'focus --workspace 11-telegram']
     on: ['manage']
     match:
-      - window_process: { regex: '(?i)^tabularis$' }
+      - window_process: { regex: '(?i)^(telegram)$' }
+
+  - commands: ['move --workspace 12-eve', 'focus --workspace 12-eve']
+    on: ['manage']
+    match:
+      - window_process: { regex: '(?i)^(eve online|eve|evelauncher)$' }
 
   - commands: ['move --workspace 2-system', 'focus --workspace 2-system']
     on: ['manage']
     match:
       - window_process: { regex: '(?i)^(finder|system settings|activity monitor|preview|calculator|disk utility|app store|archive utility|keychain access|console|font book|image capture|screenshot|textedit|system information)$' }
 
-  - commands: ['move --workspace 10-misc', 'focus --workspace 10-misc']
+  - commands: ['move --workspace 14-misc', 'focus --workspace 14-misc']
     on: ['manage']
     match:
-      - window_process: { not_regex: '(?i)^(tabularis|ghostty|microsoft edge|claude|slack|obsidian|docker desktop|finder|system settings|activity monitor|preview|calculator|disk utility|app store|archive utility|keychain access|console|font book|image capture|screenshot|textedit|system information|zebar|raycast|usernotificationcenter|scshost|logi options\+|endpointconnect|endpoint security)$' }
+      - window_process: { not_regex: '(?i)^(optimum|zen|obsidian|docker desktop|spotify|discord|telegram|eve online|eve|evelauncher|finder|system settings|activity monitor|preview|calculator|disk utility|app store|archive utility|keychain access|console|font book|image capture|screenshot|textedit|system information|zebar|raycast|usernotificationcenter|scshost|logi options\+|endpointconnect|endpoint security)$' }
 
 binding_modes:
   - name: 'resize'
@@ -158,21 +166,23 @@ keybindings:
     bindings: ['lwin+shift+0']
   - commands: ['focus --workspace 2-system']
     bindings: ['lwin+shift+y']
-  - commands: ['focus --workspace 3-term']
+  - commands: ['focus --workspace 3-terminal']
     bindings: ['lwin+shift+t']
-  - commands: ['focus --workspace 4-edge']
+  - commands: ['focus --workspace 4-browser']
     bindings: ['lwin+shift+b']
-  - commands: ['focus --workspace 5-claude']
-    bindings: ['lwin+shift+a']
-  - commands: ['focus --workspace 6-slack']
-    bindings: ['lwin+shift+m']
-  - commands: ['focus --workspace 7-obsidian']
+  - commands: ['focus --workspace 6-obsidian']
     bindings: ['lwin+shift+n']
-  - commands: ['focus --workspace 8-docker']
+  - commands: ['focus --workspace 7-docker']
     bindings: ['lwin+shift+c']
-  - commands: ['focus --workspace 9-tabularis']
-    bindings: ['lwin+shift+d']
-  - commands: ['focus --workspace 10-misc']
+  - commands: ['focus --workspace 9-spotify']
+    bindings: ['lwin+shift+s']
+  - commands: ['focus --workspace 10-discord']
+    bindings: ['lwin+shift+x']
+  - commands: ['focus --workspace 11-telegram']
+    bindings: ['lwin+shift+m']
+  - commands: ['focus --workspace 12-eve']
+    bindings: ['lwin+shift+e']
+  - commands: ['focus --workspace 14-misc']
     bindings: ['lwin+shift+9']
 
   - commands: ['focus --prev-active-workspace']
@@ -182,21 +192,23 @@ keybindings:
     bindings: ['ctrl+shift+lwin+0']
   - commands: ['move --workspace 2-system', 'focus --workspace 2-system']
     bindings: ['ctrl+shift+lwin+y']
-  - commands: ['move --workspace 3-term', 'focus --workspace 3-term']
+  - commands: ['move --workspace 3-terminal', 'focus --workspace 3-terminal']
     bindings: ['ctrl+shift+lwin+t']
-  - commands: ['move --workspace 4-edge', 'focus --workspace 4-edge']
+  - commands: ['move --workspace 4-browser', 'focus --workspace 4-browser']
     bindings: ['ctrl+shift+lwin+b']
-  - commands: ['move --workspace 5-claude', 'focus --workspace 5-claude']
-    bindings: ['ctrl+shift+lwin+a']
-  - commands: ['move --workspace 6-slack', 'focus --workspace 6-slack']
-    bindings: ['ctrl+shift+lwin+m']
-  - commands: ['move --workspace 7-obsidian', 'focus --workspace 7-obsidian']
+  - commands: ['move --workspace 6-obsidian', 'focus --workspace 6-obsidian']
     bindings: ['ctrl+shift+lwin+n']
-  - commands: ['move --workspace 8-docker', 'focus --workspace 8-docker']
+  - commands: ['move --workspace 7-docker', 'focus --workspace 7-docker']
     bindings: ['ctrl+shift+lwin+c']
-  - commands: ['move --workspace 9-tabularis', 'focus --workspace 9-tabularis']
-    bindings: ['ctrl+shift+lwin+d']
-  - commands: ['move --workspace 10-misc', 'focus --workspace 10-misc']
+  - commands: ['move --workspace 9-spotify', 'focus --workspace 9-spotify']
+    bindings: ['ctrl+shift+lwin+s']
+  - commands: ['move --workspace 10-discord', 'focus --workspace 10-discord']
+    bindings: ['ctrl+shift+lwin+x']
+  - commands: ['move --workspace 11-telegram', 'focus --workspace 11-telegram']
+    bindings: ['ctrl+shift+lwin+m']
+  - commands: ['move --workspace 12-eve', 'focus --workspace 12-eve']
+    bindings: ['ctrl+shift+lwin+e']
+  - commands: ['move --workspace 14-misc', 'focus --workspace 14-misc']
     bindings: ['ctrl+shift+lwin+9']
 
   - commands: ['focus --next-active-workspace']
@@ -234,7 +246,7 @@ keybindings:
     bindings: ['lwin+ctrl+shift+v']
   - commands: ['wm-enable-binding-mode --name resize']
     bindings: ['lwin+ctrl+r']
-  - commands: ['shell-exec /usr/bin/open -na Ghostty']
+  - commands: ['shell-exec /usr/bin/open -na Optimum']
     bindings: ['lwin+enter']
   - commands: ['wm-reload-config']
     bindings: ['lwin+ctrl+shift+r']
