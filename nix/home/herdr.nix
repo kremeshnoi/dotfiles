@@ -19,7 +19,17 @@ let
   '';
 in
 {
-  home.activation.herdrPlugins = lib.hm.dag.entryAfter [ "writeBoundary" ] ''
+  options.dotfiles.herdrKeys = lib.mkOption {
+    type = lib.types.path;
+  };
+
+  config.xdg.configFile."herdr/config.toml".text = lib.concatMapStringsSep "\n" builtins.readFile [
+    ../../shared/herdr/base.toml
+    config.dotfiles.herdrKeys
+    ../../shared/herdr/space-colors/sidebar.toml
+  ];
+
+  config.home.activation.herdrPlugins = lib.hm.dag.entryAfter [ "writeBoundary" ] ''
     if [ -x ${herdr} ]; then
       pluginsJson="${config.xdg.configHome}/herdr/plugins.json"
       ${lib.concatMapStrings registerPlugin plugins}
