@@ -21,17 +21,7 @@ brew_to_nix = {
 
 nix_only = {"nh", "nvd", "nix-tree", "nil"}
 
-darwin_only = {"coreutils-prefixed"}
-
 work_mac_only = {"cask:ghostty"}
-
-nixos_only = {
-    "autoconf", "automake", "bison", "clojure", "cmake", "curl", "docker-compose",
-    "dos2unix", "dotnet-sdk", "file", "gcc", "gettext", "gh-dash",
-    "gnumake", "hxOpenTab", "jdk17", "k9s", "leiningen", "lsof", "php", "pkg-config",
-    "railway", "re2c", "rlwrap", "rsync", "sox", "unzip", "yt-dlp", "zip",
-}
-
 
 def read(path):
     return (root / path).read_text()
@@ -63,14 +53,20 @@ def nix_casks():
     return {"cask:" + name.split("/")[-1] for name in re.findall(r'"([^"]+)"', body)}
 
 
+packages = "home.packages = with pkgs; ["
+system = "environment.systemPackages = with pkgs; ["
 home_modules = sorted(str(p.relative_to(root)) for p in (root / "nix/home").glob("*.nix"))
 home = (
-    nix_list("nix/home/default.nix", "home.packages = with pkgs; [")
+    nix_list("nix/home/default.nix", packages)
     | nix_list("nix/home/helix.nix", "languageServers = with pkgs; [")
     | {name for name in programs(home_modules) if name not in {"ssh", "nh", "nix-index-database"}}
 )
-darwin = nix_list("nix/darwin/configuration.nix", "environment.systemPackages = with pkgs; [") | home | nix_casks()
-nixos = nix_list("nix/nixos/configuration.nix", "environment.systemPackages = with pkgs; [") | home
+darwin = (
+    home
+    | nix_list("nix/home/darwin/default.nix", packages)
+    | nix_list("nix/darwin/configuration.nix", system)
+    | nix_casks()
+)
 
 brewfile = read("mac/Brewfile")
 brew = set()
@@ -83,7 +79,6 @@ if "uv tool install --quiet sqlit-tui" in read("mac/install.sh"):
     brew.add("sqlit-tui")
 
 darwin.discard("zsh")
-nixos.discard("zsh")
 
 problems = []
 
@@ -95,11 +90,6 @@ def compare(label, left, right):
 
 compare("on the Mac with Nix, missing on the Mac without Nix", darwin - nix_only, brew)
 compare("on the Mac without Nix, missing on the Mac with Nix", brew - work_mac_only, darwin)
-
-shared = {name for name in darwin if not name.startswith("cask:")} - darwin_only - nix_only
-compare("on the Macs, missing on NixOS", shared, nixos)
-compare("on NixOS only, not listed as NixOS-only", nixos - shared - nix_only - nixos_only, set())
-compare("listed as NixOS-only, gone from NixOS", nixos_only, nixos)
 
 if problems:
     print("package lists out of sync:")
