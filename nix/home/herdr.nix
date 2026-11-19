@@ -5,39 +5,7 @@ let
 
   isDarwin = pkgs.stdenv.hostPlatform.isDarwin;
 
-  reviewrAssets = {
-    x86_64-linux = {
-      name = "herdr-reviewr-x86_64-unknown-linux-musl.tar.gz";
-      hash = "sha256-no1hwT/8sY763mmELC3d1+j9Br2Wz8OdtOOFrktTUwY=";
-    };
-    aarch64-darwin = {
-      name = "herdr-reviewr-aarch64-apple-darwin.tar.gz";
-      hash = "sha256-afzgpEKK6AAUP/Om2IUuGoMT1UU78S/VPZK9QDwaElo=";
-    };
-  };
-  reviewrAsset = reviewrAssets.${pkgs.stdenv.hostPlatform.system};
-
-  reviewr = pkgs.stdenvNoCC.mkDerivation rec {
-    pname = "herdr-reviewr";
-    version = (builtins.fromTOML (builtins.readFile ../../shared/herdr/versions.toml)).reviewr;
-    src = pkgs.fetchurl {
-      url = "https://github.com/persiyanov/herdr-reviewr/releases/download/v${version}/${reviewrAsset.name}";
-      inherit (reviewrAsset) hash;
-    };
-    manifest = pkgs.fetchurl {
-      url = "https://raw.githubusercontent.com/persiyanov/herdr-reviewr/v${version}/herdr-plugin.toml";
-      hash = "sha256-bTc/RcFhkMDO3CtxVLz3WIJAVVLHLnNSAKylhWhN/Mg=";
-    };
-    dontUnpack = true;
-    installPhase = ''
-      mkdir -p $out/bin
-      tar -xzf $src -C $out/bin herdr-reviewr
-      cp $manifest $out/herdr-plugin.toml
-    '';
-  };
-
   plugins = [
-    { id = "persiyanov.reviewr"; root = reviewr; }
     { id = "kremeshnoi.workspace-tabs"; root = "${../../shared/herdr/workspace-tabs}"; }
     { id = "kremeshnoi.project-colors"; root = "${../../shared/herdr/project-colors}"; }
   ];
@@ -58,8 +26,6 @@ in
     ../../shared/herdr/project-colors/sidebar.toml
   ];
   home.file.".local/bin/herdr-nav" = lib.mkIf (!isDarwin) { source = ../../windows/herdr/herdr-nav; };
-  home.file.".local/bin/herdr-git-review".source = ../../shared/herdr/git-review.sh;
-  xdg.configFile."herdr/plugins/config/persiyanov.reviewr/config.toml".source = ../../shared/herdr/reviewr.toml;
 
   home.activation.herdrPlugins = lib.hm.dag.entryAfter [ "writeBoundary" ] ''
     if [ -x ${herdr} ]; then
