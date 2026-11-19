@@ -17,4 +17,4 @@ jobs:
           git config --global --add url."https://github.com/".insteadOf "git@github.com:"
       - run: git submodule update --init --depth 1
       - run: python3 .github/scripts/packages.py
-      - run: nix flake check ./nix
+      - run: nix flake check ./nix --override-input dotfiles "git+file://$GITHUB_WORKSPACE?shallow=1"
