@@ -27,8 +27,7 @@ Everything else sits on `cmd+ctrl` on macOS and on `ctrl+alt` on Windows, so her
 | docker | `c` | `c` |
 | tabularis | `d` | — |
 | spotify | — | `s` |
-| discord | — | `x` |
-| telegram | — | `m` |
+| comm | — | `m` |
 | eve | — | `e` |
 | misc | `9` | `9` |
 
