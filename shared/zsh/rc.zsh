@@ -29,6 +29,7 @@ alias c='claude --dangerously-skip-permissions'
 alias cls='clear'
 alias lg='lazygit'
 alias ld='lazydocker'
+alias hsp='herdr server stop'
 
 zstyle ':completion:*' menu select
 zstyle ':completion:*' matcher-list 'm:{a-zA-Z}={A-Za-z}' 'r:|=*' 'l:|=* r:|=*'
